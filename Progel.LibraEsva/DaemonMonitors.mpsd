@@ -1,0 +1,60 @@
+<TemplateGroup DefaultType="DaemonMonitor">
+  <Instances>
+    <Instance ID="Instance02b7a263106f4d39a2924ca815f7b0c0" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Substitutions>
+          <Substitution Name="Process name">clamd</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+    <Instance ID="Instancee41e399e3e9e45c6a39e0b50374fc9dc" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Substitutions>
+          <Substitution Name="Process name">crond</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+    <Instance ID="Instance5773387db3de4b08ae7573e10a905cea" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Substitutions>
+          <Substitution Name="Process name">httpd</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+    <Instance ID="Instance2c7fdd6a435947e3a37b3f8064f12019" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Substitutions>
+          <Substitution Name="Process name">mysqld</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+    <Instance ID="Instance88f5014602c4481da25851fbdb95ebce" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Substitutions>
+          <Substitution Name="Process name">sqlgrey</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+    <Instance ID="Instance1a9019618c17442e8ffa082837da049f" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Substitutions>
+          <Substitution Name="Process name">syslogd</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+    <Instance ID="Instancebcd4036ae7264438bc63f7c8309edb03" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.SnippetTemplate" Version="1.0.0.0">
+      <SnippetTemplateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Substitutions>
+          <Substitution Name="Process name">mailscanner</Substitution>
+          <Substitution Name="Collection Frequency">600</Substitution>
+        </Substitutions>
+      </SnippetTemplateConfiguration>
+    </Instance>
+  </Instances>
+</TemplateGroup>

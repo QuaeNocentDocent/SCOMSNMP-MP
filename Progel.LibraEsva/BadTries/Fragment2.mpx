@@ -1,0 +1,226 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <!--
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting Logical Set of 5 DataItems
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting DataItem <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.4604654+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.31</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting DataItem <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.5005019+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.35</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting DataItem <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.5434679+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.36</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting DataItem <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.5903399+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.37</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting DataItem <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.6372119+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.38</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	succeeded
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	BatchedMonitoringModuleBase::OnNewDataItems	CallWorkerDoWorkItems ( portId, ppDataType, dwDataTypeCount, isBatchASet, pCompletionCallback, uCompletionContext ) completed successfully
+  4/27/2013 12:26:02 PM	ExpressionEvaluatorCondition	IModuleHost->RequestNextDataItem	succeeded
+  4/27/2013 12:26:02 PM	PowerShellProbeActionModule	OnNewDataItems	Batch of 1 Dataitem(s):
+  4/27/2013 12:26:02 PM	PowerShellProbeActionModule	OnNewDataItems	Dataitem:
+
+  <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.4604654+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.31</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	RunspaceController.WriteLine	Powershell Script (GetIndex.ps1) called WriteLine method to output the following data:
+
+  System.__ComObject
+
+
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	IsModuleTracingRequested	IsModuleTracingRequested = true
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	PostOutputDataItem	PostOutputDataItems was called with a Logical Set of 1 Dataitems.
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	PostOutputDataItem	Logical Set contains the below dataitem:
+
+  <DataItem type="System.PropertyBagData" time="2013-04-27T10:18:53.5584243Z" sourceHealthServiceId="83d45803-62c5-0f4e-3198-c00fd3adcd65">
+
+    <Property Name="Index" VariantType="8">31</Property>
+
+  </DataItem>
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	IsModuleTracingRequested	IsModuleTracingRequested = true
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	RequestNextDataItem	RequestNextDataItem was called.
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	OnNewDataItems	Batch of 1 Dataitem(s):
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	OnNewDataItems	Dataitem:
+
+  <DataItem type="System.SnmpData" time="2013-04-27T12:26:02.5005019+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Source>192.168.167.16</Source>
+    <Destination>127.0.0.1</Destination>
+    <ErrorCode>1</ErrorCode>
+    <Version>2</Version>
+    <SnmpVarBinds>
+      <SnmpVarBind>
+        <OID>.1.3.6.1.2.1.25.2.3.1.2.35</OID>
+        <Syntax>6</Syntax>
+        <Value VariantType="8">.1.3.6.1.2.1.25.2.1.4</Value>
+      </SnmpVarBind>
+    </SnmpVarBinds>
+  </DataItem>
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	OnNewDataItems	New Logical Set of 1 DataItems delivered on port 0, completion callback 0000000000A49800 context 0000000000000000
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	OnNewDataItems	Recieved DataItem <DataItem type="System.PropertyBagData" time="2013-04-27T12:26:03.0551539+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Property Name="Index" VariantType="8">31</Property>
+  </DataItem>
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	FilterEvaluationTrace	Filter Instance (000000000158F3B0): Evaluating RegEx Expression:
+  <ValueExpression>
+    <XPathQuery Type='String'>Property[@Name='Index']</XPathQuery>
+  </ValueExpression>
+  <Operator CaseSensitive='false'>MATCHES_REGEX</Operator>
+  <Pattern>^[0-9]*$</Pattern>
+
+  Resolves to:
+  31
+  MATCHES_REGEX
+  ^[0-9]*$
+
+  Using case insensitive string compare
+  RESULT = MATCH
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	FilterEvaluationTrace	Filter Instance (000000000158F3B0): Expression evaluation completed with RESULT = MATCH
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting Logical Set of 1 DataItems
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting DataItem <DataItem type="System.PropertyBagData" time="2013-04-27T12:26:03.0551539+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Property Name="Index" VariantType="8">31</Property>
+  </DataItem>
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	succeeded
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	BatchedMonitoringModuleBase::OnNewDataItems	CallWorkerDoWorkItems ( portId, ppDataType, dwDataTypeCount, isBatchASet, pCompletionCallback, uCompletionContext ) completed successfully
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	IModuleHost->RequestNextDataItem	succeeded
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	OnNewDataItems	New Logical Set of 1 DataItems delivered on port 0, completion callback 0000000000A49880 context 0000000000000000
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	OnNewDataItems	Recieved DataItem <DataItem type="System.PropertyBagData" time="2013-04-27T12:26:03.0551539+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <Property Name="Index" VariantType="8">31</Property>
+  </DataItem>
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	IModuleHost->PostOutputDataItem	Posting DataItem <DataItem type="System.DiscoveryData" time="2013-04-27T12:26:03.9105679+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65">
+    <DiscoveryType>0</DiscoveryType>
+    <DiscoverySourceType>0</DiscoverySourceType>
+    <DiscoverySourceObjectId>{137E6CF5-B53D-BA7B-6079-B683CB4EF65F}</DiscoverySourceObjectId>
+    <DiscoverySourceManagedEntity>{417AFBD4-5A62-5F58-1375-9DBA25C066B0}</DiscoverySourceManagedEntity>
+    <ClassInstances>
+      <ClassInstance TypeId="{693397D7-3D17-3511-3D4A-825BBA720AD5}">
+        <Settings>
+          <Setting>
+            <Name>{66C2D962-5D8B-BDD8-B89B-F657AD86451A}</Name>
+            <Value>Disk-31</Value>
+          </Setting>
+          <Setting>
+            <Name>{98645B31-A5E0-FCB4-169E-A4FB615F9623}</Name>
+            <Value>31</Value>
+          </Setting>
+          <Setting>
+            <Name>{BF71CAD8-9EDD-40D6-04ED-5E3AC5E95929}</Name>
+            <Value>false</Value>
+          </Setting>
+          <Setting>
+            <Name>{CB09290E-6919-CFF4-72A3-50D1FA8188C7}</Name>
+            <Value>00-15-5D-0A-25-3F</Value>
+          </Setting>
+        </Settings>
+      </ClassInstance>
+    </ClassInstances>
+  </DataItem>
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	IModuleHost->PostOutputDataItem	succeeded
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	BatchedMonitoringModuleBase::OnNewDataItems	CallWorkerDoWorkItems ( portId, ppDataType, dwDataTypeCount, isBatchASet, pCompletionCallback, uCompletionContext ) completed successfully
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	IModuleHost->RequestNextDataItem	succeeded
+  4/27/2013 12:26:03 PM	DiscoveryDataSnapshotMapper	ModuleImpl::ShutdownImpl	DoShutdown () completed successfully
+  4/27/2013 12:26:03 PM	ExpressionEvaluatorCondition	ModuleImpl::ShutdownImpl	DoShutdown () completed successfully
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	Shutdown	Shutdown was called
+  4/27/2013 12:26:03 PM	PowerShellProbeActionModule	PowerShellProbeActionModule.DoShutdown	Shutdown called for script 'GetIndex.ps1'
+  4/27/2013 12:26:04 PM	ExpressionEvaluatorCondition	ModuleImpl::ShutdownImpl	DoShutdown () completed successfully
+  4/27/2013 12:26:04 PM	SnmpAsyncProbe	ModuleImpl::ShutdownImpl	DoShutdown () completed successfully
+  
+  
+  4/27/2013 5:30:23 PM	BatchResponse	StopProcessing	Process with command line '"C:\Windows\system32\cscript.exe" /nologo "GetIndex.vbs" .1.3.6.1.2.1.25.2.3.1.2.31' returned
+
+StdOut:
+
+<DataItem type="System.PropertyBagData" time="2013-04-27T17:30:22.5417454+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65"><Property Name="Index" VariantType="8">31</Property></DataItem>
+
+StdErr:NULL
+
+ExitCode:0
+4/27/2013 5:30:23 PM	BatchResponse	IModuleHost->PostOutputDataItems	Posting Logical Set of 1 DataItems
+4/27/2013 5:30:23 PM	BatchResponse	IModuleHost->PostOutputDataItems	succeeded
+4/27/2013 5:30:23 PM	BatchResponse	RunProcess	Creating application 'C:\Windows\system32\cscript.exe' with command line '"C:\Windows\system32\cscript.exe" /nologo "GetIndex.vbs" .1.3.6.1.2.1.25.2.3.1.2.35' in working directory 'C:\Program Files\System Center 2012\Operations Manager\Server\Health Service State\Monitoring Host Temporary Files 24421\137608\'
+4/27/2013 5:30:23 PM	ExpressionEvaluatorCondition	OnNewDataItems	New Logical Set of 1 DataItems delivered on port 0, completion callback 0000000000A03720 context 0000000000000000
+4/27/2013 5:30:23 PM	ExpressionEvaluatorCondition	OnNewDataItems	Recieved DataItem <DataItem type="System.PropertyBagData" time="2013-04-27T17:30:22.5417454+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65"><Property Name="Index" VariantType="8">31</Property></DataItem>
+4/27/2013 5:30:23 PM	ExpressionEvaluatorCondition	FilterEvaluationTrace	Filter Instance (00000000005265A0): Evaluating RegEx Expression:
+    <ValueExpression>
+        <XPathQuery Type='String'>Property[@Name='Index']</XPathQuery>
+    </ValueExpression>
+    <Operator CaseSensitive='false'>MATCHES_REGEX</Operator>
+  <Pattern>^[0-9]*$</Pattern>
+
+Resolves to:
+  31
+    MATCHES_REGEX
+  ^[0-9]*$
+
+Using case insensitive string compare
+RESULT = MATCH
+4/27/2013 5:30:23 PM	ExpressionEvaluatorCondition	FilterEvaluationTrace	Filter Instance (00000000005265A0): Expression evaluation completed with RESULT = MATCH
+4/27/2013 5:30:23 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	Posting Logical Set of 1 DataItems
+4/27/2013 5:30:23 PM	ExpressionEvaluatorCondition	IModuleHost->PostOutputDataItems	succeeded
+4/27/2013 5:30:23 PM	DiscoveryDataSnapshotMapper	OnNewDataItems	New Logical Set of 1 DataItems delivered on port 0, completion callback 0000000000A03760 context 0000000000000000
+4/27/2013 5:30:23 PM	DiscoveryDataSnapshotMapper	OnNewDataItems	Recieved DataItem <DataItem type="System.PropertyBagData" time="2013-04-27T17:30:22.5417454+02:00" sourceHealthServiceId="83D45803-62C5-0F4E-3198-C00FD3ADCD65"><Property Name="Index" VariantType="8">31</Property></DataItem>
+4/27/2013 5:30:23 PM	BatchResponse	IModuleHost->NotifyError	Module reported ModuleErrorSeverityWarning Message: <<Message cannot be displayed>> Source:  Health Service Modules Id:  -1073720421 Type: Warning Category: 0
+4/27/2013 5:30:23 PM	BatchResponse	IModuleHost->NotifyError	succeeded
+  
+  -->
+</ManagementPackFragment>

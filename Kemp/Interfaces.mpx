@@ -1,0 +1,92 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        
+        <!-- In this section, modify the attributes based on your needs. Ensure the
+             Base attribute matches the application you are modeling.
+             More information can be found in the Management Pack Development Kit: 
+             http://msdn.microsoft.com/en-us/library/ee533867.aspx -->
+        <ClassType ID="QND.Network.Kemp.LoadMaster.Interface" Base="Network!System.NetworkManagement.MIB2_Performance_NetworkAdapter" Accessibility="Internal" Abstract="false" Hosted="true" Singleton="false">
+          
+          <!-- Inside this section, you can add and remove properties as needed.
+               More information can be found in the Management Pack Development Kit: 
+               http://msdn.microsoft.com/en-us/library/ee533714.aspx -->
+          <!--
+          <Property ID="Property1" Key="false" Type="string" />
+          -->
+        </ClassType>
+      
+      </ClassTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.Interface.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal"
+           Target="QND.Network.Kemp.LoadMaster">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.Interface" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QSNMPLib!QND.SNMP.Table2Bag.Filtered.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <NoOfRetries>3</NoOfRetries>
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <OID>.1.3.6.1.2.1.2.2.1</OID>
+          <TableIndexOID>.1.3.6.1.2.1.2.2.1.1</TableIndexOID>
+          <NormalizeTable>true</NormalizeTable>
+          <TraceLevel>2</TraceLevel>
+          <Filter>
+            <SimpleExpression>
+              <ValueExpression>
+                <XPathQuery Type="String">Property[@Name=".1.3.6.1.2.1.2.2.1.7"]</XPathQuery>
+              </ValueExpression>
+              <Operator>Equal</Operator>
+              <ValueExpression>
+                <Value Type="String">1</Value>
+              </ValueExpression>
+            </SimpleExpression>
+          </Filter>
+          <ClassId>$MPElement[Name='QND.Network.Kemp.LoadMaster.Interface']$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.NetworkAdapter']/Key$</Name>
+                <Value>IF-$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$/$Data/Property[@Name="Index"]$</Value>
+              </Setting>
+              <!-- need to enforce the index because in some cases the standard discovery doesn't set it-->
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.NetworkAdapter']/Index$</Name>
+                <Value>$Data/Property[@Name="Index"]$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        
+        <!-- This is the string users of the Operations Console and Web Console will see. 
+             Descriptions are also helpful when the user is doing a search in the Console. -->
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Interface">
+          <Name>Kemp - Interface</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Interface.Discovery">
+          <Name>Kemp - Interface Discovery</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

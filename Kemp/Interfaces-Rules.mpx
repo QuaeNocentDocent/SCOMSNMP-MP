@@ -1,0 +1,36 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Overrides>
+      <MonitorPropertyOverride ID="QND.Network.Kemp.LoadMaster.IFEnableFlapMonitor.Override" Context="QND.Network.Kemp.LoadMaster.Interface" 
+                               Monitor="NetworkMonitoring!System.NetworkManagement.NetworkAdapter.IsFlapping" Property="Enabled" Enforced="false">
+        <Value>True</Value>
+      </MonitorPropertyOverride>
+      <MonitorPropertyOverride ID="QND.Network.Kemp.LoadMaster.IFEnableHighInputDRMonitor.Override" Context="QND.Network.Kemp.LoadMaster.Interface" 
+                               Monitor="NetworkMonitoring!System.NetworkManagement.MIB2_Base.NetworkAdapter.HighInputDiscardRate" Property="Enabled" Enforced="false">
+        <Value>True</Value>
+      </MonitorPropertyOverride>
+      <MonitorPropertyOverride ID="QND.Network.Kemp.LoadMaster.IFEnableHighInputERMonitor.Override" Context="QND.Network.Kemp.LoadMaster.Interface" 
+                               Monitor="NetworkMonitoring!System.NetworkManagement.MIB2.NetworkAdapter.HighInputErrorRate" Property="Enabled" Enforced="false">
+        <Value>True</Value>
+      </MonitorPropertyOverride>
+      <MonitorPropertyOverride ID="QND.Network.Kemp.LoadMaster.IFEnableHighOutputDRMonitor.Override" Context="QND.Network.Kemp.LoadMaster.Interface" 
+                               Monitor="NetworkMonitoring!System.NetworkManagement.MIB2_Base.NetworkAdapter.HighOutputDiscardRate" Property="Enabled" Enforced="false">
+        <Value>True</Value>
+      </MonitorPropertyOverride>
+      <MonitorPropertyOverride ID="QND.Network.Kemp.LoadMaster.IFEnableHighOutputERMonitor.Override" Context="QND.Network.Kemp.LoadMaster.Interface" 
+                               Monitor="NetworkMonitoring!System.NetworkManagement.MIB2.NetworkAdapter.HighOutputErrorRate" Property="Enabled" Enforced="false">
+        <Value>True</Value>
+      </MonitorPropertyOverride>
+
+      <RulePropertyOverride ID="QND.Network.Kemp.LoadMaster.IFInRateRule.Override" Context="QND.Network.Kemp.LoadMaster.Interface" Rule="NetworkMonitoring!System.NetworkManagement.DeltaRule.MIB2.NetworkAdapter.ifInBitsRate" 
+                            Enforced="false" Property="Enabled">
+        <Value>True</Value>
+      </RulePropertyOverride>
+      <RulePropertyOverride ID="QND.Network.Kemp.LoadMaster.IFOutRateRule.Override" Context="QND.Network.Kemp.LoadMaster.Interface" Rule="NetworkMonitoring!System.NetworkManagement.DeltaRule.MIB2.NetworkAdapter.ifOutBitsRate"
+                            Enforced="false" Property="Enabled">
+        <Value>True</Value>
+      </RulePropertyOverride>
+     
+    </Overrides>
+  </Monitoring>
+</ManagementPackFragment>

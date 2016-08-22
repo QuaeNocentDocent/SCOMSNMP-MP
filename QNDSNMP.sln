@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "QND.Network.Kemp", "Kemp\QND.Network.Kemp.mpproj", "{F69CFCAC-06E4-4FD6-94F5-8EC0ECCD9CB7}"
+EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "Progel.LibraEsva", "Progel.LibraEsva\Progel.LibraEsva.mpproj", "{BDE64C6A-B434-40F0-8F9C-889A3BC90642}"
+EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "QND.NetDevGroup", "QND.NetDevGroup\QND.NetDevGroup.mpproj", "{0C3DF362-FE09-40F9-817D-5FE848B72289}"
+EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "QND.SNMP.Library", "QND.SNMP.Library\QND.SNMP.Library.mpproj", "{5FC817B3-9EA0-4988-8B36-4141792138CD}"
+EndProject
+Project("{D4B43EB3-688B-4EEE-86BD-088F0B28ABB3}") = "QND.SNMPTester", "QND.SNMPTester\QND.SNMPTester.mpproj", "{B4D2342A-6820-4F02-BBAD-6CCCD1EEB7CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F69CFCAC-06E4-4FD6-94F5-8EC0ECCD9CB7}.Debug|x86.ActiveCfg = Debug|x86
+		{F69CFCAC-06E4-4FD6-94F5-8EC0ECCD9CB7}.Debug|x86.Build.0 = Debug|x86
+		{F69CFCAC-06E4-4FD6-94F5-8EC0ECCD9CB7}.Release|x86.ActiveCfg = Release|x86
+		{F69CFCAC-06E4-4FD6-94F5-8EC0ECCD9CB7}.Release|x86.Build.0 = Release|x86
+		{BDE64C6A-B434-40F0-8F9C-889A3BC90642}.Debug|x86.ActiveCfg = Debug|x86
+		{BDE64C6A-B434-40F0-8F9C-889A3BC90642}.Debug|x86.Build.0 = Debug|x86
+		{BDE64C6A-B434-40F0-8F9C-889A3BC90642}.Release|x86.ActiveCfg = Release|x86
+		{BDE64C6A-B434-40F0-8F9C-889A3BC90642}.Release|x86.Build.0 = Release|x86
+		{0C3DF362-FE09-40F9-817D-5FE848B72289}.Debug|x86.ActiveCfg = Debug|x86
+		{0C3DF362-FE09-40F9-817D-5FE848B72289}.Debug|x86.Build.0 = Debug|x86
+		{0C3DF362-FE09-40F9-817D-5FE848B72289}.Release|x86.ActiveCfg = Release|x86
+		{0C3DF362-FE09-40F9-817D-5FE848B72289}.Release|x86.Build.0 = Release|x86
+		{5FC817B3-9EA0-4988-8B36-4141792138CD}.Debug|x86.ActiveCfg = Debug|x86
+		{5FC817B3-9EA0-4988-8B36-4141792138CD}.Debug|x86.Build.0 = Debug|x86
+		{5FC817B3-9EA0-4988-8B36-4141792138CD}.Release|x86.ActiveCfg = Release|x86
+		{5FC817B3-9EA0-4988-8B36-4141792138CD}.Release|x86.Build.0 = Release|x86
+		{B4D2342A-6820-4F02-BBAD-6CCCD1EEB7CB}.Debug|x86.ActiveCfg = Debug|x86
+		{B4D2342A-6820-4F02-BBAD-6CCCD1EEB7CB}.Debug|x86.Build.0 = Debug|x86
+		{B4D2342A-6820-4F02-BBAD-6CCCD1EEB7CB}.Release|x86.ActiveCfg = Release|x86
+		{B4D2342A-6820-4F02-BBAD-6CCCD1EEB7CB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

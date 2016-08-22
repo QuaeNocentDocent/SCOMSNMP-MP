@@ -1,0 +1,120 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <!-- In this section, modify the attributes based on your needs. Ensure the
+             Base attribute matches the application you are modeling.
+             More information can be found in the Management Pack Development Kit: 
+             http://msdn.microsoft.com/en-us/library/ee533867.aspx -->
+        <ClassType ID="Progel.LibraEsva.Device" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Host" Hosted="false" Singleton="false" Extension="false">
+          <Property ID="Version" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+        </ClassType>
+        <ClassType ID="Progel.LibraEsva.Memory" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Memory" Hosted="true" Singleton="false" Extension="false" />
+        <ClassType ID="Progel.LibraEsva.Processor" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Processor" Hosted="true" Singleton="false" Extension="false" />
+        <ClassType ID="Progel.LibraEsva.HostProcessor" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.HostResources_Performance_Processor" Hosted="true" Singleton="false" Extension="false" />
+        <ClassType ID="Progel.LibraEsva.Disk" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Disk" Hosted="true" Singleton="false" Extension="false">
+          <Property ID="AllocationUnitSize" Type="int" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+        </ClassType>
+        <ClassType ID="Progel.LibraEsva.MailQueue" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.LogicalDevice" Hosted="true" Singleton="false" Extension="false" />
+      </ClassTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="Progel.LibraEsva.DeviceHostsMailQueue" Accessibility="Internal" Abstract="false" Base="System!System.Hosting">
+          <Source ID="Device" MinCardinality="0" MaxCardinality="2147483647" Type="Progel.LibraEsva.Device" />
+          <Target ID="Queue" MinCardinality="0" MaxCardinality="2147483647" Type="Progel.LibraEsva.MailQueue" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Progel.LibraEsva.Device.2.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="Network!System.NetworkManagement.Node">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Progel.LibraEsva.Device" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="Progel.LibraEsva.Device.Discovery2.MT">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <DisplayName>$Target/Property[Type="Network!System.NetworkManagement.Node"]/sysName$</DisplayName>
+          <Model>$Target/Property[Type="Network!System.NetworkManagement.Node"]/Model$</Model>
+          <Version>n.a.</Version>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="Progel.LibraEsva.HostProcessor.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="Progel.LibraEsva.Device">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Progel.LibraEsva.HostProcessor" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="Progel.LibraEsva.HostProcessor.Discovery.MT">
+          <IntervalSeconds>120</IntervalSeconds>
+          <SyncTime />
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="Progel.LibraEsva.Disk.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="Progel.LibraEsva.Device">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Progel.LibraEsva.Disk" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="Progel.LibraEsva.Disk.Discovery.MT">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <Timeout>3500</Timeout>
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+        </DataSource>
+      </Discovery>
+      
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <!-- classes strings -->
+        <DisplayString ElementID="Progel.LibraEsva.Device">
+          <Name>Libra Esva</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Device" SubElementID="Version">
+          <Name>Version</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Memory">
+          <Name>Memory</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Processor">
+          <Name>Processor</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.HostProcessor">
+          <Name>Processor (host)</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Disk">
+          <Name>Logical Disk</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Disk" SubElementID="AllocationUnitSize">
+          <Name>Allocation Unit Size (bytes)</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.MailQueue">
+          <Name>Mail Queue</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.DeviceHostsMailQueue">
+          <Name>Libra Esva device hosts mail queue</Name>
+          <Description></Description>
+        </DisplayString>
+
+      
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

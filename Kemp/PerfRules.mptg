@@ -1,0 +1,356 @@
+<TemplateGroup>
+  <Instances>
+    <Instance ID="Instance6e6966ef64584dabab974d07aee03c69" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>IPVS.TotalOutgoingPackets.Rule</Id>
+        <DisplayName>Kemp - Collects VS Total Outgoing Packets</DisplayName>
+        <Description>Collects Kemp VS Total Outgoing Packets</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.IPVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.1.1.18.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp VS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Outgoing Packets&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instancef313334f7f734fd5a1c80f54f143a3ef" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.TotalConnections.Rule</Id>
+        <DisplayName>Kemp - Collects RS Total Connections</DisplayName>
+        <Description>Collects Kemp RS Total Connections</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.12.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Connections&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instanced659d16f9a704bb982fe5ac37feec163" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>IPVS.TotalIncomingBytes.Rule</Id>
+        <DisplayName>Kemp - Collects VS Total Incoming Bytes</DisplayName>
+        <Description>Collects Kemp VS Total Incoming Bytes</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.IPVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.1.1.19.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp VS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Incoming Bytes&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instancee93c53b8e0e64aaaa6ada1e140f7a9b2" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>IPVS.TotalOutgoingBytes.Rule</Id>
+        <DisplayName>Kemp - Collects VS Total Outgoing Bytes</DisplayName>
+        <Description>Collects Kemp VS Total Outgoing Bytes</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.IPVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.1.1.20.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp VS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Outgoing Bytes&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instancecf594697a686420c916eda9270bb95b9" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>IPVS.ActiveConnections.Rule</Id>
+        <DisplayName>Kemp - Collects VS Active Connections</DisplayName>
+        <Description>Collects Kemp VS Active Connections</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.IPVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.1.1.21.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp VS&lt;/ObjectName&gt;&lt;CounterName&gt;Active Connections&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance52da1be5a49243e88871fb473a26d839" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>IPVS.TotalIncomingPackets.Rule</Id>
+        <DisplayName>Kemp - Collects VS Total Incoming Packets</DisplayName>
+        <Description>Collects Kemp VS Total Incoming Packets</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.IPVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.1.1.17.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp VS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Incoming Packets&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance8a4b38d50fc24c78b9664ea8926df1cb" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>IPVS.TotalConnections.Rule</Id>
+        <DisplayName>Kemp - Collects VS Total Connections</DisplayName>
+        <Description>Collects Kemp VS Total Connections</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.IPVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.1.1.16.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp VS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Connections&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance2e0100a3786949ecbbe0d31dac8599fb" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.InactiveConnections.Rule</Id>
+        <DisplayName>Kemp - Collects RS Inactive Connections</DisplayName>
+        <Description>Collects Kemp RS Inactive Connections</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.18.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Inactive Connections&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance0e4bea23f63740a794e0334beeb8e2a6" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.TotalIncomingPackets.Rule</Id>
+        <DisplayName>Kemp - Collects RS Total Incoming Packets</DisplayName>
+        <Description>Collects Kemp RS Total Incoming Packets</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.13.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Incoming Packets&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance70cb27f823f54a8a8a0b6937e983e7c5" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.TotalOutgoingPackets.Rule</Id>
+        <DisplayName>Kemp - Collects RS Total Outgoing Packets</DisplayName>
+        <Description>Collects Kemp RS Total Outgoing Packets</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.14.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Outgoing Packets&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instancef2dfa1da5b604f85bdcc8e0017a6abb2" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.TotalIncomingBytes.Rule</Id>
+        <DisplayName>Kemp - Collects RS Total Incoming Bytes</DisplayName>
+        <Description>Collects Kemp RS Total Incoming Bytes</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.15.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Incoming Bytes&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance09737abff7f44a04bfcc88f4f8a2f0a1" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.TotalOutgoingBytes.Rule</Id>
+        <DisplayName>Kemp - Collects RS Total Outgoing Bytes</DisplayName>
+        <Description>Collects Kemp RS Total Outgoing Bytes</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.16.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Total Outgoing Bytes&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance093e7562d7494873894b14fd60e8e21d" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>RSVS.ActiveConnections.Rule</Id>
+        <DisplayName>Kemp - Collects RS Active Connections</DisplayName>
+        <Description>Collects Kemp RS Active Connections</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.RSVS</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;10&lt;/Tolerance&gt;&lt;ToleranceType&gt;Percentage&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;Port&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$&lt;/Port&gt;&lt;CommunityString&gt;$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$&lt;/CommunityString&gt;&lt;IP&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$&lt;/IP&gt;&lt;Version&gt;$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$&lt;/Version&gt;&lt;OID&gt;.1.3.6.1.4.1.12196.13.2.1.17.$Target/Property[Type='QND.Network.Kemp.LoadMaster.RSVS']/Index$&lt;/OID&gt;&lt;ObjectName&gt;Kemp RS&lt;/ObjectName&gt;&lt;CounterName&gt;Active Connections&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>QSNMPLib!QND.SNMP.GenericPerf.DS</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance682fcb7693734cb79d92698649ab95bc" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>AvailableMemory.Rule</Id>
+        <DisplayName>Kemp - Collects Device Available Memory</DisplayName>
+        <Description>Collects Device Processor Load</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.Memory</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;3&lt;/Tolerance&gt;&lt;ToleranceType&gt;Absolute&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;SnmpVarBinds&gt;&lt;SnmpVarBind&gt;&lt;OID&gt;.1.3.6.1.4.1.2021.4.5.0&lt;/OID&gt;&lt;!-- Total Real --&gt;&lt;Syntax&gt;0&lt;/Syntax&gt;&lt;Value VariantType="8" /&gt;&lt;/SnmpVarBind&gt;&lt;SnmpVarBind&gt;&lt;OID&gt;.1.3.6.1.4.1.2021.4.6.0&lt;/OID&gt;&lt;!-- Free Real --&gt;&lt;Syntax&gt;0&lt;/Syntax&gt;&lt;Value VariantType="8" /&gt;&lt;/SnmpVarBind&gt;&lt;SnmpVarBind&gt;&lt;OID&gt;.1.3.6.1.4.1.2021.4.14.0&lt;/OID&gt;&lt;!-- Buffers --&gt;&lt;Syntax&gt;0&lt;/Syntax&gt;&lt;Value VariantType="8" /&gt;&lt;/SnmpVarBind&gt;&lt;SnmpVarBind&gt;&lt;OID&gt;.1.3.6.1.4.1.2021.4.15.0&lt;/OID&gt;&lt;!-- Cached --&gt;&lt;Syntax&gt;0&lt;/Syntax&gt;&lt;Value VariantType="8" /&gt;&lt;/SnmpVarBind&gt;&lt;/SnmpVarBinds&gt;&lt;ComputedPerformanceValue&gt;&lt;Product&gt;&lt;NumericValue&gt;&lt;Division&gt;&lt;NumericValue&gt;&lt;Summation&gt;&lt;!-- Free Memory = Free Real + Buffers + Cached --&gt;&lt;NumericValue&gt;&lt;XPathQuery Type="Double"&gt;SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.6.0"]/Value&lt;/XPathQuery&gt;&lt;/NumericValue&gt;&lt;NumericValue&gt;&lt;XPathQuery Type="Double"&gt;SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.14.0"]/Value&lt;/XPathQuery&gt;&lt;/NumericValue&gt;&lt;NumericValue&gt;&lt;XPathQuery Type="Double"&gt;SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.15.0"]/Value&lt;/XPathQuery&gt;&lt;/NumericValue&gt;&lt;/Summation&gt;&lt;/NumericValue&gt;&lt;NumericValue&gt;&lt;XPathQuery Type="Double"&gt;SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.5.0"]/Value&lt;/XPathQuery&gt;&lt;/NumericValue&gt;&lt;/Division&gt;&lt;/NumericValue&gt;&lt;NumericValue&gt;&lt;Value Type="Double"&gt;100.0&lt;/Value&gt;&lt;/NumericValue&gt;&lt;/Product&gt;&lt;/ComputedPerformanceValue&gt;&lt;ObjectName&gt;Memory&lt;/ObjectName&gt;&lt;CounterName&gt;% Available Memory&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ComputedPerfProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instance20393fa0017c40a18e071e134087c23a" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>ProcessorLoad.Rule</Id>
+        <DisplayName>Kemp - Collects Device Processor Load</DisplayName>
+        <Description>Collects Device Processor Load</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.Processor</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;3&lt;/Tolerance&gt;&lt;ToleranceType&gt;Absolute&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;OID&gt;$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$&lt;/OID&gt;&lt;ObjectName&gt;Processor&lt;/ObjectName&gt;&lt;CounterName&gt;% Processor Time&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ExtendedSnmpPerformanceProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+    <Instance ID="Instancee3276f1a53d44049b00126abe6c654d2" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.PerformanceCollectionRule" Version="1.0.0.0">
+      <PerformanceCollectionRuleConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Id>FreeMemory.Rule</Id>
+        <DisplayName>Kemp - Collects Device Free Memory</DisplayName>
+        <Description>Collects Device Processor Load</Description>
+        <Category>PerformanceCollection</Category>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Target>QND.Network.Kemp.LoadMaster.Memory</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <DiscardLevel>100</DiscardLevel>
+        <ConditionDetectionConfig>&lt;Tolerance&gt;3&lt;/Tolerance&gt;&lt;ToleranceType&gt;Absolute&lt;/ToleranceType&gt;&lt;MaximumSampleSeparation&gt;6&lt;/MaximumSampleSeparation&gt;&lt;SamplingPeriodInSeconds&gt;300&lt;/SamplingPeriodInSeconds&gt;</ConditionDetectionConfig>
+        <ConditionDetectionId>CD</ConditionDetectionId>
+        <ConditionDetectionType>Perf!System.Performance.OptimizedCollectionFilter</ConditionDetectionType>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Interval&gt;300&lt;/Interval&gt;&lt;NoOfRetries&gt;3&lt;/NoOfRetries&gt;&lt;Timeout&gt;3500&lt;/Timeout&gt;&lt;SnmpVarBinds&gt;&lt;SnmpVarBind&gt;&lt;OID&gt;.1.3.6.1.4.1.2021.4.5.0&lt;/OID&gt;&lt;!-- Total Real --&gt;&lt;Syntax&gt;0&lt;/Syntax&gt;&lt;Value VariantType="8" /&gt;&lt;/SnmpVarBind&gt;&lt;SnmpVarBind&gt;&lt;OID&gt;.1.3.6.1.4.1.2021.4.6.0&lt;/OID&gt;&lt;!-- Free Real --&gt;&lt;Syntax&gt;0&lt;/Syntax&gt;&lt;Value VariantType="8" /&gt;&lt;/SnmpVarBind&gt;&lt;/SnmpVarBinds&gt;&lt;ComputedPerformanceValue&gt;&lt;Product&gt;&lt;NumericValue&gt;&lt;Division&gt;&lt;NumericValue&gt;&lt;XPathQuery Type="Double"&gt;SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.6.0"]/Value&lt;/XPathQuery&gt;&lt;/NumericValue&gt;&lt;NumericValue&gt;&lt;XPathQuery Type="Double"&gt;SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.5.0"]/Value&lt;/XPathQuery&gt;&lt;/NumericValue&gt;&lt;/Division&gt;&lt;/NumericValue&gt;&lt;NumericValue&gt;&lt;Value Type="Double"&gt;100.0&lt;/Value&gt;&lt;/NumericValue&gt;&lt;/Product&gt;&lt;/ComputedPerformanceValue&gt;&lt;ObjectName&gt;Memory&lt;/ObjectName&gt;&lt;CounterName&gt;% Memory Free&lt;/CounterName&gt;</DataSourceConfig>
+        <DataSourceType>NetworkMonitoring!System.NetworkManagement.ComputedPerfProvider</DataSourceType>
+        <CollectToDB>true</CollectToDB>
+        <CollectToDW>true</CollectToDW>
+      </PerformanceCollectionRuleConfig>
+    </Instance>
+  </Instances>
+</TemplateGroup>

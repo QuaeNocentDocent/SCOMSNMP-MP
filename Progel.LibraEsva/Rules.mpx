@@ -1,0 +1,203 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Rules>
+      <Rule ID="Progel.LibraEsva.ProcessorUsage.Rule" Enabled="true" Target="Progel.LibraEsva.Processor" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="NetworkMonitor!System.NetworkManagement.ExtendedSnmpPerformanceProvider">
+            <Interval>300</Interval>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>3500</Timeout>
+            <OID>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</OID>
+            <ObjectName>Processor</ObjectName>
+            <CounterName>% Processor Time</CounterName>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="OptimizedFilter" TypeID="Perf!System.Performance.OptimizedCollectionFilter">
+          <Tolerance>3</Tolerance>
+          <ToleranceType>Absolute</ToleranceType>
+          <MaximumSampleSeparation>6</MaximumSampleSeparation>
+          <SamplingPeriodInSeconds>300</SamplingPeriodInSeconds>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="SCDW!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="Progel.LibraEsva.FreeMemory.Rule" Enabled="true" Target="Progel.LibraEsva.Memory" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="NetworkMonitor!System.NetworkManagement.ComputedPerfProvider">
+            <Interval>300</Interval>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>3500</Timeout>
+            <SnmpVarBinds>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.4.1.2021.4.5.0</OID>
+                <!-- Total Real -->
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.4.1.2021.4.6.0</OID>
+                <!-- Free Real -->
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+            </SnmpVarBinds>
+            <ComputedPerformanceValue>
+                <Product>
+                  <NumericValue>
+                    <Division>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.6.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.5.0"]/Value</XPathQuery>
+                      </NumericValue>
+                    </Division>
+                  </NumericValue>
+                  <NumericValue>
+                    <Value Type="Double">100.0</Value>
+                  </NumericValue>
+                </Product>
+            </ComputedPerformanceValue>
+            <ObjectName>Memory</ObjectName>
+            <CounterName>% Memory Free</CounterName>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="OptimizedFilter" TypeID="Perf!System.Performance.OptimizedCollectionFilter">
+          <Tolerance>2</Tolerance>
+          <ToleranceType>Absolute</ToleranceType>
+          <MaximumSampleSeparation>6</MaximumSampleSeparation>
+          <SamplingPeriodInSeconds>300</SamplingPeriodInSeconds>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="SCDW!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="Progel.LibraEsva.AvailableMemory.Rule" Enabled="true" Target="Progel.LibraEsva.Memory" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="NetworkMonitor!System.NetworkManagement.ComputedPerfProvider">
+            <Interval>300</Interval>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>3500</Timeout>
+            <SnmpVarBinds>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.4.1.2021.4.5.0</OID>
+                <!-- Total Real -->
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.4.1.2021.4.6.0</OID>
+                <!-- Free Real -->
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.4.1.2021.4.14.0</OID>
+                <!-- Buffers -->
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.4.1.2021.4.15.0</OID>
+                <!-- Cached -->
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+            </SnmpVarBinds>
+          <ComputedPerformanceValue>            
+            <Product>
+              <NumericValue>
+                <Division>
+                  <NumericValue>
+                    <Summation>
+                      <!-- Free Memory = Free Real + Buffers + Cached -->
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.6.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.14.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.15.0"]/Value</XPathQuery>
+                      </NumericValue>
+                    </Summation>
+                  </NumericValue>
+                  <NumericValue>
+                    <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.5.0"]/Value</XPathQuery>
+                  </NumericValue>
+                </Division>
+              </NumericValue>
+              <NumericValue>
+                <Value Type="Double">100.0</Value>
+              </NumericValue>
+            </Product>
+            </ComputedPerformanceValue>
+            <ObjectName>Memory</ObjectName>
+            <CounterName>% Available Memory</CounterName>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="OptimizedFilter" TypeID="Perf!System.Performance.OptimizedCollectionFilter">
+          <Tolerance>2</Tolerance>
+          <ToleranceType>Absolute</ToleranceType>
+          <MaximumSampleSeparation>6</MaximumSampleSeparation>
+          <SamplingPeriodInSeconds>300</SamplingPeriodInSeconds>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="SCDW!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="Progel.LibraEsva.Queue.Collection.Rule" Enabled="true" Target="Progel.LibraEsva.MailQueue" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="NetworkMonitor!System.NetworkManagement.ExtendedSnmpPerformanceProvider">
+            <Interval>300</Interval>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>3500</Timeout>
+            <OID>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$.$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$</OID>
+            <ObjectName>Mail Queue</ObjectName>
+            <CounterName>Messages</CounterName>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="OptimizedFilter" TypeID="Perf!System.Performance.OptimizedCollectionFilter">
+          <Tolerance>10</Tolerance>
+          <ToleranceType>Percentage</ToleranceType>
+          <MaximumSampleSeparation>6</MaximumSampleSeparation>
+          <SamplingPeriodInSeconds>300</SamplingPeriodInSeconds>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="SCDW!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>      
+    </Rules>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Progel.LibraEsva.ProcessorUsage.Rule">
+          <Name>Libra Esva - Collects Processor Usage</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.FreeMemory.Rule">
+          <Name>Libra Esva - Collects Free Memory</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.AvailableMemory.Rule">
+          <Name>Libra Esva - Collects Available Memory</Name>
+          <Description>Available memory is computed adding free memory, buffers and cached memory</Description>
+        </DisplayString>      
+        <DisplayString ElementID="Progel.LibraEsva.Queue.Collection.Rule">
+          <Name>Libra Esva - Collects Queued Messages</Name>
+          <Description></Description>
+        </DisplayString>        
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

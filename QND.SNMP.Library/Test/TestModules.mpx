@@ -1,0 +1,250 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="Progel.LibraEsva.Device.Discovery2.MT" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="SyncTime" type="xsd:string" />
+          <xsd:element name="DisplayName" type="xsd:string" />
+          <xsd:element name="Model" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+        </Configuration>
+      <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.FilteredClassSnapshotDataMapper">
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SystemObjectID$</Value>
+                    </ValueExpression>
+                    <Operator>MatchesRegularExpression</Operator>
+                    <Pattern>^\.1\.3\.6\.1\.4\.1\.41091\.1\.1</Pattern>
+                  </RegExExpression>
+                </Expression>                
+                <ClassId>$MPElement[Name='Progel.LibraEsva.Device']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>$Config/DisplayName$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Model$</Name>
+                      <Value>$Config/Model$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Vendor$</Name>
+                      <Value>Libra</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Progel.LibraEsva.Device']/Version$</Name>
+                      <Value>$Config/Version$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+     
+      <DataSourceModuleType ID="Progel.LibraEsva.HostProcessor.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="GetProcessor" TypeID="QND.SNMP.TableDiscovery.DS">
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>1000</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>.1.3.6.1.2.1.25.3.2.1</TableOID>
+                <TableIndex />
+                <TraceLevel>5</TraceLevel>
+                <ScriptTimeoutSeconds>300</ScriptTimeoutSeconds>
+                <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+                <Filter>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Property[@Name='.1.3.6.1.2.1.25.3.2.1.2']</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value>.1.3.6.1.2.1.25.3.1.3</Value>
+                    </ValueExpression>
+                  </SimpleExpression>                  
+                </Filter>
+                <ClassId>$MPElement[Name='Progel.LibraEsva.HostProcessor']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>.1.3.6.1.2.1.25.3.2.1.1.$Data/Property[@Name='Index']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>$Data/Property[@Name='Index']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>Host Processor</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Processor</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </DataSource>
+            </MemberModules>
+            <Composition>
+              <Node ID="GetProcessor" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+
+      <DataSourceModuleType ID="Progel.LibraEsva.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="GetDisks" TypeID="QND.SNMP.TableDiscovery.DS">
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>1000</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>.1.3.6.1.2.1.25.2.3.1</TableOID>
+                <TableIndex>1</TableIndex>
+                <TraceLevel>5</TraceLevel>
+                <ScriptTimeoutSeconds>300</ScriptTimeoutSeconds>
+                <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+                <Filter>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Property[@Name='.1.3.6.1.2.1.25.2.3.1.2']</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value>.1.3.6.1.2.1.25.2.1.4</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Filter>
+                <ClassId>$MPElement[Name='Progel.LibraEsva.Disk']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>Disk-.1.3.6.1.2.1.25.2.3.1.1.$Data/Property[@Name='Index']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Removable$</Name>
+                      <Value>false</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>$Data/Property[@Name="Index"]$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>$Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.3']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Disk - $Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.3']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Capacity$</Name>
+                      <Value>$Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.5']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Progel.LibraEsva.Disk']/AllocationUnitSize$</Name>
+                      <Value>$Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.4']$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </DataSource>
+            </MemberModules>
+            <Composition>
+                <Node ID="GetDisks" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+
+
+
+    </ModuleTypes>
+
+  </TypeDefinitions></ManagementPackFragment>
+
+<!--                
+ -->

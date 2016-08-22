@@ -1,0 +1,30 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+         <DisplayString ElementID="Progel.LibraEsva">
+          <Name>Progel Libra Esva management pack</Name>
+          <Description></Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Progel.LibraEsva">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>
+                The Progel Libra Esva Management Pack monitors the health and availability of<maml:navigationLink>
+                  <maml:linkText>Libra Esva</maml:linkText>
+                  <maml:uri href="http://esva.libra.it" />
+                </maml:navigationLink> antispam devices.</maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Configuration</maml:title>
+              <maml:para>To start monitoring your device just discover it as a standard network device.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

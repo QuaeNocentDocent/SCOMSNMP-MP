@@ -1,0 +1,221 @@
+Richieste per Libra
+ObjetcId Univoco
+Versione Della device a fini di discovery
+Possibilità di walk del loro albero .1.3.6.1.4.1.41091
+Counter per stato cluster
+Cuonter per stato MySQL
+Status dei core services come da web console
+
+
+
+
+CPU e RAM
+iso.3.6.1.4.1.2021.4.1.0 = INTEGER: 0
+iso.3.6.1.4.1.2021.4.2.0 = STRING: "swap"
+iso.3.6.1.4.1.2021.4.3.0 = INTEGER: 522104
+iso.3.6.1.4.1.2021.4.4.0 = INTEGER: 444268
+iso.3.6.1.4.1.2021.4.5.0 = INTEGER: 1034668
+iso.3.6.1.4.1.2021.4.6.0 = INTEGER: 204984 ** Avail Real KB
+iso.3.6.1.4.1.2021.4.11.0 = INTEGER: 649252 ** total free KB
+iso.3.6.1.4.1.2021.4.12.0 = INTEGER: 16000
+iso.3.6.1.4.1.2021.4.13.0 = INTEGER: 0
+iso.3.6.1.4.1.2021.4.14.0 = INTEGER: 110708
+iso.3.6.1.4.1.2021.4.15.0 = INTEGER: 244576
+iso.3.6.1.4.1.2021.4.100.0 = INTEGER: 0
+iso.3.6.1.4.1.2021.4.101.0 = ""
+iso.3.6.1.4.1.2021.10.1.1.1 = INTEGER: 1
+iso.3.6.1.4.1.2021.10.1.1.2 = INTEGER: 2
+iso.3.6.1.4.1.2021.10.1.1.3 = INTEGER: 3
+iso.3.6.1.4.1.2021.10.1.2.1 = STRING: "Load-1"
+** iso.3.6.1.4.1.2021.10.1.2.2 = STRING: "Load-5"
+iso.3.6.1.4.1.2021.10.1.2.3 = STRING: "Load-15"
+iso.3.6.1.4.1.2021.10.1.3.1 = STRING: "0.15"
+iso.3.6.1.4.1.2021.10.1.3.2 = STRING: "0.06"
+iso.3.6.1.4.1.2021.10.1.3.3 = STRING: "0.01"
+iso.3.6.1.4.1.2021.10.1.4.1 = STRING: "12.00"
+iso.3.6.1.4.1.2021.10.1.4.2 = STRING: "12.00"
+iso.3.6.1.4.1.2021.10.1.4.3 = STRING: "12.00"
+iso.3.6.1.4.1.2021.10.1.5.1 = INTEGER: 14
+** iso.3.6.1.4.1.2021.10.1.5.2 = INTEGER: 5
+iso.3.6.1.4.1.2021.10.1.5.3 = INTEGER: 1
+iso.3.6.1.4.1.2021.10.1.6.1 = Opaque: Float: 0.150000
+** iso.3.6.1.4.1.2021.10.1.6.2 = Opaque: Float: 0.060000
+iso.3.6.1.4.1.2021.10.1.6.3 = Opaque: Float: 0.010000
+
+
+Device Table per disocvery e monitor spazio libero, solo per dischi
+Index
+
+iso.3.6.1.2.1.25.2.3.1.1.1 = INTEGER: 1
+iso.3.6.1.2.1.25.2.3.1.1.3 = INTEGER: 3
+iso.3.6.1.2.1.25.2.3.1.1.6 = INTEGER: 6
+iso.3.6.1.2.1.25.2.3.1.1.7 = INTEGER: 7
+iso.3.6.1.2.1.25.2.3.1.1.10 = INTEGER: 10
+iso.3.6.1.2.1.25.2.3.1.1.31 = INTEGER: 31
+iso.3.6.1.2.1.25.2.3.1.1.35 = INTEGER: 35
+iso.3.6.1.2.1.25.2.3.1.1.36 = INTEGER: 36
+iso.3.6.1.2.1.25.2.3.1.1.37 = INTEGER: 37
+iso.3.6.1.2.1.25.2.3.1.1.38 = INTEGER: 38
+OIDs
+iso.3.6.1.2.1.25.2.3.1.2.1 = OID: iso.3.6.1.2.1.25.2.1.2
+iso.3.6.1.2.1.25.2.3.1.2.3 = OID: iso.3.6.1.2.1.25.2.1.3
+iso.3.6.1.2.1.25.2.3.1.2.6 = OID: iso.3.6.1.2.1.25.2.1.1
+iso.3.6.1.2.1.25.2.3.1.2.7 = OID: iso.3.6.1.2.1.25.2.1.1
+iso.3.6.1.2.1.25.2.3.1.2.10 = OID: iso.3.6.1.2.1.25.2.1.3
+iso.3.6.1.2.1.25.2.3.1.2.31 = OID: iso.3.6.1.2.1.25.2.1.4
+iso.3.6.1.2.1.25.2.3.1.2.35 = OID: iso.3.6.1.2.1.25.2.1.4
+iso.3.6.1.2.1.25.2.3.1.2.36 = OID: iso.3.6.1.2.1.25.2.1.4
+iso.3.6.1.2.1.25.2.3.1.2.37 = OID: iso.3.6.1.2.1.25.2.1.4
+iso.3.6.1.2.1.25.2.3.1.2.38 = OID: iso.3.6.1.2.1.25.2.1.4
+Name
+iso.3.6.1.2.1.25.2.3.1.3.1 = STRING: "Physical memory"
+iso.3.6.1.2.1.25.2.3.1.3.3 = STRING: "Virtual memory"
+iso.3.6.1.2.1.25.2.3.1.3.6 = STRING: "Memory buffers"
+iso.3.6.1.2.1.25.2.3.1.3.7 = STRING: "Cached memory"
+iso.3.6.1.2.1.25.2.3.1.3.10 = STRING: "Swap space"
+iso.3.6.1.2.1.25.2.3.1.3.31 = STRING: "/"
+iso.3.6.1.2.1.25.2.3.1.3.35 = STRING: "/var"
+iso.3.6.1.2.1.25.2.3.1.3.36 = STRING: "/boot"
+iso.3.6.1.2.1.25.2.3.1.3.37 = STRING: "/dev/shm"
+iso.3.6.1.2.1.25.2.3.1.3.38 = STRING: "/var/spool/MailScanner/incoming"
+Allocation Units
+iso.3.6.1.2.1.25.2.3.1.4.1 = INTEGER: 1024
+iso.3.6.1.2.1.25.2.3.1.4.3 = INTEGER: 1024
+iso.3.6.1.2.1.25.2.3.1.4.6 = INTEGER: 1024
+iso.3.6.1.2.1.25.2.3.1.4.7 = INTEGER: 1024
+iso.3.6.1.2.1.25.2.3.1.4.10 = INTEGER: 1024
+iso.3.6.1.2.1.25.2.3.1.4.31 = INTEGER: 4096
+iso.3.6.1.2.1.25.2.3.1.4.35 = INTEGER: 4096
+iso.3.6.1.2.1.25.2.3.1.4.36 = INTEGER: 1024
+iso.3.6.1.2.1.25.2.3.1.4.37 = INTEGER: 4096
+iso.3.6.1.2.1.25.2.3.1.4.38 = INTEGER: 4096
+Size
+iso.3.6.1.2.1.25.2.3.1.5.1 = INTEGER: 1034668
+iso.3.6.1.2.1.25.2.3.1.5.3 = INTEGER: 1556772
+iso.3.6.1.2.1.25.2.3.1.5.6 = INTEGER: 1034668
+iso.3.6.1.2.1.25.2.3.1.5.7 = INTEGER: 233340
+iso.3.6.1.2.1.25.2.3.1.5.10 = INTEGER: 522104
+iso.3.6.1.2.1.25.2.3.1.5.31 = INTEGER: 857020
+iso.3.6.1.2.1.25.2.3.1.5.35 = INTEGER: 5062943
+iso.3.6.1.2.1.25.2.3.1.5.36 = INTEGER: 101086
+iso.3.6.1.2.1.25.2.3.1.5.37 = INTEGER: 129333
+iso.3.6.1.2.1.25.2.3.1.5.38 = INTEGER: 129333
+Used
+iso.3.6.1.2.1.25.2.3.1.6.1 = INTEGER: 794852
+iso.3.6.1.2.1.25.2.3.1.6.3 = INTEGER: 872688
+iso.3.6.1.2.1.25.2.3.1.6.6 = INTEGER: 90096
+iso.3.6.1.2.1.25.2.3.1.6.7 = INTEGER: 233340
+iso.3.6.1.2.1.25.2.3.1.6.10 = INTEGER: 77836
+iso.3.6.1.2.1.25.2.3.1.6.31 = INTEGER: 527525
+iso.3.6.1.2.1.25.2.3.1.6.35 = INTEGER: 164018
+iso.3.6.1.2.1.25.2.3.1.6.36 = INTEGER: 20539
+iso.3.6.1.2.1.25.2.3.1.6.37 = INTEGER: 0
+iso.3.6.1.2.1.25.2.3.1.6.38 = INTEGER: 12
+Failures
+iso.3.6.1.2.1.25.2.3.1.7.31 = Counter32: 0
+iso.3.6.1.2.1.25.2.3.1.7.35 = Counter32: 0
+iso.3.6.1.2.1.25.2.3.1.7.36 = Counter32: 0
+iso.3.6.1.2.1.25.2.3.1.7.37 = Counter32: 0
+iso.3.6.1.2.1.25.2.3.1.7.38 = Counter32: 0
+
+check for running deamon, da definire quali sono quelli interessanti, possono essere più di uno, problema nel definire un'alert sul mancante
+iso.3.6.1.2.1.25.4.2.1.2.1 = STRING: "init"
+iso.3.6.1.2.1.25.4.2.1.2.2 = STRING: "migration/0"
+iso.3.6.1.2.1.25.4.2.1.2.3 = STRING: "ksoftirqd/0"
+iso.3.6.1.2.1.25.4.2.1.2.4 = STRING: "watchdog/0"
+iso.3.6.1.2.1.25.4.2.1.2.5 = STRING: "events/0"
+iso.3.6.1.2.1.25.4.2.1.2.6 = STRING: "khelper"
+iso.3.6.1.2.1.25.4.2.1.2.7 = STRING: "kthread"
+iso.3.6.1.2.1.25.4.2.1.2.10 = STRING: "kblockd/0"
+iso.3.6.1.2.1.25.4.2.1.2.11 = STRING: "kacpid"
+iso.3.6.1.2.1.25.4.2.1.2.65 = STRING: "cqueue/0"
+iso.3.6.1.2.1.25.4.2.1.2.68 = STRING: "khubd"
+iso.3.6.1.2.1.25.4.2.1.2.70 = STRING: "kseriod"
+iso.3.6.1.2.1.25.4.2.1.2.135 = STRING: "khungtaskd"
+iso.3.6.1.2.1.25.4.2.1.2.136 = STRING: "pdflush"
+iso.3.6.1.2.1.25.4.2.1.2.137 = STRING: "pdflush"
+iso.3.6.1.2.1.25.4.2.1.2.138 = STRING: "kswapd0"
+iso.3.6.1.2.1.25.4.2.1.2.139 = STRING: "aio/0"
+iso.3.6.1.2.1.25.4.2.1.2.292 = STRING: "kpsmoused"
+iso.3.6.1.2.1.25.4.2.1.2.316 = STRING: "hv_vmbus_con/0"
+iso.3.6.1.2.1.25.4.2.1.2.317 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.318 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.319 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.320 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.321 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.322 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.323 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.324 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.325 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.326 = STRING: "hv_vmbus_ctl/0"
+iso.3.6.1.2.1.25.4.2.1.2.329 = STRING: "scsi_eh_0"
+iso.3.6.1.2.1.25.4.2.1.2.330 = STRING: "scsi_eh_1"
+iso.3.6.1.2.1.25.4.2.1.2.351 = STRING: "ata/0"
+iso.3.6.1.2.1.25.4.2.1.2.352 = STRING: "ata_aux"
+iso.3.6.1.2.1.25.4.2.1.2.357 = STRING: "kstriped"
+iso.3.6.1.2.1.25.4.2.1.2.366 = STRING: "ksnapd"
+iso.3.6.1.2.1.25.4.2.1.2.377 = STRING: "kjournald"
+iso.3.6.1.2.1.25.4.2.1.2.402 = STRING: "kauditd"
+iso.3.6.1.2.1.25.4.2.1.2.435 = STRING: "udevd"
+iso.3.6.1.2.1.25.4.2.1.2.1208 = STRING: "kmpathd/0"
+iso.3.6.1.2.1.25.4.2.1.2.1209 = STRING: "kmpath_handlerd"
+iso.3.6.1.2.1.25.4.2.1.2.1239 = STRING: "kjournald"
+iso.3.6.1.2.1.25.4.2.1.2.1245 = STRING: "kjournald"
+iso.3.6.1.2.1.25.4.2.1.2.1687 = STRING: "auditd"
+iso.3.6.1.2.1.25.4.2.1.2.1689 = STRING: "audispd"
+iso.3.6.1.2.1.25.4.2.1.2.1719 = STRING: "syslogd"
+iso.3.6.1.2.1.25.4.2.1.2.1722 = STRING: "klogd"
+iso.3.6.1.2.1.25.4.2.1.2.1773 = STRING: "named"
+iso.3.6.1.2.1.25.4.2.1.2.1795 = STRING: "dbus-daemon"
+iso.3.6.1.2.1.25.4.2.1.2.1809 = STRING: "acpid"
+iso.3.6.1.2.1.25.4.2.1.2.1916 = STRING: "dccifd"
+iso.3.6.1.2.1.25.4.2.1.2.1917 = STRING: "dccifd"
+iso.3.6.1.2.1.25.4.2.1.2.1935 = STRING: "hv_kvp_daemon"
+iso.3.6.1.2.1.25.4.2.1.2.2022 = STRING: "mysqld_safe"
+iso.3.6.1.2.1.25.4.2.1.2.2104 = STRING: "mysqld"
+iso.3.6.1.2.1.25.4.2.1.2.2212 = STRING: "master"
+iso.3.6.1.2.1.25.4.2.1.2.2240 = STRING: "MailScanner"
+iso.3.6.1.2.1.25.4.2.1.2.2249 = STRING: "mailgraph.pl"
+iso.3.6.1.2.1.25.4.2.1.2.2278 = STRING: "crond"
+iso.3.6.1.2.1.25.4.2.1.2.2291 = STRING: "sqlgrey"
+iso.3.6.1.2.1.25.4.2.1.2.2315 = STRING: "atd"
+iso.3.6.1.2.1.25.4.2.1.2.2335 = STRING: "saslauthd"
+iso.3.6.1.2.1.25.4.2.1.2.2345 = STRING: "saslauthd"
+iso.3.6.1.2.1.25.4.2.1.2.2346 = STRING: "saslauthd"
+iso.3.6.1.2.1.25.4.2.1.2.2347 = STRING: "saslauthd"
+iso.3.6.1.2.1.25.4.2.1.2.2348 = STRING: "saslauthd"
+iso.3.6.1.2.1.25.4.2.1.2.2352 = STRING: "hald"
+iso.3.6.1.2.1.25.4.2.1.2.2353 = STRING: "hald-runner"
+iso.3.6.1.2.1.25.4.2.1.2.2360 = STRING: "hald-addon-acpi"
+iso.3.6.1.2.1.25.4.2.1.2.2377 = STRING: "hald-addon-stor"
+iso.3.6.1.2.1.25.4.2.1.2.2413 = STRING: "mail_log.php"
+iso.3.6.1.2.1.25.4.2.1.2.2418 = STRING: "mingetty"
+iso.3.6.1.2.1.25.4.2.1.2.2419 = STRING: "mingetty"
+iso.3.6.1.2.1.25.4.2.1.2.2420 = STRING: "mingetty"
+iso.3.6.1.2.1.25.4.2.1.2.2421 = STRING: "open"
+iso.3.6.1.2.1.25.4.2.1.2.2428 = STRING: "open"
+iso.3.6.1.2.1.25.4.2.1.2.2431 = STRING: "tail"
+iso.3.6.1.2.1.25.4.2.1.2.2434 = STRING: "top"
+iso.3.6.1.2.1.25.4.2.1.2.2435 = STRING: "tail"
+iso.3.6.1.2.1.25.4.2.1.2.8240 = STRING: "httpd"
+iso.3.6.1.2.1.25.4.2.1.2.8719 = STRING: "sshd"
+iso.3.6.1.2.1.25.4.2.1.2.9576 = STRING: "hald-addon-keyb"
+iso.3.6.1.2.1.25.4.2.1.2.18125 = STRING: "mingetty"
+iso.3.6.1.2.1.25.4.2.1.2.24747 = STRING: "snmpd"
+iso.3.6.1.2.1.25.4.2.1.2.25187 = STRING: "pickup"
+iso.3.6.1.2.1.25.4.2.1.2.25196 = STRING: "MailScanner"
+iso.3.6.1.2.1.25.4.2.1.2.25198 = STRING: "MailScanner"
+iso.3.6.1.2.1.25.4.2.1.2.25228 = STRING: "MailScanner"
+iso.3.6.1.2.1.25.4.2.1.2.25298 = STRING: "showq"
+iso.3.6.1.2.1.25.4.2.1.2.25523 = STRING: "qmgr"
+iso.3.6.1.2.1.25.4.2.1.2.26028 = STRING: "httpd"
+iso.3.6.1.2.1.25.4.2.1.2.26032 = STRING: "httpd"
+iso.3.6.1.2.1.25.4.2.1.2.31691 = STRING: "clamd"
+
+per ogni processo potremmo recuperare i cen tesimi di scecndo di cpu usati dall'inizo della run e la ram occupata. Gi0ocando con gli intervalli e conoscendo il numero di cpu potremmo calcolare quanto usa in % ogni processo
+vNext
+iso.3.6.1.2.1.25.5.1.1.1.1 = INTEGER: 1346 -- cpu centesmim di secondo
+iso.3.6.1.2.1.25.5.1.1.2.1 = INTEGER: 556 -- real ram allocated (KB?)
+
+Software inSTALLED
+iso.3.6.1.2.1.25.6

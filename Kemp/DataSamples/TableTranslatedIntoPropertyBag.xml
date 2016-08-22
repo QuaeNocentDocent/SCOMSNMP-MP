@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Collection>
+  <DataItem type="System.PropertyBagData" time="2014-10-16T10:28:07.6458700+02:00" sourceHealthServiceId="4308
+E34B-1A42-BE66-B0D2-4D4D3A205329">
+    <Property Name="Index" VariantType="3">2</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.17" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.11" VariantType="8"></Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.4" VariantType="3">2</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.10" VariantType="3">1</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.16" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.12" VariantType="8"></Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.5" VariantType="3">6</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.3" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.9" VariantType="8"></Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.13" VariantType="8">VMM-SubVS1</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.19" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.2" VariantType="8">slave of 172.29.4.5</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.8" VariantType="8">tcp</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.21" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.18" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.6" VariantType="8">rr</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.14" VariantType="3">1</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.7" VariantType="3">360</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.20" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.15" VariantType="8">0</Property>
+  </DataItem>
+  <DataItem type="System.PropertyBagData" time="2014-10-16T10:28:07.8021147+02:00" sourceHealthServiceId="4308E34B-1A42-BE66-B0D2-4D4D3A205329">
+    <Property Name="Index" VariantType="3">1</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.17" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.11" VariantType="8"></Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.4" VariantType="3">1</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.10" VariantType="3">1</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.16" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.12" VariantType="8"></Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.5" VariantType="3">6</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.3" VariantType="8">80</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.9" VariantType="8"></Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.13" VariantType="8">
+      Service1
+    </Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.19" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.2" VariantType="8">172.29.4.5</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.8" VariantType="8">tcp</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.21" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.18" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.6" VariantType="8">rr</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.14" VariantType="3">2</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.7" VariantType="3">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.20" VariantType="8">0</Property>
+    <Property Name=".1.3.6.1.4.1.12196.13.1.1.15" VariantType="8">0</Property>
+  </DataItem>
+</Collection>

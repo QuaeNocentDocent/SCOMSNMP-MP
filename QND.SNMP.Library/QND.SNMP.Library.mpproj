@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{5fc817b3-9ea0-4988-8b36-4141792138cd}</ProjectGuid>
+    <RootNamespace>QND.SNMP.Library</RootNamespace>
+    <Name>QND.SNMP.Library</Name>
+    <ManagementPackName>QND.SNMP.Library</ManagementPackName>
+    <Version>1.0.0.105</Version>
+    <MpFrameworkVersion>v7.0</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Quae Nocent Docent</Company>
+    <Copyright>Copyright (c) QND. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>C:\users\grandinid\SkyDrive\dev\OpsMgr\Firma\QND1.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="QND.DataItemEncoder.Library">
+      <HintPath>C:\Program Files (x86)\System Center 2012 Visual Studio Authoring Extensions\References\OM2012R2\QND.DataItemEncoder.Library.mp</HintPath>
+      <Alias>QDL</Alias>
+      <MinVersion>1.0.0.9</MinVersion>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.NetworkManagement.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.NetworkManagement.Library.mp</HintPath>
+      <Alias>Network</Alias>
+      <MinVersion>7.1.10226.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Performance.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.Performance.Library.mp</HintPath>
+      <Alias>Perf</Alias>
+      <MinVersion>7.0.8433.0</MinVersion>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Snmp.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.Snmp.Library.mp</HintPath>
+      <Alias>Snmp</Alias>
+      <MinVersion>7.0.8433.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assembly" />
+    <Folder Include="Test" />
+    <Folder Include="Scripts" />
+    <Folder Include="Test\Park" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assembly\SharpSnmpLib.dll">
+      <SubType>Content</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Translate-SnmpTable.ps1" />
+    <EmbeddedResource Include="Test\Dump-V3Params.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Get-SnmpTable.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModuleTypes.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MpIdentity.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="Test\EsvaClass.mpx">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Test\TestModules.mpx">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Test\Park\EsvaClass.mpx">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Test\Park\EsvaModules.mpx">
+      <SubType>Code</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

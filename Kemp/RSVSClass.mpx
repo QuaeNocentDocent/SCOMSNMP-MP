@@ -1,0 +1,230 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+
+        <!-- In this section, modify the attributes based on your needs. Ensure the
+             Base attribute matches the application you are modeling.
+             More information can be found in the Management Pack Development Kit: 
+             http://msdn.microsoft.com/en-us/library/ee533867.aspx -->
+
+        <!-- Determining the base class is key, I think we a few options_
+          <ClassType ID="System.NetworkManagement.ApplicationService" Accessibility="Public" Abstract="false" Base="System!System.LocalApplication" Hosted="true" Singleton="false">
+            <Property ID="Description" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="Key" Type="string" Key="true" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="ServiceKey" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+          </ClassType>
+          OR
+          <ClassType ID="System.NetworkManagement.Interface" Accessibility="Public" Abstract="false" Base="System.NetworkManagement.NetworkAdapter" Hosted="true" Singleton="false" />
+          OR
+          <ClassType ID="System.NetworkManagement.LogicalDevice" Accessibility="Public" Abstract="true" Base="System!System.LogicalHardware" Hosted="false" Singleton="false">
+            <Property ID="Description" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="Index" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="Key" Type="string" Key="true" CaseSensitive="true" MinLength="0" MaxLength="256" />
+          </ClassType>
+          Let's try with the first one with the following mapping and a few add ons properties
+          Key = vSidx
+          Description = vSname
+          ServiceKey = vSip
+          
+        -->
+        <ClassType ID="QND.Network.Kemp.LoadMaster.RSVS" Base="System!System.LogicalHardware" Accessibility="Internal" Abstract="false" Hosted="true" Singleton="false">
+          <Property ID="Description" Type="string" Key="false" CaseSensitive="false" MinLength="0" MaxLength="256" />
+          <Property ID="RSKey" Type="string" Key="true" CaseSensitive="false" MinLength="0" MaxLength="256" />
+          <Property ID="Index" Type="string" Key="false" CaseSensitive="false" MinLength="0" MaxLength="256" />
+          <Property ID="AddressTypeId" Type="int" Key="false" />          
+          <Property ID="AddressType" Type="string" Key="false" />
+          <!-- rSaddrtype -->
+          <Property ID="VSID" Type="string" Key="false" />
+          <!-- rSVSID -->
+          <Property ID="ForwardingMethod" Type="string" Key="false" />
+          <!-- rSForwardingMethod -->
+          <Property ID="Weight" Type="string" Key="false" />
+          <!-- rSWight -->
+          <Property ID="PortNumber" Type="int" Key="false" />
+        </ClassType>
+
+      </ClassTypes>
+      <RelationshipTypes>
+          <RelationshipType ID="QND.Network.Kemp.LoadMaster.VSHostsRS" Base="System!System.Hosting" Accessibility="Internal" Abstract="false">
+            <Source ID="VS" Type="QND.Network.Kemp.LoadMaster.IPVS"/>
+            <Target ID="RS" Type="QND.Network.Kemp.LoadMaster.RSVS"/>
+          </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.RSVS.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal"
+                 Target="QND.Network.Kemp.LoadMaster.IPVS">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.RSVS" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QSNMPLib!QND.SNMP.Table2Bag.Filtered.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <NoOfRetries>3</NoOfRetries>
+          <Port>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <OID>.1.3.6.1.4.1.12196.13.2.1</OID>
+          <TableIndexOID>.1.3.6.1.4.1.12196.13.2.1.5</TableIndexOID>
+          <NormalizeTable>true</NormalizeTable>
+          <TraceLevel>2</TraceLevel>
+          <Filter>
+              <SimpleExpression>
+                <ValueExpression>
+                  <XPathQuery Type="String">Property[@Name=".1.3.6.1.4.1.12196.13.2.1.1"]</XPathQuery>
+                </ValueExpression>
+                <Operator>Equal</Operator>
+                <ValueExpression>
+                  <Value Type="String">$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$</Value>
+                </ValueExpression>
+              </SimpleExpression>
+          </Filter>
+          <ClassId>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                <Value>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                <Value>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/RSKey$</Name>
+                <Value>$Data/Property[@Name="Index"]$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/Index$</Name>
+                <Value>$Data/Property[@Name="Index"]$</Value>
+              </Setting>     
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/Description$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.2.1.2"]$ - $Target/Host/Property[Type="System!System.Entity"]/DisplayName$</Value> <!-- temporary removed  $Target/Host/Property[Type="System!System.Entity"]/DisplayName$-->
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.2.1.2"]$ - $Target/Host/Property[Type="System!System.Entity"]/DisplayName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/PortNumber$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.2.1.3"]$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/AddressTypeId$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.2.1.4"]$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/VSID$</Name>
+                <Value>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/ForwardingMethod$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.2.1.6"]$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/Weight$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.2.1.7"]$</Value>
+              </Setting>
+              
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+
+      <Discovery ID="QND.Network.Kemp.LoadMaster.RS.Mapped.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal"
+                 Target="QND.Network.Kemp.LoadMaster.RSVS">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.RSVS" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.Network.Kemp.LoadMaster.RS.Mapped.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <ClassId>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                <Value>$Target/Host/Host/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                <Value>$Target/Host/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/RSKey$</Name>
+                <Value>$Target/Property[Type="QND.Network.Kemp.LoadMaster.RSVS"]/RSKey$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.RSVS']/AddressType$</Name>
+                <Value>$Data/Property[@Name="RSAddrType"]$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+
+        </DataSource>
+      </Discovery>      
+      
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS">
+          <Name>Kemp - Real Server</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="RSKey">
+          <Name>RS Seed OID</Name>
+          <Description></Description>
+        </DisplayString>        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="Index">
+          <Name>Index</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="Description">
+          <Name>Description</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="AddressType">
+          <Name>Address Type</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="AddressTypeId">
+          <Name>Address Type ID</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="VSID">
+          <Name>Virtual Service ID</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="ForwardingMethod">
+          <Name>Forwarding Method</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="Weight">
+          <Name>Weight of RS</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS" SubElementID="PortNumber">
+          <Name>Port</Name>
+          <Description></Description>
+        </DisplayString>        
+         <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSVS.Discovery">
+          <Name>Kemp - Real Server Discovery</Name>
+          <Description></Description>
+        </DisplayString> 
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RS.Mapped.Discovery">
+          <Name>Kemp - Real Server Mapped Properties discovery</Name>
+          <Description></Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

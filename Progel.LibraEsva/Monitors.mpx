@@ -1,0 +1,342 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Monitoring>
+    <Monitors>
+      <AggregateMonitor ID="Progel.LibraEsva.Daemons.AggMonitor" Accessibility="Internal" Enabled="true" ParentMonitorID="Health!System.Health.AvailabilityState" Priority="Normal" Remotable="true" Target="Progel.LibraEsva.Device">
+        <Category>AvailabilityHealth</Category>
+        <Algorithm>WorstOf</Algorithm>
+      </AggregateMonitor>
+      <!-- let's use the inherited one -->
+      <UnitMonitor ID="Progel.LibraEsva.ProcessorUsage.Monitor" Accessibility="Public" Enabled="false" Target="Progel.LibraEsva.Processor" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" 
+                   TypeID="NetworkMonitor!System.NetworkManagement.ThresholdMonitor" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="Progel.LibraEsva.ProcessorUsage.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/SampleValue$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="MTSThresholdError" HealthState="Error" />
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="MTSThresholdSuccess" HealthState="Success" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <Timeout>3500</Timeout>
+          <OID>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</OID>
+          <Threshold>90</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+          <ObjectName>Processor</ObjectName>
+          <CounterName>% Processor Time</CounterName>
+        </Configuration>
+      </UnitMonitor>
+      <UnitMonitor ID="Progel.LibraEsva.MemoryUsage.Monitor" Accessibility="Public" Enabled="true" Target="Progel.LibraEsva.Memory" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" 
+                   TypeID="NetworkMonitor!System.NetworkManagement.ComputedThresholdMonitorType" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="Progel.LibraEsva.MemoryUsage.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Value$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="MTSThresholdError" HealthState="Success" />
+          <!-- the logic is inverted Monitor type author has choosen a bad naming convention -->
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="MTSThresholdSuccess" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <NumberOfSamples>3</NumberOfSamples>
+          <Timeout>3500</Timeout>
+          <SnmpVarBinds>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.5.0</OID>
+              <!-- Total Real -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.6.0</OID>
+              <!-- Free Real -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.14.0</OID>
+              <!-- Buffers -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.15.0</OID>
+              <!-- Cached -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+          </SnmpVarBinds>
+          <ComputedPerformanceValue>
+            <Product>
+              <NumericValue>
+                <Division>
+                  <NumericValue>
+                    <Summation> <!-- Free Memory = Free Real + Buffers + Cached -->
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.6.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.14.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.15.0"]/Value</XPathQuery>
+                      </NumericValue>
+                    </Summation>
+                  </NumericValue>
+                  <NumericValue>
+                    <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.5.0"]/Value</XPathQuery>
+                  </NumericValue>
+                </Division>
+              </NumericValue>
+              <NumericValue>
+                <Value Type="Double">100.0</Value>
+              </NumericValue>
+            </Product>
+          </ComputedPerformanceValue>
+          <Threshold>15</Threshold>
+          <ObjectName>Memory</ObjectName>
+          <CounterName>% Memory Free</CounterName>
+        </Configuration>
+      </UnitMonitor>
+      <UnitMonitor ID="Progel.LibraEsva.DiskFreeSpace.Monitor" Accessibility="Public" Enabled="true" Target="Progel.LibraEsva.Disk" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" 
+                   TypeID="Progel.LibraEsva.DiskFreeSpace.MT" ConfirmDelivery="false">
+        <Category>AvailabilityHealth</Category>
+        <AlertSettings AlertMessage="Progel.LibraEsva.DiskFreeSpace.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Value$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="AboveThreshold" HealthState="Success" />
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="UnderThreshold" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <IntervalSeconds>900</IntervalSeconds>
+          <Timeout>3500</Timeout>
+          <Port>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <LogicalDeviceIndex>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$</LogicalDeviceIndex>
+          <Threshold>10</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+          <TraceLevel>2</TraceLevel>
+          <ProbeTimeoutSeconds>300</ProbeTimeoutSeconds>
+        </Configuration>
+      </UnitMonitor>
+      <UnitMonitor ID="Progel.LibraEsva.MailQueue.Monitor" Accessibility="Internal" Enabled="true" Target="Progel.LibraEsva.MailQueue" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" 
+                   TypeID="NetworkMonitor!System.NetworkManagement.ThresholdMonitor" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="Progel.LibraEsva.MailQueue.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/SampleValue$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" HealthState="Error" MonitorTypeStateID="MTSThresholdError" />
+          <OperationalState ID="UnderThreshold" HealthState="Success" MonitorTypeStateID="MTSThresholdSuccess" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <Timeout>3000</Timeout>
+          <OID>.1.3.6.1.4.1.41091.1.1.7.0</OID>
+          <!-- .1.3.6.1.4.1.41091.1.1.7 MailQueue -->
+          <Threshold>300</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+          <ObjectName>LibraEsva</ObjectName>
+          <CounterName>MailQueue</CounterName>
+        </Configuration>
+      </UnitMonitor>
+      <DependencyMonitor ID="Progel.LibraEsva.Disk2Device.Dependency" Accessibility="Internal" Enabled="true" Target="Progel.LibraEsva.Device" MemberMonitor="Health!System.Health.AvailabilityState" ParentMonitorID="Health!System.Health.AvailabilityState" RelationshipType="Network!System.NetworkManagement.NodeHostsDisk" Priority="Normal" Remotable="true">
+        <Category>AvailabilityHealth</Category>
+        <Algorithm>WorstOf</Algorithm>
+      </DependencyMonitor>
+      <DependencyMonitor ID="Progel.LibraEsva.MailQueue2Device.Dependency" Accessibility="Internal" Enabled="true" Target="Progel.LibraEsva.Device" MemberMonitor="Health!System.Health.PerformanceState" ParentMonitorID="Health!System.Health.PerformanceState" RelationshipType="Progel.LibraEsva.DeviceHostsMailQueue" Priority="Normal" Remotable="true">
+        <Category>AvailabilityHealth</Category>
+        <Algorithm>WorstOf</Algorithm>
+      </DependencyMonitor>    
+    </Monitors>
+  </Monitoring><Presentation>
+    <StringResources>
+      <StringResource ID="Progel.LibraEsva.MemoryUsage.AlertMessage" />
+      <StringResource ID="Progel.LibraEsva.ProcessorUsage.AlertMessage" />
+      <StringResource ID="Progel.LibraEsva.DiskFreeSpace.AlertMessage" />
+      <StringResource ID="Progel.LibraEsva.MailQueue.AlertMessage" />
+    </StringResources>
+  </Presentation><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <!-- Alert messages -->
+        <DisplayString ElementID="Progel.LibraEsva.ProcessorUsage.AlertMessage">
+          <Name>Esva - Processor Utilization</Name>
+          <Description>Processor utilization for {0} is over the threshold. Processor utilization is {1}%.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.MemoryUsage.AlertMessage">
+          <Name>Esva - Memory Utilization</Name>
+          <Description>Free Memory for {0} is under the threshold. Free memory is {1}%.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.DiskFreeSpace.AlertMessage">
+          <Name>Esva - Disk free space</Name>
+          <Description>Free space for {0} is under the threshold. Free space is {1}%.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.MailQueue.AlertMessage">
+          <Name>Esva - Too many messages in queue</Name>
+          <Description>Mail queue for {0} is over the threshold. Number of messages is {1}.</Description>
+        </DisplayString>
+
+        <DisplayString ElementID="Progel.LibraEsva.ProcessorUsage.Monitor">
+          <Name>Processor Usage</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.MemoryUsage.Monitor">
+          <Name>Memory Usage</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.DiskFreeSpace.Monitor">
+          <Name>Disk free space</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.MailQueue.Monitor">
+          <Name>Mail Queue Size</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Disk2Device.Dependency">
+          <Name>Libra Esva - Disks</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.MailQueue2Device.Dependency">
+          <Name>Libra Esva - Mail Queue</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="Progel.LibraEsva.Daemons.AggMonitor">
+          <Name>Critical Daemons</Name>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Progel.LibraEsva.MailQueue.Monitor">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>The monitor indicates the number of mail messages queued on this device. This monitor has two possible states:</maml:para>
+              <maml:list>
+                <maml:listItem>
+                  <maml:para>Healthy: the number of messages is below the threshold.</maml:para>
+                </maml:listItem>
+                <maml:listItem>
+                  <maml:para>Error: The number of messages exceeds the threshold.</maml:para>
+                </maml:listItem>
+              </maml:list>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Configuration</maml:title>
+              <maml:para>The following options can be configured on this monitor:</maml:para>
+              <maml:table>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Option</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>Definition</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>Default</maml:para>
+                  </maml:entry>
+                </maml:row>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Interval</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>Amount of time in seconds between checks of the device status</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>300 seconds</maml:para>
+                  </maml:entry>
+                </maml:row>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Number of retries</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>Number of attempts in each monitoring interval before the interval's sample is discarded</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>3</maml:para>
+                  </maml:entry>
+                </maml:row>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Number of samples</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>Number of consecutive samples before the monitor changes state</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>3</maml:para>
+                  </maml:entry>
+                </maml:row>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Timeout</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>Amount of time in milliseconds to wait for a response from the device before the sample times out and a new attempt is made to sample the value</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>3,500 milliseconds</maml:para>
+                  </maml:entry>
+                </maml:row>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Threshold</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>The number of mail messages queued</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>300</maml:para>
+                  </maml:entry>
+                </maml:row>
+              </maml:table>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Causes</maml:title>
+              <maml:para>This monitor enters an error state when the processor utilization level on the network device is greater than the configured threshold. By default his happens after 15' of consistent number of messages over the threshold.</maml:para>
+              <maml:para>IN a defautl configuration with 2 worker process this measn about 15' in delay for the mail messages: 2 workers precess about 60 messages every 3'.</maml:para>              
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Resolutions</maml:title>
+              <maml:para>Use the Health Explorer to check the details for the state change on the State Change Events tab for the monitor. Connect to the device web interface to check for any evidence. Consult the device manufacturer's documentation and/or escalate the issue for more information on the problem and troubleshooting procedures.</maml:para>
+            </maml:section>
+          </MamlContent>          
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

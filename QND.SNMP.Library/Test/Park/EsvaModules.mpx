@@ -1,0 +1,1180 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="Progel.Library.SNMPDevice.SearchOID.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+            <SchemaType>Snmp!System.SnmpVarBindsSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="StartOID" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="MatchValue" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>true</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>$Config/StartOID$</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+              <ConditionDetection ID="FilterOnObjectValue" TypeID="System!System.ExpressionFilter">
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">SnmpVarBinds/SnmpVarBind/Value</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">$Config/MatchValue$</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="FilterOnObjectValue">
+                <Node ID="Probe">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="Progel.LibraEsva.GetDaemons.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>true</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.4.2.1.2</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="Progel.LibraEsva.Device.Discovery2.MT" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="SyncTime" type="xsd:string" />
+          <xsd:element name="DisplayName" type="xsd:string" />
+          <xsd:element name="Model" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+        </Configuration>
+      <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.FilteredClassSnapshotDataMapper">
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SystemObjectID$</Value>
+                    </ValueExpression>
+                    <Operator>MatchesRegularExpression</Operator>
+                    <Pattern>^\.1\.3\.6\.1\.4\.1\.41091\.1\.1</Pattern>
+                  </RegExExpression>
+                </Expression>                
+                <ClassId>$MPElement[Name='Progel.LibraEsva.Device']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>$Config/DisplayName$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Model$</Name>
+                      <Value>$Config/Model$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Vendor$</Name>
+                      <Value>Libra</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Progel.LibraEsva.Device']/Version$</Name>
+                      <Value>$Config/Version$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="Progel.LibraEsva.Processor.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3UserName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3ContextName" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>false</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>500</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$Config/SNMPv3UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$Config/SNMPv3AuthProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$Config/SNMPv3AuthPassword$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$Config/SNMPv3PrivProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$Config/SNMPv3PrivPassword$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$Config/SNMPv3ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.4.1.2021.10.1.2.2</OID>
+                    <!-- ** iso.3.6.1.4.1.2021.10.1.2.2 = STRING: "Load-5" -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$MPElement[Name='Progel.LibraEsva.Processor']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>.1.3.6.1.4.1.2021.10.1.5.2</Value>
+                      <!-- sys load 5 mins iso.3.6.1.4.1.2021.10.1.5.2 = INTEGER: 5 -->
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>2</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>Processor Load</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Processor</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Probe">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="Progel.LibraEsva.Memory.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3UserName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3ContextName" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>false</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>500</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$Config/SNMPv3UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$Config/SNMPv3AuthProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$Config/SNMPv3AuthPassword$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$Config/SNMPv3PrivProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$Config/SNMPv3PrivPassword$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$Config/SNMPv3ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.4.1.2021.4.6.0</OID>
+                    <!-- iso.3.6.1.4.1.2021.4.6.0 = INTEGER: 204984 ** Avail Real KB -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$MPElement[Name='Progel.LibraEsva.Memory']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>.1.3.6.1.4.1.2021.4.6.0</Value>
+                      <!-- iso.3.6.1.4.1.2021.4.6.0 = INTEGER: 204984 ** Avail Real KB -->
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>0</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>System Memory</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Memory</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Probe">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="Progel.LibraEsva.HostProcessor.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="GetProcessor" TypeID="QND.SNMP.TableDiscovery.DS">
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>1000</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>.1.3.6.1.2.1.25.3.2.1</TableOID>
+                <TraceLevel>5</TraceLevel>
+                <ScriptTimeoutSeconds>300</ScriptTimeoutSeconds>
+                <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+                <Filter>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Property[@Name='.1.3.6.1.2.1.25.3.2.1.2']</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value>.1.3.6.1.2.1.25.3.1.3</Value>
+                    </ValueExpression>
+                  </SimpleExpression>                  
+                </Filter>
+                <ClassId>$MPElement[Name='Progel.LibraEsva.HostProcessor']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>.1.3.6.1.2.1.25.3.2.1.1.$Data/Property[@Name='Index']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>$Data/Property[@Name='Index']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>Host Processor</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Processor</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </DataSource>
+            </MemberModules>
+            <Composition>
+              <Node ID="GetProcessor" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="Progel.LibraEsva.MailQueue.Discovery.DS" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>false</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>500</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.4.1.41091.1.1.7</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$MPElement[Name='Progel.LibraEsva.MailQueue']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>.1.3.6.1.4.1.41091.1.1.7</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>0</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>Mail Queue</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Mail Queue</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Probe">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <!-- disk discovery si much like table based disocvery when we need to select just some types from the table 
+        the ideal workflow would be:
+        - walk the table for types and just select the devices that match
+        - extract the index
+        - get the device details
+        - populate the instance properties
+        Alas this is not possibile with the current snmp module implementation, so we need to separate the disocvery in two:
+        1) walk the table, get the matching devices and populate the device Key and Index property
+        2) target each device and discover the missing properties
+      -->
+      <DataSourceModuleType ID="Progel.LibraEsva.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="GetDisks" TypeID="QND.SNMP.TableDiscovery.DS">
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>1000</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>.1.3.6.1.2.1.25.2.3.1</TableOID>
+                <TableIndex>1</TableIndex>
+                <TraceLevel>5</TraceLevel>
+                <ScriptTimeoutSeconds>300</ScriptTimeoutSeconds>
+                <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+                <Filter>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Property[@Name='.1.3.6.1.2.1.25.2.3.1.2']</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value>.1.3.6.1.2.1.25.2.1.4</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Filter>
+                <ClassId>$MPElement[Name='Progel.LibraEsva.Disk']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>Disk-.1.3.6.1.2.1.25.2.3.1.1.$Data/Property[@Name='Index']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Removable$</Name>
+                      <Value>false</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>$Data/Property[@Name="Index"]$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>$Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.3']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Disk - $Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.3']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Capacity$</Name>
+                      <Value>$Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.4']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Progel.LibraEsva.Disk']/AllocationUnitSize$</Name>
+                      <Value>$Data/Property[@Name='.1.3.6.1.2.1.25.2.3.1.5']$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </DataSource>
+            </MemberModules>
+            <Composition>
+                <Node ID="GetDisks" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+
+
+      <DataSourceModuleType ID="Progel.LibraEsva.WalkStorageTable.DS" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+            <SchemaType>Snmp!System.SnmpVarBindsSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+      </DataSourceModuleType>
+      <!-- cannot use cookdown 'cause to perform the computation I need the logical device index in the config and cookdown works just at level 1 DS so it won't be of any help to have a nested DS with a walk, worse for every disk I would performa a walk instead of a set of get -->
+      <DataSourceModuleType ID="Progel.LibraEsva.DiskFreeSpace.DS" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="LogicalDeviceIndex" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="GetDetail" TypeID="Progel.LibraEsva.GetStorageInfo.PT">
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <Index>$Config/LogicalDeviceIndex$</Index>
+              </ProbeAction>
+              <ConditionDetection ID="ComputePerfValue" TypeID="NetworkMonitor!System.NetworkManagement.Computation">
+                <NumericValue>
+                  <Product>
+                    <NumericValue>
+                      <Division>
+                        <NumericValue>
+                          <Subtraction>
+                            <NumericValue>
+                              <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                            </NumericValue>
+                            <NumericValue>
+                              <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.6.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                            </NumericValue>
+                          </Subtraction>
+                        </NumericValue>
+                        <NumericValue>
+                          <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                        </NumericValue>
+                      </Division>
+                    </NumericValue>
+                    <NumericValue>
+                      <Value Type="Double">100.0</Value>
+                    </NumericValue>
+                  </Product>
+                </NumericValue>
+              </ConditionDetection>
+              <ConditionDetection ID="Mapper" TypeID="Perf!System.Performance.DataGenericMapper">
+                <ObjectName>Logical Disk</ObjectName>
+                <CounterName><![CDATA[% Free Space]]></CounterName>
+                <InstanceName />
+                <Value>$Data/Value$</Value>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="Mapper">
+                <Node ID="ComputePerfValue">
+                  <Node ID="GetDetail">
+                    <Node ID="Scheduler" />
+                  </Node>
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Perf!System.Performance.Data</OutputType>
+      </DataSourceModuleType>
+      <ProbeActionModuleType ID="Progel.LibraEsva.GetStorageInfo.PT" Accessibility="Internal" Batching="false" PassThrough="false">
+        <Configuration>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CommunityString" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Index" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="SnmpProbe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>false</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.1.$Config/Index$</OID>
+                    <!-- hrStorageIndex -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.3.$Config/Index$</OID>
+                    <!-- hrStorageDescr -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.4.$Config/Index$</OID>
+                    <!-- hrStorageAllocationUnits -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.5.$Config/Index$</OID>
+                    <!-- hrStorageSize -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.6.$Config/Index$</OID>
+                    <!-- hrStorageUsed -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="SnmpProbe" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+    <MonitorTypes>
+      <UnitMonitorType ID="Progel.LibraEsva.DeamonRunning.MT" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="Running" NoDetection="false" />
+          <MonitorTypeState ID="NotRunning" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CommunityString" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Daemon" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="Timeout" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="GetDaemons" TypeID="Progel.LibraEsva.GetDaemons.DS">
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <Timeout>$Config/Timeout$</Timeout>
+              <Port>$Config/Port$</Port>
+              <IP>$Config/IP$</IP>
+              <CommunityString>$Config/CommunityString$</CommunityString>
+              <Version>$Config/Version$</Version>
+            </DataSource>
+            <ConditionDetection ID="FilterOnDaemon" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">SnmpVarBinds/SnmpVarBind/Value</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="String">$Config/Daemon$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="Missing" TypeID="System!System.MissingConsolidatorCondition">
+              <Consolidator>
+                <ConsolidationProperties />
+                <TimeControl>
+                  <GenericSchedule>
+                    <SimpleReccuringSchedule>
+                      <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    </SimpleReccuringSchedule>
+                    <ExcludeDates />
+                  </GenericSchedule>
+                </TimeControl>
+                <CountingCondition>
+                  <CountMode>OnNewItemNOP_OnTimerOutputRestart</CountMode>
+                </CountingCondition>
+              </Consolidator>
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="UnsignedInteger">Count</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value Type="UnsignedInteger">0</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="Running">
+              <Node ID="FilterOnDaemon">
+                <Node ID="GetDaemons" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="NotRunning">
+              <Node ID="Missing">
+                <Node ID="FilterOnDaemon">
+                  <Node ID="GetDaemons" />
+                </Node>
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+      <UnitMonitorType ID="Progel.LibraEsva.DiskFreeSpace.MT" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="AboveThreshold" NoDetection="false" />
+          <MonitorTypeState ID="UnderThreshold" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CommunityString" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="LogicalDeviceIndex" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Threshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="NumberOfSamples" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="Timeout" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="Threshold" Selector="$Config/Threshold$" ParameterType="int" />
+          <OverrideableParameter ID="NumberOfSamples" Selector="$Config/NumberOfSamples$" ParameterType="int" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="Progel.LibraEsva.WalkStorageTable.DS">
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <Timeout>$Config/Timeout$</Timeout>
+              <Port>$Config/Port$</Port>
+              <IP>$Config/IP$</IP>
+              <CommunityString>$Config/CommunityString$</CommunityString>
+              <Version>$Config/Version$</Version>
+            </DataSource>
+            <ConditionDetection ID="CheckIndex" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <RegExExpression>
+                  <ValueExpression>
+                    <Value Type="String">$Config/LogicalDeviceIndex$</Value>
+                  </ValueExpression>
+                  <Operator>MatchesRegularExpression</Operator>
+                  <Pattern>^[0-9]*$</Pattern>
+                </RegExExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="Compute" TypeID="NetworkMonitor!System.NetworkManagement.Computation">
+              <NumericValue>
+                <Product>
+                  <NumericValue>
+                    <Division>
+                      <NumericValue>
+                        <Subtraction>
+                          <NumericValue>
+                            <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                          </NumericValue>
+                          <NumericValue>
+                            <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.6.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                          </NumericValue>
+                        </Subtraction>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                      </NumericValue>
+                    </Division>
+                  </NumericValue>
+                  <NumericValue>
+                    <Value Type="Double">100.0</Value>
+                  </NumericValue>
+                </Product>
+              </NumericValue>
+            </ConditionDetection>
+            <ConditionDetection ID="AboveThresholdCD" TypeID="NetworkMonitor!System.NetworkManagement.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="Double">Value</XPathQuery>
+                  </ValueExpression>
+                  <Operator>GreaterEqual</Operator>
+                  <ValueExpression>
+                    <Value Type="Integer">$Config/Threshold$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/NumberOfSamples$</MatchCount>
+                <SampleCount>$Config/NumberOfSamples$</SampleCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+            <ConditionDetection ID="UnderThresholdCD" TypeID="NetworkMonitor!System.NetworkManagement.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="Double">Value</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Less</Operator>
+                  <ValueExpression>
+                    <Value Type="Integer">$Config/Threshold$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/NumberOfSamples$</MatchCount>
+                <SampleCount>$Config/NumberOfSamples$</SampleCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="AboveThreshold">
+              <Node ID="AboveThresholdCD">
+                <Node ID="Compute">
+                  <Node ID="CheckIndex">
+                    <Node ID="DS" />
+                  </Node>
+                </Node>
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="UnderThreshold">
+              <Node ID="UnderThresholdCD">
+                <Node ID="Compute">
+                  <Node ID="CheckIndex">
+                    <Node ID="DS" />
+                  </Node>
+                </Node>
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+      <!-- this s sample of what not to do -->
+      <UnitMonitorType ID="Progel.LibraEsva.DiskFreeSpaceNoCookDown.MT" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="AboveThreshold" NoDetection="false" />
+          <MonitorTypeState ID="UnderThreshold" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CommunityString" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="LogicalDeviceIndex" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Threshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="NumberOfSamples" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="Timeout" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="Threshold" Selector="$Config/Threshold$" ParameterType="int" />
+          <OverrideableParameter ID="NumberOfSamples" Selector="$Config/NumberOfSamples$" ParameterType="int" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="Progel.LibraEsva.DiskFreeSpace.DS">
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <Timeout>$Config/Timeout$</Timeout>
+              <Port>$Config/Port$</Port>
+              <IP>$Config/IP$</IP>
+              <CommunityString>$Config/CommunityString$</CommunityString>
+              <Version>$Config/Version$</Version>
+              <LogicalDeviceIndex>$Config/LogicalDeviceIndex$</LogicalDeviceIndex>
+            </DataSource>
+            <ConditionDetection ID="AboveThresholdCD" TypeID="NetworkMonitor!System.NetworkManagement.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="Double">$Data/Value$</XPathQuery>
+                  </ValueExpression>
+                  <Operator>GreaterEqual</Operator>
+                  <ValueExpression>
+                    <Value Type="Integer">$Config/Threshold$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/NumberOfSamples$</MatchCount>
+                <SampleCount>$Config/NumberOfSamples$</SampleCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+            <ConditionDetection ID="UnderThresholdCD" TypeID="NetworkMonitor!System.NetworkManagement.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="Double">$Data/Value$</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Less</Operator>
+                  <ValueExpression>
+                    <Value Type="Integer">$Config/Threshold$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/NumberOfSamples$</MatchCount>
+                <SampleCount>$Config/NumberOfSamples$</SampleCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="AboveThreshold">
+              <Node ID="AboveThresholdCD">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="UnderThreshold">
+              <Node ID="UnderThresholdCD">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions></ManagementPackFragment>

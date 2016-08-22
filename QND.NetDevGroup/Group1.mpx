@@ -1,0 +1,80 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+
+        <!-- In this section, you can edit the Base attribute to derive from other non-generic
+             group types. Depending on your requirements and how you or your users will use this
+             group, you may need to populate this group with instances by creating a Discovery
+             that uses a script or the GroupPopulator module: http://msdn.microsoft.com/en-us/library/ff472328.aspx -->
+        <ClassType ID="QND.NetDevGroup.Class" Accessibility="Internal" Base="System!System.Group" Abstract="true" Hosted="false" Singleton="false">
+        </ClassType>
+
+      </ClassTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="QND.NetDevGroup.GroupContainsNode" Abstract="false" Accessibility="Internal"  Base="System!System.Containment">
+          <Source ID="Group" Type="QND.NetDevGroup.Class"></Source>
+          <Target ID="Device" Type="SNL!System.NetworkManagement.Node"/>
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <!--
+      <Discovery ID="QND.NetDevGroup.Group1.Discovery" Enabled="true" Remotable="true" Target="QND.NetDevGroup.Group1" ConfirmDelivery="false" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="QND.NetDevGroup.GroupContainsNode"></DiscoveryRelationship>
+        </DiscoveryTypes>
+        <DataSource ID="Populator" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$Target/Id$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="SNL!System.NetworkManagement.Node"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="QND.NetDevGroup.GroupContainsNode"]$</RelationshipClass>
+              <Expression>
+                <Contained>
+                  <MonitoringClass>$MPElement[Name="SNL!System.NetworkManagement.NetworkDiscoveryServer"]$</MonitoringClass>
+                  <Expression>
+                    <SimpleExpression>
+                      <ValueExpression>
+                        <Property>$MPElement[Name="System!System.Entity"]/DisplayName$</Property>
+                      </ValueExpression>
+                      <Operator>Equal</Operator>
+                      <ValueExpression>
+                        <Value>Bonatti - Network device discovery</Value>
+                      </ValueExpression>                      
+                    </SimpleExpression>
+                  </Expression>
+                </Contained>
+              </Expression>
+            </MembershipRule>
+          </MembershipRules>
+
+        </DataSource>
+      </Discovery>
+      -->
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="QND.NetDevGroup">
+          <Name>QND - Network Node Groups definitions</Name>
+          <Description>Base Management pack for nwtwork node groups</Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.NetDevGroup.Class">
+          <Name>QND - Base network node group</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.NetDevGroup.GroupContainsNode">
+          <Name>QND - Network Node Group contains network Node</Name>
+          <Description></Description>
+        </DisplayString>
+
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

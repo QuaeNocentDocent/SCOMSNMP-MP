@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="QND.Network.Kemp.LoadMaster" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Node" Hosted="false" Singleton="false" Extension="false">
+          <Property ID="Version" Key="false" Type="string"/>
+          <Property ID="PatchVersion" Key="false" Type="string"/>
+        </ClassType>
+        <ClassType ID="QND.Network.Kemp.LoadMaster.Memory" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Memory" Hosted="true" Singleton="false" Extension="false" />
+        <ClassType ID="QND.Network.Kemp.LoadMaster.Processor" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Processor" Hosted="true" Singleton="false" Extension="false" />
+      </ClassTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.Discovery" Target="Network!System.NetworkManagement.Node" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.Network.Kemp.LoadMaster.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <DisplayName>$Target/Property[Type="Network!System.NetworkManagement.Node"]/sysName$</DisplayName>
+          <Model>LoadMaster</Model>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.Details.Discovery" Target="QND.Network.Kemp.LoadMaster" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.Network.Kemp.LoadMaster.Details.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.Processor.Discovery" Target="QND.Network.Kemp.LoadMaster" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.Processor" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.Network.Kemp.LoadMaster.Processor.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.Memory.Discovery" Target="QND.Network.Kemp.LoadMaster" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.Memory" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.Network.Kemp.LoadMaster.Memory.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster">
+          <Name>Kemp - LoadMaster Balancer</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster" SubElementID="Version">
+          <Name>Version</Name>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster" SubElementID="PatchVersion">
+          <Name>Patch Level</Name>
+        </DisplayString>        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Discovery.DS">
+          <Name>Kemp - LoadMaster Discovery Data Source Module</Name>
+          <Description>Discovers a particular model of network device by retrieving its Object Id.</Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Discovery.DS" SubElementID="IntervalSeconds">
+          <Name>Interval Seconds</Name>
+          <Description>Frequency in seconds that module is run.</Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Discovery.DS" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>Minutes after the hour that the running the module should be synchronized.</Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Discovery">
+          <Name>Kemp - LoadMaster Load Balancer Discovery</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Details.Discovery">
+          <Name>Kemp - LoadMaster Details Discovery</Name>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Processor">
+          <Name>Kemp - LoadMaster Processor</Name>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Memory">
+          <Name>Kemp - LoadMaster Memory</Name>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Processor.Discovery">
+          <Name>Kemp - LoadMaster Processor Discovery</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Memory.Discovery">
+          <Name>Kemp - LoadMaster Memory Discovery</Name>
+          <Description></Description>
+        </DisplayString>      
+      </DisplayStrings>
+      <KnowledgeArticles></KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

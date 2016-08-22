@@ -1,0 +1,192 @@
+Variable: Id: .1.3.6.1.4.1.2021.4.1.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.4.2.0; Data: swap
+Variable: Id: .1.3.6.1.4.1.2021.4.3.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.4.4.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.4.5.0; Data: 1725540
+Variable: Id: .1.3.6.1.4.1.2021.4.6.0; Data: 1518596
+Variable: Id: .1.3.6.1.4.1.2021.4.11.0; Data: 1518596
+Variable: Id: .1.3.6.1.4.1.2021.4.12.0; Data: 16000
+Variable: Id: .1.3.6.1.4.1.2021.4.13.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.4.14.0; Data: 992
+Variable: Id: .1.3.6.1.4.1.2021.4.15.0; Data: 34976
+Variable: Id: .1.3.6.1.4.1.2021.4.100.0; Data: 1
+Variable: Id: .1.3.6.1.4.1.2021.4.101.0; Data: Running out of swap space (0)
+Variable: Id: .1.3.6.1.4.1.2021.10.1.1.1; Data: 1
+Variable: Id: .1.3.6.1.4.1.2021.10.1.1.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.2021.10.1.1.3; Data: 3
+Variable: Id: .1.3.6.1.4.1.2021.10.1.2.1; Data: Load-1
+Variable: Id: .1.3.6.1.4.1.2021.10.1.2.2; Data: Load-5
+Variable: Id: .1.3.6.1.4.1.2021.10.1.2.3; Data: Load-15
+Variable: Id: .1.3.6.1.4.1.2021.10.1.3.1; Data: 0.00
+Variable: Id: .1.3.6.1.4.1.2021.10.1.3.2; Data: 0.04
+Variable: Id: .1.3.6.1.4.1.2021.10.1.3.3; Data: 0.05
+Variable: Id: .1.3.6.1.4.1.2021.10.1.4.1; Data: 12.00
+Variable: Id: .1.3.6.1.4.1.2021.10.1.4.2; Data: 12.00
+Variable: Id: .1.3.6.1.4.1.2021.10.1.4.3; Data: 12.00
+Variable: Id: .1.3.6.1.4.1.2021.10.1.5.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.10.1.5.2; Data: 4
+Variable: Id: .1.3.6.1.4.1.2021.10.1.5.3; Data: 5
+Variable: Id: .1.3.6.1.4.1.2021.10.1.6.1; Data: 9F 78 04 00 00 00 00
+Variable: Id: .1.3.6.1.4.1.2021.10.1.6.2; Data: 9F 78 04 3D 23 D7 0A
+Variable: Id: .1.3.6.1.4.1.2021.10.1.6.3; Data: 9F 78 04 3D 4C CC CD
+Variable: Id: .1.3.6.1.4.1.2021.10.1.100.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.10.1.100.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.10.1.100.3; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.10.1.101.1; Data: 
+Variable: Id: .1.3.6.1.4.1.2021.10.1.101.2; Data: 
+Variable: Id: .1.3.6.1.4.1.2021.10.1.101.3; Data: 
+Variable: Id: .1.3.6.1.4.1.2021.11.1.0; Data: 1
+Variable: Id: .1.3.6.1.4.1.2021.11.2.0; Data: systemStats
+Variable: Id: .1.3.6.1.4.1.2021.11.3.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.4.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.5.0; Data: 1
+Variable: Id: .1.3.6.1.4.1.2021.11.6.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.7.0; Data: 942
+Variable: Id: .1.3.6.1.4.1.2021.11.8.0; Data: 82
+Variable: Id: .1.3.6.1.4.1.2021.11.9.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.10.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.11.0; Data: 99
+Variable: Id: .1.3.6.1.4.1.2021.11.50.0; Data: 1546
+Variable: Id: .1.3.6.1.4.1.2021.11.51.0; Data: 11
+Variable: Id: .1.3.6.1.4.1.2021.11.52.0; Data: 760
+Variable: Id: .1.3.6.1.4.1.2021.11.53.0; Data: 81311
+Variable: Id: .1.3.6.1.4.1.2021.11.54.0; Data: 3270
+Variable: Id: .1.3.6.1.4.1.2021.11.55.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.56.0; Data: 4
+Variable: Id: .1.3.6.1.4.1.2021.11.57.0; Data: 151082
+Variable: Id: .1.3.6.1.4.1.2021.11.58.0; Data: 847838
+Variable: Id: .1.3.6.1.4.1.2021.11.59.0; Data: 911523
+Variable: Id: .1.3.6.1.4.1.2021.11.60.0; Data: 115114
+Variable: Id: .1.3.6.1.4.1.2021.11.61.0; Data: 31
+Variable: Id: .1.3.6.1.4.1.2021.11.62.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.11.63.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.13.14.1.0; Data: 1
+Variable: Id: .1.3.6.1.4.1.2021.16.1.0; Data: 250
+Variable: Id: .1.3.6.1.4.1.2021.100.1.0; Data: 1
+Variable: Id: .1.3.6.1.4.1.2021.100.2.0; Data: 5.6.1
+Variable: Id: .1.3.6.1.4.1.2021.100.3.0; Data: $Date: 2010-01-24 03:41:03 -0800 (Sun, 24 Jan 2010) $
+Variable: Id: .1.3.6.1.4.1.2021.100.4.0; Data: Wed Oct 15 15:52:02 2014
+Variable: Id: .1.3.6.1.4.1.2021.100.5.0; Data: $Id: versioninfo.c 18044 2010-01-24 11:41:03Z bvassche $
+Variable: Id: .1.3.6.1.4.1.2021.100.6.0; Data:  '--prefix=/usr' '--build=x86_64-unknown-linux-gnu' '--target=x86_64-unknown-linux-gnu' '--host=x86_64-unknown-linux-gnu' '--mandir=/snmp/dest/usr/share' '--infodir=/snmp/dest/usr/share' '--enable-mfd-rewrites' '--enable-internal-md5' '--disable-manuals' '--enable-ipv6' '--disable-set-support' '--with-sys-contact=support@kemptechnologies.com' '--with-sys-location=Unknown' '--with-logfile=/var/log/snmpd.log' '--with-default-snmp-version=3' '--with-persistent-directory=/var/ucd-snmp' '--with-mib-modules=b100_snmp ipvs_snmp' '--with-out-mib-modules=host misc/ipfwacc tunnel ipfwchains/ipfwchains ucd-snmp/diskio agent_mibs agentx' '--with-libs=-llocal_snmp' '--disable-embedded-perl' '--without-perl-modules' '--disable-snmptrapd-subagent' '--disable-mib-loading' '--without-nl' '--without-openssl' 'build_alias=x86_64-unknown-linux-gnu' 'host_alias=x86_64-unknown-linux-gnu' 'target_alias=x86_64-unknown-linux-gnu'
+Variable: Id: .1.3.6.1.4.1.2021.100.10.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.100.11.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.100.12.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.100.13.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.100.20.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.101.1.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.101.2.0; Data: snmp
+Variable: Id: .1.3.6.1.4.1.2021.101.100.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.2021.101.101.0; Data: 
+Variable: Id: .1.3.6.1.4.1.8072.1.3.2.1.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.11.1; Data: tcp 172.29.4.5:80 rr
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.11.2; Data: tcp slave 172.29.4.5:80 rr
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.12.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.12.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.13.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.13.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.14.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.14.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.15.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.15.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.16.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.16.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.17.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.1.1.17.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.1.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.2.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.11.2; Data: 172.29.4.4:8100 Nat 1000
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.12.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.13.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.14.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.15.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.16.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.17.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.18.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.2.1.19.2; Data: 1000
+Variable: Id: .1.3.6.1.4.1.12196.12.3.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.4.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.5.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.6.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.7.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.1.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.2.2; Data: 172.29.4.4
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.3.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.4.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.5.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.6.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.7.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.8.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.12.8.1.9.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.0.1.0; Data: 1.2.1
+Variable: Id: .1.3.6.1.4.1.12196.13.0.2.0; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.13.0.3.0; Data: 262144
+Variable: Id: .1.3.6.1.4.1.12196.13.0.4.0; Data: 660
+Variable: Id: .1.3.6.1.4.1.12196.13.0.5.0; Data: 120
+Variable: Id: .1.3.6.1.4.1.12196.13.0.6.0; Data: 300
+Variable: Id: .1.3.6.1.4.1.12196.13.0.7.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.0.8.0; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.0.9.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.0.10.0; Data: 7.1-18c
+Variable: Id: .1.3.6.1.4.1.12196.13.0.11.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.0.12.0; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.1.1; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.1.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.2.1; Data: 172.29.4.5
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.2.2; Data: slave of 172.29.4.5
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.3.1; Data: 80
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.3.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.4.1; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.4.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.5.1; Data: 6
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.5.2; Data: 6
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.6.1; Data: rr
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.6.2; Data: rr
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.7.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.7.2; Data: 360
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.8.1; Data: tcp
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.8.2; Data: tcp
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.9.1; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.9.2; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.10.1; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.10.2; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.11.1; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.11.2; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.12.1; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.12.2; Data: 
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.13.1; Data: Service1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.13.2; Data: VMM-SubVS1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.14.1; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.14.2; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.15.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.15.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.16.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.16.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.17.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.17.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.18.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.18.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.19.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.19.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.20.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.20.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.21.1; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.1.1.21.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.1.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.2.2; Data: 172.29.4.4
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.3.2; Data: 8100
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.4.2; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.5.2; Data: 2
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.6.2; Data: nat
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.7.2; Data: 1000
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.8.2; Data: 1
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.12.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.13.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.14.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.15.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.16.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.17.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.2.1.18.2; Data: 0
+Variable: Id: .1.3.6.1.4.1.12196.13.13.0; Data: 7
+Variable: Id: .1.3.6.1.4.1.12196.13.14.0; Data: /load
+Variable: Id: .1.3.6.1.4.1.12196.13.15.0; Data: 5
+Variable: Id: .1.3.6.1.4.1.12196.13.16.0; Data: 0

@@ -1,0 +1,249 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        
+        <!-- In this section, modify the attributes based on your needs. Ensure the
+             Base attribute matches the application you are modeling.
+             More information can be found in the Management Pack Development Kit: 
+             http://msdn.microsoft.com/en-us/library/ee533867.aspx -->
+        
+        <!-- Determining the base class is key, I think we a few options_
+          <ClassType ID="System.NetworkManagement.ApplicationService" Accessibility="Public" Abstract="false" Base="System!System.LocalApplication" Hosted="true" Singleton="false">
+            <Property ID="Description" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="Key" Type="string" Key="true" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="ServiceKey" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+          </ClassType>
+          OR
+          <ClassType ID="System.NetworkManagement.Interface" Accessibility="Public" Abstract="false" Base="System.NetworkManagement.NetworkAdapter" Hosted="true" Singleton="false" />
+          OR
+          <ClassType ID="System.NetworkManagement.LogicalDevice" Accessibility="Public" Abstract="true" Base="System!System.LogicalHardware" Hosted="false" Singleton="false">
+            <Property ID="Description" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="Index" Type="string" Key="false" CaseSensitive="true" MinLength="0" MaxLength="256" />
+            <Property ID="Key" Type="string" Key="true" CaseSensitive="true" MinLength="0" MaxLength="256" />
+          </ClassType>
+          Let's try with the first one with the following mapping and a few add ons properties
+          Key = vSidx
+          Description = vSname
+          ServiceKey = vSip
+          
+        -->
+        <ClassType ID="QND.Network.Kemp.LoadMaster.IPVS" Base="Network!System.NetworkManagement.LogicalDevice" Accessibility="Internal" Abstract="false" Hosted="true" Singleton="false">
+          <Property ID="Protocol" Type="string" Key="false" /> <!-- vSprotocol -->
+          <Property ID="ProtocolId" Type="string" Key="false" />          
+          <Property ID="IP" Type="string" Key="false" />
+          <Property ID="PortNumber" Type="int" Key="false" />
+          <Property ID="VSAddrType" Type="string" Key="false" />
+          <Property ID="VSAddrTypeId" Type="string" Key="false" />          
+          <Property ID="VSschedulingMethod" Type="string" Key="false" />
+          <Property ID="VSpersistenceTimeout" Type="string" Key="false" />
+          <Property ID="VScheckerType" Type="string" Key="false" />
+          <Property ID="VSadaptiveMethod" Type="string" Key="false" />
+          <Property ID="VSnumDests" Type="int" Key="false" />
+         <Property ID="VSl7persist" Type="string" Key="false" />
+          <Property ID="VSl7cookieId" Type="string" Key="false" />
+        </ClassType>
+      
+      </ClassTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="QND.Network.Kemp.LoadMaster.NodeHostsVS" Accessibility="Public" Abstract="false" Base="System!System.Hosting">
+          <Source ID="Source" Type="QND.Network.Kemp.LoadMaster" />
+          <Target ID="Target" Type="QND.Network.Kemp.LoadMaster.IPVS" />
+        </RelationshipType>        
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.IPVS.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" 
+                 Target="QND.Network.Kemp.LoadMaster">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.IPVS" />
+          <DiscoveryRelationship TypeID="QND.Network.Kemp.LoadMaster.NodeHostsVS"></DiscoveryRelationship>
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QSNMPLib!QND.SNMP.Table2Bag.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <NoOfRetries>3</NoOfRetries>
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <OID>.1.3.6.1.4.1.12196.13.1.1</OID>
+          <TableIndexOID>.1.3.6.1.4.1.12196.13.1.1.1</TableIndexOID>
+          <NormalizeTable>true</NormalizeTable>
+          <TraceLevel>2</TraceLevel>
+          <ClassId>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']$</ClassId>
+          <InstanceSettings>
+              <Settings>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                  <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                  <Value>$Data/Property[@Name="Index"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                  <Value>$Data/Property[@Name="Index"]$</Value>
+                </Setting>
+                <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.13"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.13"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/IP$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.2"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/PortNumber$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.3"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/ProtocolId$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.5"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VSAddrTypeId$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.4"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VSschedulingMethod$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.6"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VSpersistenceTimeout$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.7"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VScheckerType$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.8"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VSadaptiveMethod$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.9"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VSnumDests$</Name>
+                  <Value>$Data/Property[@Name=".1.3.6.1.4.1.12196.13.1.1.10"]$</Value>
+                </Setting>
+
+              </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+
+      <Discovery ID="QND.Network.Kemp.LoadMaster.IPVS.Mapped.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" 
+                 Target="QND.Network.Kemp.LoadMaster.IPVS">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.Network.Kemp.LoadMaster.IPVS" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.Network.Kemp.LoadMaster.IPVS.Mapped.Discovery.DS">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <ClassId>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']$</ClassId>
+          <InstanceSettings>
+              <Settings>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                  <Value>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                  <Value>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/Protocol$</Name>
+                  <Value>$Data/Property[@Name="VSProtocol"]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='QND.Network.Kemp.LoadMaster.IPVS']/VSAddrType$</Name>
+                  <Value>$Data/Property[@Name="VSAddrType"]$</Value>
+                </Setting>
+              </Settings>
+          </InstanceSettings>
+
+        </DataSource>
+      </Discovery>
+
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS">
+          <Name>Kemp - Virtual Service</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="Protocol">
+          <Name>Service Protocol</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="ProtocolId">
+          <Name>Service Protocol ID</Name>
+          <Description></Description>
+        </DisplayString>        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="IP">
+          <Name>IP</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="PortNumber">
+          <Name>Port</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSAddrType">
+          <Name>Address Type</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSAddrTypeId">
+          <Name>Address Type ID</Name>
+          <Description></Description>
+        </DisplayString>        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSschedulingMethod">
+          <Name>Scheduling Method</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSpersistenceTimeout">
+          <Name>Persistence Timeout</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VScheckerType">
+          <Name>Checker Type</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSadaptiveMethod">
+          <Name>Adaptive Method</Name>
+          <Description></Description>
+        </DisplayString> 
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSnumDests">
+          <Name>Number of Destinations</Name>
+          <Description></Description>
+        </DisplayString>
+         <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSl7persist">
+          <Name>Type of Persistence</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS" SubElementID="VSl7cookieId">
+          <Name>Cookie Associated</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS.Discovery">
+          <Name>Kemp - Virtual Service discovery</Name>
+          <Description></Description>
+        </DisplayString> 
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.IPVS.Mapped.Discovery">
+          <Name>Kemp - Virtual Service Mapped Properties discovery</Name>
+          <Description></Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

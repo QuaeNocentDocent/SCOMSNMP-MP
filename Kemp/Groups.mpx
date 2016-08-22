@@ -1,0 +1,150 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+
+        <!-- In this section, you can edit the Base attribute to derive from other non-generic
+             group types. Depending on your requirements and how you or your users will use this
+             group, you may need to populate this group with instances by creating a Discovery
+             that uses a script or the GroupPopulator module: http://msdn.microsoft.com/en-us/library/ff472328.aspx -->
+        <ClassType ID="QND.Network.Kemp.LoadMaster.KempDeviceGroup" Accessibility="Internal" Base="System!System.Group" Abstract="false" Hosted="false" Singleton="true"></ClassType>
+        <ClassType ID="QND.Network.Kemp.LoadMaster.InterfaceGroup" Accessibility="Internal" Base="System!System.Group" Abstract="false" Hosted="false" Singleton="true"></ClassType>
+        <ClassType ID="QND.Network.Kemp.LoadMaster.VSGroup" Accessibility="Internal" Base="System!System.Group" Abstract="false" Hosted="false" Singleton="true"></ClassType>
+        <ClassType ID="QND.Network.Kemp.LoadMaster.RSGroup" Accessibility="Internal" Base="System!System.Group" Abstract="false" Hosted="false" Singleton="true"></ClassType>
+
+      </ClassTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="QND.Network.Kemp.LoadMaster.DeviceGroupContainsKempDevice" Abstract="false" Accessibility="Public" Base="System!System.Containment">
+          <Source ID="Source" Type="QND.Network.Kemp.LoadMaster.KempDeviceGroup"/>
+          <Target ID="Target" Type="QND.Network.Kemp.LoadMaster"/>
+        </RelationshipType>
+        <RelationshipType ID="QND.Network.Kemp.LoadMaster.VSGroupContainsVS" Abstract="false" Accessibility="Public" Base="System!System.Containment">
+          <Source ID="Source" Type="QND.Network.Kemp.LoadMaster.VSGroup"/>
+          <Target ID="Target" Type="QND.Network.Kemp.LoadMaster.IPVS"/>
+        </RelationshipType>
+        <RelationshipType ID="QND.Network.Kemp.LoadMaster.RSGroupContainsRS" Abstract="false" Accessibility="Public" Base="System!System.Containment">
+          <Source ID="Source" Type="QND.Network.Kemp.LoadMaster.RSGroup"/>
+          <Target ID="Target" Type="QND.Network.Kemp.LoadMaster.RSVS"/>
+        </RelationshipType>
+        <RelationshipType ID="QND.Network.Kemp.LoadMaster.InterfaceGroupContainsInterface" Abstract="false" Accessibility="Public" Base="System!System.Containment">
+          <Source ID="Source" Type="QND.Network.Kemp.LoadMaster.InterfaceGroup"/>
+          <Target ID="Target" Type="QND.Network.Kemp.LoadMaster.Interface"/>
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.KempDeviceGroup.Discovery" Enabled="true" Target="QND.Network.Kemp.LoadMaster.KempDeviceGroup">
+
+  <Category>Discovery</Category>
+  <DiscoveryTypes>
+    <DiscoveryRelationship TypeID="QND.Network.Kemp.LoadMaster.DeviceGroupContainsKempDevice" />
+  </DiscoveryTypes>
+  <DataSource ID="DiscoveryDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+    <RuleId>$MPElement$</RuleId>
+    <GroupInstanceId>$Target/Id$</GroupInstanceId>
+    <MembershipRules>
+      <MembershipRule>
+        <MonitoringClass>$MPElement[Name="QND.Network.Kemp.LoadMaster"]$</MonitoringClass>
+        <RelationshipClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.DeviceGroupContainsKempDevice"]$</RelationshipClass>
+      </MembershipRule>
+    </MembershipRules>
+  </DataSource>
+</Discovery>
+
+      <Discovery ID="QND.Network.Kemp.LoadMaster.VSGroup.Discovery" Enabled="true" Target="QND.Network.Kemp.LoadMaster.VSGroup">
+
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="QND.Network.Kemp.LoadMaster.VSGroupContainsVS" />
+        </DiscoveryTypes>
+        <DataSource ID="DiscoveryDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$Target/Id$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.IPVS"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.VSGroupContainsVS"]$</RelationshipClass>
+            </MembershipRule>
+          </MembershipRules>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="QND.Network.Kemp.LoadMaster.RSGroup.Discovery" Enabled="true" Target="QND.Network.Kemp.LoadMaster.RSGroup">
+  <Category>Discovery</Category>
+  <DiscoveryTypes>
+    <DiscoveryRelationship TypeID="QND.Network.Kemp.LoadMaster.RSGroupContainsRS" />
+  </DiscoveryTypes>
+  <DataSource ID="DiscoveryDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+    <RuleId>$MPElement$</RuleId>
+    <GroupInstanceId>$Target/Id$</GroupInstanceId>
+    <MembershipRules>
+      <MembershipRule>
+        <MonitoringClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.RSVS"]$</MonitoringClass>
+        <RelationshipClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.RSGroupContainsRS"]$</RelationshipClass>
+      </MembershipRule>
+    </MembershipRules>
+  </DataSource>
+</Discovery>      
+      <Discovery ID="QND.Network.Kemp.LoadMaster.InterfaceGroup.Discovery" Enabled="true" Target="QND.Network.Kemp.LoadMaster.InterfaceGroup">
+  <Category>Discovery</Category>
+  <DiscoveryTypes>
+    <DiscoveryRelationship TypeID="QND.Network.Kemp.LoadMaster.InterfaceGroupContainsInterface" />
+  </DiscoveryTypes>
+  <DataSource ID="DiscoveryDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+    <RuleId>$MPElement$</RuleId>
+    <GroupInstanceId>$Target/Id$</GroupInstanceId>
+    <MembershipRules>
+      <MembershipRule>
+        <MonitoringClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.Interface"]$</MonitoringClass>
+        <RelationshipClass>$MPElement[Name="QND.Network.Kemp.LoadMaster.InterfaceGroupContainsInterface"]$</RelationshipClass>
+      </MembershipRule>
+    </MembershipRules>
+  </DataSource>
+</Discovery>       
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+
+        <!-- The name of the group that will appear to users in the console. -->
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.KempDeviceGroup">
+          <Name>All Kemp Devices</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.KempDeviceGroup.Discovery">
+          <Name>All Kemp Devices Group Discovery</Name>
+          <Description></Description>
+        </DisplayString>
+        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSGroup">
+          <Name>All Kemp Real Servers</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.RSGroup.Discovery">
+          <Name>All Kemp Real Servers Group Discovery</Name>
+          <Description></Description>
+        </DisplayString>
+        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.VSGroup">
+          <Name>All Kemp Virtual Services</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.VSGroup.Discovery">
+          <Name>All Kemp Virtual Servers Group Discovery</Name>
+          <Description></Description>
+        </DisplayString>
+
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.InterfaceGroup">
+          <Name>All Kemp Enabled Interfaces</Name>
+          <Description></Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.InterfaceGroup.Discovery">
+          <Name>All Kemp Enabled Interfaces Group Discovery</Name>
+          <Description></Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

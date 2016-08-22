@@ -1,0 +1,700 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="QND.SNMP.GenericPerfMapper.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ParamListSchema</SchemaType>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="Interval" type="xsd:integer" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="3" name="NoOfRetries" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="1500" name="Timeout" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="OID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="ObjectName" type="xsd:string" />
+          <xsd:element minOccurs="1" name="CounterName" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="SnmpDataSource" TypeID="Network!System.NetworkManagement.SnmpDataSource">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/Interval$</Interval>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>$Config/OID$</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+              </DataSource>
+              <ConditionDetection ID="Mapper" TypeID="Perf!System.Performance.DataGenericMapper">
+                <ObjectName>$Config/ObjectName$</ObjectName>
+                <CounterName>$Config/CounterName$</CounterName>
+                <InstanceName />
+                <Value>$Data/SnmpVarBinds/SnmpVarBind[OID="$Config/OID$"]/Value$</Value>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="Mapper">
+                <Node ID="SnmpDataSource" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Perf!System.Performance.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.SNMP.GenericPerf.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ParamListSchema</SchemaType>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="Interval" type="xsd:integer" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="3" name="NoOfRetries" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="1500" name="Timeout" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="OID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="ObjectName" type="xsd:string" />
+          <xsd:element minOccurs="1" name="CounterName" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="SnmpDataSource" TypeID="Network!System.NetworkManagement.SnmpDataSource">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/Interval$</Interval>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>$Config/OID$</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+              </DataSource>
+              <ConditionDetection ID="Mapper" TypeID="Perf!System.Performance.DataGenericMapper">
+                <ObjectName>$Config/ObjectName$</ObjectName>
+                <CounterName>$Config/CounterName$</CounterName>
+                <InstanceName />
+                <Value>$Data/SnmpVarBinds/SnmpVarBind[OID="$Config/OID$"]/Value$</Value>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="Mapper">
+                <Node ID="SnmpDataSource" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Perf!System.Performance.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.SNMP.Walker.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element name="OID" type="xsd:string" />
+
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+          <OverrideableParameter ID="NoOfRetries" ParameterType="int" Selector="$Config/NoOfRetries$"/>
+          <OverrideableParameter ID="Timeout" ParameterType="int" Selector="$Config/Timeout$"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource TypeID="System!System.Scheduler" ID="Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>true</WalkReturnMultipleItems>
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>$Config/OID$</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+      </DataSourceModuleType>
+      <!-- SNmpSharp library based data sources -->
+      <DataSourceModuleType ID="QND.SNMP.GetTable.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout" type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3UserName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3ContextName" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element name="Version" type="xsd:string" />
+          <xsd:element name="TableOID" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="TableIndex" type="xsd:string" default="1"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="TraceLevel" type="xsd:unsignedInt" default="2"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="ScriptTimeoutSeconds" type="xsd:unsignedInt" default="300"/>
+          <xsd:element minOccurs="1" maxOccurs="1" name="IntervalSeconds" type="xsd:unsignedInt"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="SyncTime" type="xsd:string"/>
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="NoOfRetries" ParameterType="int" Selector="$Config/NoOfRetries$"/>
+          <OverrideableParameter ID="Timeout" ParameterType="int" Selector="$Config/Timeout$"/>
+          <OverrideableParameter ID="TraceLevel" ParameterType="int" Selector="$Config/TraceLevel$"/>
+          <OverrideableParameter ID="ScriptTimeoutSeconds" ParameterType="int" Selector="$Config/ScriptTimeoutSeconds$"/>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+        </OverrideableParameters>
+        <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="GetTable" TypeID="QND.SNMP.GetTable.PT">
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$Config/SNMPv3UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$Config/SNMPv3AuthProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$Config/SNMPv3AuthPassword$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$Config/SNMPv3PrivProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$Config/SNMPv3PrivPassword$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$Config/SNMPv3ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>$Config/TableOID$</TableOID>
+                <TableIndex>$Config/TableIndex$</TableIndex>
+                <TraceLevel>$Config/TraceLevel$</TraceLevel>
+                <ScriptTimeoutSeconds>$Config/ScriptTimeoutSeconds$</ScriptTimeoutSeconds>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="GetTable">
+                <Node ID ="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.SNMP.TableDiscovery.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+            <SchemaType>System!System.Discovery.MapperSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout" type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3UserName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3ContextName" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element name="Version" type="xsd:string" />
+          <xsd:element name="TableOID" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="TableIndex" type="xsd:string" default="1"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="TraceLevel" type="xsd:unsignedInt" default="2"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="ScriptTimeoutSeconds" type="xsd:unsignedInt" default="300"/>
+          <xsd:element minOccurs="1" maxOccurs="1" name="IntervalSeconds" type="xsd:unsignedInt"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="SyncTime" type="xsd:string"/>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Filter" type="ExpressionType"/>
+          <xsd:element name="ClassId" type="xsd:string" />
+          <xsd:element name="InstanceSettings" minOccurs="0" maxOccurs="1" type="SettingsType" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="NoOfRetries" ParameterType="int" Selector="$Config/NoOfRetries$"/>
+          <OverrideableParameter ID="Timeout" ParameterType="int" Selector="$Config/Timeout$"/>
+          <OverrideableParameter ID="TraceLevel" ParameterType="int" Selector="$Config/TraceLevel$"/>
+          <OverrideableParameter ID="ScriptTimeoutSeconds" ParameterType="int" Selector="$Config/ScriptTimeoutSeconds$"/>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+        </OverrideableParameters>
+        <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="GetTable" TypeID="QND.SNMP.GetTable.PT">
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$Config/SNMPv3UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$Config/SNMPv3AuthProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$Config/SNMPv3AuthPassword$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$Config/SNMPv3PrivProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$Config/SNMPv3PrivPassword$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$Config/SNMPv3ContextName$</SNMPv3ContextName>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>$Config/TableOID$</TableOID>
+                <TableIndex>$Config/TableIndex$</TableIndex>
+                <TraceLevel>$Config/TraceLevel$</TraceLevel>
+                <ScriptTimeoutSeconds>$Config/ScriptTimeoutSeconds$</ScriptTimeoutSeconds>
+              </ProbeAction>
+              <ConditionDetection ID="Filter" TypeID="System!System.ExpressionFilter">
+                <Expression>$Config/Filter$</Expression>
+              </ConditionDetection>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$Config/ClassId$</ClassId>
+                <InstanceSettings>$Config/InstanceSettings$</InstanceSettings>
+              </ConditionDetection>              
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+              <Node ID="Filter">
+              <Node ID="GetTable">
+                <Node ID ="Scheduler" />
+              </Node>
+              </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+
+      <!-- QND SCOM Data Item Encoder based data sources-->
+      <DataSourceModuleType ID="QND.SNMP.Table2Bag.Discovery.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.Discovery.MapperSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="OID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="TableIndexOID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="NormalizeTable" type="xsd:string" default="true" />
+          <xsd:element minOccurs="1" name="TraceLevel" type="xsd:string" default="2"/>
+          <xsd:element name="ClassId" type="xsd:string" />
+          <xsd:element name="InstanceSettings" minOccurs="0" maxOccurs="1" type="SettingsType" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+          <OverrideableParameter ID="NoOfRetries" ParameterType="int" Selector="$Config/NoOfRetries$"/>
+          <OverrideableParameter ID="Timeout" ParameterType="int" Selector="$Config/Timeout$"/>
+          <OverrideableParameter ID="TraceLevel" ParameterType="int" Selector="$Config/TraceLevel$"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="QND.SNMP.TranslateTable">
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>$Config/OID$</TableOID>
+                <TableIndex>$Config/TableIndexOID$</TableIndex>
+                <NormalizeTable>$Config/NormalizeTable$</NormalizeTable>
+                <TraceLevel>$Config/TraceLevel$</TraceLevel>
+              </ProbeAction>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$Config/ClassId$</ClassId>
+                <InstanceSettings>$Config/InstanceSettings$</InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Probe">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.SNMP.Table2Bag.Filtered.Discovery.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.Discovery.MapperSchema</SchemaType>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="OID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="TableIndexOID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="NormalizeTable" type="xsd:string" default="true" />
+          <xsd:element minOccurs="1" name="TraceLevel" type="xsd:string" default="2"/>
+          <xsd:element minOccurs="1" name="Filter" type="ExpressionType" />
+          <xsd:element name="ClassId" type="xsd:string" />
+          <xsd:element name="InstanceSettings" minOccurs="0" maxOccurs="1" type="SettingsType" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+          <OverrideableParameter ID="NoOfRetries" ParameterType="int" Selector="$Config/NoOfRetries$"/>
+          <OverrideableParameter ID="Timeout" ParameterType="int" Selector="$Config/Timeout$"/>
+          <OverrideableParameter ID="TraceLevel" ParameterType="int" Selector="$Config/TraceLevel$"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="QND.SNMP.TranslateTable">
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <TableOID>$Config/OID$</TableOID>
+                <TableIndex>$Config/TableIndexOID$</TableIndex>
+                <NormalizeTable>$Config/NormalizeTable$</NormalizeTable>
+                <TraceLevel>$Config/TraceLevel$</TraceLevel>
+              </ProbeAction>
+              <ConditionDetection ID="Filter" TypeID="System!System.ExpressionFilter">
+                <Expression>$Config/Filter$</Expression>
+              </ConditionDetection>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$Config/ClassId$</ClassId>
+                <InstanceSettings>$Config/InstanceSettings$</InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Filter">
+                  <Node ID="Probe">
+                    <Node ID="Scheduler" />
+                  </Node>
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+
+      <!-- SNmpSharp library based probes -->
+      <ProbeActionModuleType ID="QND.SNMP.GetTable.PT" Accessibility="Public">
+        <Configuration>
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout" type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3UserName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3AuthPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivProtocol" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3PrivPassword" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SNMPv3ContextName" type="xsd:string" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element name="Version" type="xsd:string" />
+          <xsd:element name="TableOID" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="TableIndex" type="xsd:string" default="1"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="TraceLevel" type="xsd:unsignedInt" default="2"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="ScriptTimeoutSeconds" type="xsd:unsignedInt" default="300"/>
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="NoOfRetries" ParameterType="int" Selector="$Config/NoOfRetries$"/>
+          <OverrideableParameter ID="Timeout" ParameterType="int" Selector="$Config/Timeout$"/>
+          <OverrideableParameter ID="TraceLevel" ParameterType="int" Selector="$Config/TraceLevel$"/>
+          <OverrideableParameter ID="ScriptTimeoutSeconds" ParameterType="int" Selector="$Config/ScriptTimeoutSeconds$"/>
+        </OverrideableParameters>
+        <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="Probe" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+                <ScriptName>Get-SnmpTable.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/Get-SnmpTable.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>SharpSnmpLib</Name>
+                    <Value> </Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>IP</Name>
+                    <Value>$Config/IP$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TableOID</Name>
+                    <Value>$Config/TableOID$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TableIndexID</Name>
+                    <Value>$Config/TableIndex$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Port</Name>
+                    <Value>$Config/Port$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Version</Name>
+                    <Value>$Config/Version$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Timeout</Name>
+                    <Value>$Config/Timeout$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Retries</Name>
+                    <Value>$Config/NoOfRetries$</Value>
+                  </Parameter>                  
+                  <Parameter>
+                    <Name>Community</Name>
+                    <Value>$Config/CommunityString$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3UserName</Name>
+                    <Value>$Config/SNMPv3UserName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3AuthProtocol</Name>
+                    <Value>$Config/SNMPv3AuthProtocol$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3AuthPassword</Name>
+                    <Value>$Config/SNMPv3AuthPassword$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3PrivProtocol</Name>
+                    <Value>$Config/SNMPv3PrivProtocol$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3PrivPassword</Name>
+                    <Value>$Config/SNMPv3PrivPassword$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3ContextName</Name>
+                    <Value>$Config/SNMPv3ContextName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TraceLevel</Name>
+                    <Value>$Config/TraceLevel$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/ScriptTimeoutSeconds$</TimeoutSeconds>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID ="Probe" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
+
+      <!-- QND SCOM Data Item Encoder based probes -->
+      <ProbeActionModuleType ID ="QND.SNMP.TranslateTable" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="0" maxOccurs="1" default="3" name="NoOfRetries" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="1500" name="Timeout" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:integer" />
+          <xsd:element minOccurs="1" name="TableOID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="TableIndex" type="xsd:string" />
+          <xsd:element minOccurs="1" name="NormalizeTable" type="xsd:string" default="true" />
+          <xsd:element minOccurs="1" name="TraceLevel" type="xsd:string" default="2"/>
+        </Configuration>
+        <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="SnmpProbe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>true</WalkReturnMultipleItems>
+                <NoOfRetries>$Config/NoOfRetries$</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <!-- $Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$ -->
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <!-- $RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$ -->
+                <Version>$Config/Version$</Version>
+                <!-- $Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$-->
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>$Config/TableOID$</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+              <ProbeAction ID="Translate" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+                <ScriptName>Translate-SnmpTable.ps1</ScriptName>
+                <ScriptBody>
+                  $IncludeFileContent/Scripts/Translate-SnmpTable.ps1$
+                </ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>Doc</Name>
+                    <Value>$Data/EncodedItem$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>tableOID</Name>
+                    <Value>$Config/TableOID$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>tableIndexID</Name>
+                    <Value>$Config/TableIndex$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>pnormalize</Name>
+                    <Value>$Config/NormalizeTable$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TraceLevel</Name>
+                    <Value>$Config/TraceLevel$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>30</TimeoutSeconds>
+                <StrictErrorHandling>false</StrictErrorHandling>
+              </ProbeAction>
+              <ConditionDetection ID="Encode" TypeID="QDL!QND.Library.DataItemEncoder">
+                <ReturnMultipleItems>false</ReturnMultipleItems>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="Translate">
+                <Node ID="Encode">
+                  <Node ID="SnmpProbe" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+</ManagementPackFragment>

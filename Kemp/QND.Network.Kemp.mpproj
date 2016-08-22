@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{f69cfcac-06e4-4fd6-94f5-8ec0eccd9cb7}</ProjectGuid>
+    <RootNamespace>QND.Network.Kemp.LoadMaster</RootNamespace>
+    <Name>QND Kemp LM monitoring</Name>
+    <ManagementPackName>QND.Network.Kemp</ManagementPackName>
+    <Version>2.0.0.62</Version>
+    <MpFrameworkVersion>v7.0</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>QND</Company>
+    <Copyright>Copyright (c) QND. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>C:\Users\grandinid\SkyDrive\Dev\OpsMgr\Firma\QND1.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DependencyMonitors.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>DependencyMonitors.mptg</DependentUpon>
+    </Compile>
+    <Compile Include="Device.Monitors.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DeviceDashboard.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Groups.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces-Rules.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="KnowledgeBase.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MPIdentity.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PerfRules.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>PerfRules.mptg</DependentUpon>
+    </Compile>
+    <Compile Include="QND.Network.Kemp.LoadMaster.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IPVSClass.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ModuleTypes.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>Monitors.mptg</DependentUpon>
+    </Compile>
+    <Compile Include="RSVSClass.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Kemp.LoadMaster.Folder.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Kemp.LoadMaster.Views.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>Views\Kemp.LoadMaster.Views.mptg</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SystemCenter.DataWarehouse.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.SystemCenter.DataWarehouse.Library.mp</HintPath>
+      <Alias>DW</Alias>
+      <MinVersion>7.1.10226.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Image.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.SystemCenter.Image.Library.mp</HintPath>
+      <Alias>Image</Alias>
+      <MinVersion>7.1.10226.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.InstanceGroup.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.SystemCenter.InstanceGroup.Library.mp</HintPath>
+      <Alias>MSIL</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.SystemCenter.Library.mp</HintPath>
+      <Alias>SC</Alias>
+      <MinVersion>7.0.8433.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Component.Library">
+      <HintPath>C:\Users\grandinid\SkyDrive\Dev\OpsMgr\GIT\QNDSNMP\References\Microsoft.SystemCenter.Visualization.Component.Library.mpb</HintPath>
+      <Alias>VisComp</Alias>
+      <MinVersion>7.1.10226.1037</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.SystemCenter.Visualization.Library.mp</HintPath>
+      <Alias>Visualization</Alias>
+      <MinVersion>7.1.10226.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\Microsoft.Windows.Library.mp</HintPath>
+      <Alias>Windows</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="QND.SNMP.Library">
+      <HintPath>C:\Users\grandinid\SkyDrive\Dev\OpsMgr\GIT\QNDSNMP\References\QND.SNMP.Library.mpb</HintPath>
+      <Alias>QSNMPLib</Alias>
+      <MinVersion>1.0.0.105</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.Health.Library.mp</HintPath>
+      <Alias>Health</Alias>
+      <MinVersion>7.0.8433.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.Library.mp</HintPath>
+      <Alias>System</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.NetworkManagement.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.NetworkManagement.Library.mp</HintPath>
+      <Alias>Network</Alias>
+      <MinVersion>7.0.8560.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.NetworkManagement.Monitoring">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.NetworkManagement.Monitoring.mp</HintPath>
+      <Alias>NetworkMonitoring</Alias>
+      <MinVersion>7.1.10226.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Performance.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.Performance.Library.mp</HintPath>
+      <Alias>Perf</Alias>
+      <MinVersion>7.0.8433.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Snmp.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.Snmp.Library.mp</HintPath>
+      <Alias>SSL</Alias>
+      <MinVersion>7.0.8433.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataSamples" />
+    <Folder Include="SquaredUp" />
+    <Folder Include="Views" />
+    <Folder Include="Scripts" />
+    <Folder Include="SNMP" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SNMP\B100-MIB.txt">
+      <SubType>Content</SubType>
+    </None>
+    <None Include="SNMP\IPVS-MIB.txt">
+      <SubType>Content</SubType>
+    </None>
+    <None Include="SNMP\kemp.txt">
+      <SubType>Content</SubType>
+    </None>
+    <None Include="SNMP\ONE4NET-MIB.txt">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DependencyMonitors.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
+    <Content Include="Monitors.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
+    <Content Include="PerfRules.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
+    <Content Include="SNMP\KempWalk1.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SNMP\KempWalk2.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Views\Kemp.LoadMaster.Views.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataSamples\TableTranslatedIntoPropertyBag.xml" />
+    <EmbeddedResource Include="Scripts\Remap-IVS.ps1" />
+    <EmbeddedResource Include="Scripts\Remap-RS.ps1" />
+    <EmbeddedResource Include="SquaredUp\Kemp - Overview.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

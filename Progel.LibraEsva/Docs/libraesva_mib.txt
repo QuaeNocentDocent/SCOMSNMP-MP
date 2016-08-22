@@ -1,0 +1,74 @@
+LIBRA-MIB DEFINITIONS ::= BEGIN
+
+-- ----------------------------------------------------- --
+-- ----------------------------------------------------- --
+-- LIBRA MIB v1.0 (c) 2013 xxxxxxxxxxxxxxxxxxxxxxxxxxx   --
+-- ----------------------------------------------------- --
+-- ----------------------------------------------------- --
+
+	IMPORTS
+		Counter, TimeTicks, enterprises
+			FROM RFC1155-SMI
+		DisplayString
+			FROM RFC1213-MIB
+		TRAP-TYPE
+			FROM RFC-1215;
+
+	libra			OBJECT IDENTIFIER ::= { enterprises 41091 }
+	esva			OBJECT IDENTIFIER ::= { libra 1 }
+	mail			OBJECT IDENTIFIER ::= { esva 1 }
+
+-- ------------------------------ --
+-- 1. ESVA MAIL COUNTERS          --
+-- ------------------------------ --
+
+	mailSent OBJECT-TYPE
+		SYNTAX	Counter32
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Cumulative number of sent messages"
+                ::= { mail 1 }
+
+	mailReceived OBJECT-TYPE
+		SYNTAX	Counter32
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Cumulative number of received messages"
+                ::= { mail 2 }
+				
+	mailRejected OBJECT-TYPE
+		SYNTAX	Counter32
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Cumulative number of rejected messages"
+                ::= { mail 3 }
+		
+	mailBounced OBJECT-TYPE
+		SYNTAX	Counter32
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Cumulative number of bounced messages"
+                ::= { mail 4 }
+				
+	spamMessages OBJECT-TYPE
+		SYNTAX	Counter32
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Cumulative number of messages classified as spam"
+                ::= { mail 5 }
+				
+	virusMessages OBJECT-TYPE
+		SYNTAX	Counter32
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Cumulative number of sent messages"
+                ::= { mail 6 }
+
+	mailQueue OBJECT-TYPE
+		SYNTAX	INTEGER
+                ACCESS	read-only
+                STATUS	mandatory
+                DESCRIPTION "Number of messages held in queue"
+                ::= { mail 7 }
+				
+END

@@ -1,0 +1,223 @@
+﻿<ManagementPackFragment SchemaVersion="2.0">
+  <Monitoring>
+    <Rules>
+      <Rule ID="#text('Rule Id')#" Enabled="true" Target="#alias('Microsoft.Windows.Library')#!Microsoft.Windows.Computer" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="#alias('System.Performance.Library')#!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Property[Type="#alias('Microsoft.Windows.Library')#!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName><![CDATA[#text('Perf Counter Name')#]]></CounterName>
+            <ObjectName>#text('Perf Object Name')#</ObjectName>
+            <InstanceName>#text('Perf Instance Name')#</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>#choice('Collection Frequency', list("60","120","300","900"))#</Frequency>
+            <Tolerance>0</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>1</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="#alias('Microsoft.SystemCenter.Library')#!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="#alias('Microsoft.SystemCenter.DataWarehouse.Library')#!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+
+      <Rule ID="System.NetworkManagement.Cisco.Processor.CurrentUtilization" Enabled="true" Target="NetworkLibrary!System.NetworkManagement.Cisco_Performance_Processor" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="System.NetworkManagement.SnmpPerformanceProvider.ProcessorUtilization">
+            <Interval>300</Interval>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>3500</Timeout>
+            <ObjectName>Processor</ObjectName>
+            <CounterName>% Processor Time</CounterName>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="CollectionFilter" TypeID="System.NetworkManagement.ExpressionFilter">
+          <Expression />
+          <SuppressionSettings>
+            <MatchCount>3</MatchCount>
+            <SampleCount>3</SampleCount>
+          </SuppressionSettings>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SystemCenter!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="SCDW!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="System.NetworkManagement.CiscoSystem.Processor.CurrentUtilization" Enabled="true" Target="NetworkLibrary!System.NetworkManagement.CiscoSystem_Performance_Processor" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="System.NetworkManagement.ExtendedSnmpPerformanceProvider">
+            <Interval>300</Interval>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>3500</Timeout>
+            <OID>.1.3.6.1.4.1.9.9.305.1.1.1.$Target/Property[Type="NetworkLibrary!System.NetworkManagement.LogicalDevice"]/Index$</OID>
+            <ObjectName>Processor</ObjectName>
+            <CounterName>% Processor Time</CounterName>
+          </DataSource>
+        </DataSources>
+        <ConditionDetection ID="CollectionFilter" TypeID="System.NetworkManagement.ExpressionFilter">
+          <Expression />
+          <SuppressionSettings>
+            <MatchCount>3</MatchCount>
+            <SampleCount>3</SampleCount>
+          </SuppressionSettings>
+        </ConditionDetection>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SystemCenter!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="SCDW!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>      
+    </Rules>
+    <Monitors>
+      <UnitMonitor ID="System.NetworkManagement.Acmepacket.Processor.HighUtilization" Accessibility="Public" Enabled="true" Target="NetworkLibrary!System.NetworkManagement.Acmepacket_Performance_Processor" ParentMonitorID="SystemHealth!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="System.NetworkManagement.ThresholdMonitor" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="System.NetworkManagement.Generic.Processor.HighUtilization.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/SampleValue$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="MTSThresholdError" HealthState="Error" />
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="MTSThresholdSuccess" HealthState="Success" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <Timeout>3500</Timeout>
+          <OID>.1.3.6.1.4.1.9148.3.2.1.1.1.$Target/Property[Type="NetworkLibrary!System.NetworkManagement.LogicalDevice"]/Index$</OID>
+          <Threshold>90</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+          <ObjectName>Processor</ObjectName>
+          <CounterName>% Processor Time</CounterName>
+        </Configuration>
+      </UnitMonitor>
+      <UnitMonitor ID="System.NetworkManagement.Alaxala.Memory.InsufficientFreeMemory" Accessibility="Public" Enabled="true" Target="NetworkLibrary!System.NetworkManagement.Alaxala_Performance_Memory" ParentMonitorID="SystemHealth!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="System.NetworkManagement.ComputedLowThresholdMonitorType.Division" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="System.NetworkManagement.Generic.Memory.InsufficientFreeMemory.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Value$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="MTSThresholdSuccess" HealthState="Success" />
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="MTSThresholdError" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <Timeout>3500</Timeout>
+          <SnmpVarBinds>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.21839.2.2.6.2.1.2.1.7.$Target/Property[Type="NetworkLibrary!System.NetworkManagement.LogicalDevice"]/Index$</OID>
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.21839.2.2.6.2.1.2.1.9.$Target/Property[Type="NetworkLibrary!System.NetworkManagement.LogicalDevice"]/Index$</OID>
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+          </SnmpVarBinds>
+          <Numerator>
+            <Product>
+              <NumericValue>
+                <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.21839.2.2.6.2.1.2.1.9.$Target/Property[Type="NetworkLibrary!System.NetworkManagement.LogicalDevice"]/Index$"]/Value</XPathQuery>
+              </NumericValue>
+              <NumericValue>
+                <Value>100.0</Value>
+              </NumericValue>
+            </Product>
+          </Numerator>
+          <Denominator>
+            <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.21839.2.2.6.2.1.2.1.7.$Target/Property[Type="NetworkLibrary!System.NetworkManagement.LogicalDevice"]/Index$"]/Value</XPathQuery>
+          </Denominator>
+          <DefaultValue>0.0</DefaultValue>
+          <Threshold>15</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+          <ObjectName>Memory</ObjectName>
+          <CounterName>Free Memory %</CounterName>
+        </Configuration>
+      </UnitMonitor>
+
+      
+      
+      
+      
+      
+    </Monitors>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Test">
+          <Name>Test</Name>
+        </DisplayString>
+        <DisplayString ElementID="Test.CollectionRule">
+          <Name>Test Collect Perf</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+  
+  
+<ProbeAction ID="SnmpProbe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+  <Walk>false</Walk>
+  <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+  <NoOfRetries>3</NoOfRetries>
+  <Timeout>$Config/Timeout$</Timeout>
+  <Port>$Config/Port$</Port>
+  <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+  <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+  <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+  <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+  <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+  <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+  <IsWriteAction>false</IsWriteAction>
+  <IP>$Config/IP$</IP>
+  <CommunityString>$Config/CommunityString$</CommunityString>
+  <Version>$Config/Version$</Version>
+  <SnmpVarBinds>
+    <SnmpVarBind>
+      <OID>.1.3.6.1.2.1.25.2.3.1.1.$Data/Property["Index"]$</OID>
+      <!-- hrStorageIndex needed because we miss context data passing from one module to another -->
+      <Syntax>0</Syntax>
+      <Value VariantType="8" />
+    </SnmpVarBind>
+    <SnmpVarBind>
+      <OID>.1.3.6.1.2.1.25.2.3.1.3.$Data/Property["Index"]$</OID>
+      <!-- hrStorageDescr -->
+      <Syntax>0</Syntax>
+      <Value VariantType="8" />
+    </SnmpVarBind>
+    <SnmpVarBind>
+      <OID>.1.3.6.1.2.1.25.2.3.1.4.$Data/Property["Index"]$</OID>
+      <!-- hrStorageAllocationUnits -->
+      <Syntax>0</Syntax>
+      <Value VariantType="8" />
+    </SnmpVarBind>
+    <SnmpVarBind>
+      <OID>.1.3.6.1.2.1.25.2.3.1.5.$Data/Property["Index"]$</OID>
+      <!-- hrStorageSize -->
+      <Syntax>0</Syntax>
+      <Value VariantType="8" />
+    </SnmpVarBind>
+  </SnmpVarBinds>
+  <OutputOnError>false</OutputOnError>
+</ProbeAction>
+  
+</ManagementPackFragment>
+
+
+

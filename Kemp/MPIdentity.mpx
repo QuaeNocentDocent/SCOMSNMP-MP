@@ -1,0 +1,46 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="QND.Network.Kemp">
+          <Name>QND Kemp LoadMaster monitoring (community MP)</Name>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="QND.Network.Kemp" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This Management Pack monitors Kemp LoadMaster Devices v7.</maml:para>
+              <maml:para>Kemp LoadMaster Devices have to be discovered first through the built-in SCOM 2012 R2 Network Monitoring.</maml:para>
+              <maml:para>Performance data (CPU and Memory) is collected for LoadMaster Devices.</maml:para>
+              <maml:para>The Management Pack discovers LoadMaster Virtual Services and Real Servers and monitors their state.</maml:para>
+              <maml:para>Additionally performance data for Virtual Services and Real Servers is also being collected.</maml:para>
+              <maml:para>
+              <maml:navigationLink>
+                <maml:linkText>CodePlex Project</maml:linkText>
+                <maml:uri href="https://kemplmmp.codeplex.com/" />
+              </maml:navigationLink>
+              </maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Configuration</maml:title>
+              <maml:para>The Management Pack depends on the QND.DataItemEncoder.Libraryand on the QND.SNMP.Library management pack, this MP needs to be imported together with the Kemp MP.</maml:para>
+              <maml:para>To enable the Kemp LoadMaster device monitoring the device must be discovered using the standard Operations Manager SNMP Discovery process.</maml:para>
+              <maml:para>
+                <maml:navigationLink>
+                  <maml:linkText>CodePlex Project for QND.DataItemEncoder.Library</maml:linkText>
+                  <maml:uri href="https://scommm.codeplex.com/" />
+                </maml:navigationLink>
+                <maml:navigationLink>
+                  <maml:linkText>CodePlex Project for QND.SNMP.Library</maml:linkText>
+                  <maml:uri href="https://qndsnmp.codeplex.com/" />
+                </maml:navigationLink>                
+              </maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

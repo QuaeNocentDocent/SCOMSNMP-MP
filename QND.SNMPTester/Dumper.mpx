@@ -1,0 +1,167 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="QND.SNMPTester.Dumper.DS" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds$"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime$"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+                <ScriptName>Dump-V3Params.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/Dump-V3Params.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>IP</Name>
+                    <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Port</Name>
+                    <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Version</Name>
+                    <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Community</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3UserName</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3AuthProtocol</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3AuthPassword</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3PrivProtocol</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3PrivPassword</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3ContextName</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</Value>
+                  </Parameter>                  
+                </Parameters>
+                <TimeoutSeconds>60</TimeoutSeconds>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+                  <Node ID="Probe">
+                    <Node ID="Scheduler" />
+                  </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+      </DataSourceModuleType>
+      <WriteActionModuleType ID="QND.SNMPTester.Dumper.PT" Accessibility="Internal">
+          <Configuration>
+          </Configuration>
+  <ModuleImplementation>
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="Probe" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagWriteAction">
+                <ScriptName>Dump-V3Params.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Scripts/Dump-V3Params.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>IP</Name>
+                    <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Port</Name>
+                    <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Version</Name>
+                    <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Community</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3UserName</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3AuthProtocol</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3AuthPassword</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3PrivProtocol</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3PrivPassword</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>SNMPv3ContextName</Name>
+                    <Value>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>60</TimeoutSeconds>
+              </WriteAction>              
+            </MemberModules>
+            <Composition>
+              <Node ID ="Probe" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Rules>
+      <Rule ID="QND.SNMPTester.Dumper.Rule" Enabled="true" Target="Network!System.NetworkManagement.Node">
+        <Category>Operations</Category>
+        <DataSources>
+          <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+            <Scheduler>
+              <SimpleReccuringSchedule>
+                <Interval>60</Interval>
+                <SyncTime></SyncTime>
+              </SimpleReccuringSchedule>
+              <ExcludeDates />
+            </Scheduler>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteEvent" TypeID="QND.SNMPTester.Dumper.PT" />
+        </WriteActions>
+      </Rule>
+    </Rules>
+  </Monitoring>
+</ManagementPackFragment>

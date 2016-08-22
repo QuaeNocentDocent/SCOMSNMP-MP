@@ -1,0 +1,524 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Presentation>
+    <ComponentTypes>
+      <ComponentType ID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" Accessibility="Public" Base="Visualization!Microsoft.SystemCenter.Visualization.GridLayout" Lifetime="ReferenceCount" />
+      <ComponentType ID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_Properties" Accessibility="Public" Base="Visualization!Microsoft.SystemCenter.Visualization.GenericDetailsWidget" Lifetime="ReferenceCount" />
+      <ComponentType ID="UIGenerated_91219f56483f42acac85fce5ccde3355_Performance" Accessibility="Public" Base="Visualization!Microsoft.SystemCenter.Visualization.PerformanceWidget" Lifetime="ReferenceCount" />
+      <ComponentType ID="UIGenerated_70caab630b084f599aa5a2d99956aadd_Devices" Accessibility="Public" Base="Visualization!Microsoft.SystemCenter.Visualization.StateWidget" Lifetime="ReferenceCount" />
+      <ComponentType ID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxt" Accessibility="Public" Base="VisComp!Microsoft.SystemCenter.Visualization.Component.Library.ObjectHealthWidgetContextual" Lifetime="ReferenceCount" />
+
+    </ComponentTypes>
+    <ComponentReferences>
+      <ComponentReference ID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevicesReference_9fbb61dab7ef400b85f6e2673b1305f2" Accessibility="Public" TypeID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" Parent="QND.Network.Kemp.LoadMaster.Folder" />
+      <ComponentReference ID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_PropertiesReference_de759c74e04a46859d38a173d434c659" Accessibility="Public" TypeID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_Properties" Parent="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" />
+      <ComponentReference ID="UIGenerated_91219f56483f42acac85fce5ccde3355_PerformanceReference_ac81f29a9236447c9783df4c37c7f2ac" Accessibility="Public" TypeID="UIGenerated_91219f56483f42acac85fce5ccde3355_Performance" Parent="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" />
+      <ComponentReference ID="UIGenerated_70caab630b084f599aa5a2d99956aadd_DevicesReference_6f4fd46c3959479081b34e6e9f02252f" Accessibility="Public" TypeID="UIGenerated_70caab630b084f599aa5a2d99956aadd_Devices" Parent="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" />
+      <ComponentReference ID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxtReference_a2c2040978864650a44bf88027bcfcaf" Accessibility="Public" TypeID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxt" Parent="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" />
+      
+    </ComponentReferences>
+    <ComponentOverrides>
+      <ComponentOverride ID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevicesOverride" TypeID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices">
+        <Bindings>
+          <Binding PropertyId="ConfigType">
+            <SimpleValue Type="xsd://string" Value="Microsoft.SystemCenter.Visualization.Library!GridLayout04CellTiledConfig" />
+          </Binding>
+          <Binding PropertyId="CellRegionMappings">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.LayoutConfig/CellRegionMapping[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.LayoutConfig/CellRegionMapping">
+                <Binding PropertyId="RegionContent">
+                  <SimpleValue Type="xsd://string" Value="QND.Network.Kemp!UIGenerated_70caab630b084f599aa5a2d99956aadd_DevicesReference_6f4fd46c3959479081b34e6e9f02252f" />
+                </Binding>
+                <Binding PropertyId="RegionId">
+                  <SimpleValue Type="xsd://string" Value="UIGeneratedRegion_746b75de2f324914be45818e468f2dcf" />
+                </Binding>
+                <Binding PropertyId="RegionParameters" />
+                <Binding PropertyId="CellIndex">
+                  <SimpleValue Type="xsd://int" Value="0" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.LayoutConfig/CellRegionMapping">
+                <Binding PropertyId="RegionContent">
+                  <SimpleValue Type="xsd://string" Value="QND.Network.Kemp!UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxtReference_a2c2040978864650a44bf88027bcfcaf" />
+                </Binding>
+                <Binding PropertyId="RegionId">
+                  <SimpleValue Type="xsd://string" Value="UIGeneratedRegion_7625ecc9a3184d6897fda8c72597699b" />
+                </Binding>
+                <Binding PropertyId="RegionParameters" />
+                <Binding PropertyId="CellIndex">
+                  <SimpleValue Type="xsd://int" Value="1" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.LayoutConfig/CellRegionMapping">
+                <Binding PropertyId="RegionContent">
+                  <SimpleValue Type="xsd://string" Value="QND.Network.Kemp!UIGenerated_91219f56483f42acac85fce5ccde3355_PerformanceReference_ac81f29a9236447c9783df4c37c7f2ac" />
+                </Binding>
+                <Binding PropertyId="RegionId">
+                  <SimpleValue Type="xsd://string" Value="UIGeneratedRegion_8d1076e661654a4e8f5825c273533f49" />
+                </Binding>
+                <Binding PropertyId="RegionParameters" />
+                <Binding PropertyId="CellIndex">
+                  <SimpleValue Type="xsd://int" Value="2" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.LayoutConfig/CellRegionMapping">
+                <Binding PropertyId="RegionContent">
+                  <SimpleValue Type="xsd://string" Value="QND.Network.Kemp!UIGenerated_ed65ddbe20de4392b02e83a240c2d363_PropertiesReference_de759c74e04a46859d38a173d434c659" />
+                </Binding>
+                <Binding PropertyId="RegionId">
+                  <SimpleValue Type="xsd://string" Value="UIGeneratedRegion_53c7d46d8cde45e485870bca44d29708" />
+                </Binding>
+                <Binding PropertyId="RegionParameters" />
+                <Binding PropertyId="CellIndex">
+                  <SimpleValue Type="xsd://int" Value="3" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+        </Bindings>
+      </ComponentOverride>
+
+      <ComponentOverride ID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_PropertiesOverride" TypeID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_Properties" Context="/QND.Network.Kemp!UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/UIGeneratedRegion_53c7d46d8cde45e485870bca44d29708/Microsoft.SystemCenter.Visualization.Library!ComposedRegion/QND.Network.Kemp!UIGenerated_ed65ddbe20de4392b02e83a240c2d363_Properties/" />
+      <ComponentOverride ID="UIGenerated_91219f56483f42acac85fce5ccde3355_PerformanceOverride" TypeID="UIGenerated_91219f56483f42acac85fce5ccde3355_Performance" Context="/QND.Network.Kemp!UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/UIGeneratedRegion_8d1076e661654a4e8f5825c273533f49/Microsoft.SystemCenter.Visualization.Library!ComposedRegion/QND.Network.Kemp!UIGenerated_91219f56483f42acac85fce5ccde3355_Performance/">
+        <Bindings>
+          <Binding PropertyId="PerformanceObjectCounters">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.DataSourceTypes/PerformanceDataSeriesQueryType[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.DataSourceTypes/PerformanceDataSeriesQueryType">
+                <Binding PropertyId="PerformanceObjectName">
+                  <SimpleValue Type="xsd://string" Value="ICMP Ping" />
+                </Binding>
+                <Binding PropertyId="PerformanceCounterName">
+                  <SimpleValue Type="xsd://string" Value="Response Time (ms)" />
+                </Binding>
+                <Binding PropertyId="PerformanceCounterInstanceName">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="ManagedEntityIds">
+                  <ComplexValueCollection Type="mpinstance://System.Library!System.Entity[]">
+                    <ComplexValue Type="mpinstance://System.Library!System.Entity">
+                      <Binding PropertyId="Id">
+                        <SimpleValue Type="xsd://string" Value="76a368ff-5096-fa44-bd7f-72d8acddded9" />
+                      </Binding>
+                    </ComplexValue>
+                    <ComplexValue Type="mpinstance://System.Library!System.Entity">
+                      <Binding PropertyId="Id">
+                        <Reference>$MPReference/QND.Network.Kemp!QND.Network.Kemp.LoadMaster.KempDeviceGroup/Id$</Reference>
+                      </Binding>
+                    </ComplexValue>
+                  </ComplexValueCollection>
+                </Binding>
+                <Binding PropertyId="DatapointReduction">
+                  <SimpleValue Type="xsd://string" Value="Average" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.DataSourceTypes/PerformanceDataSeriesQueryType">
+                <Binding PropertyId="PerformanceObjectName">
+                  <SimpleValue Type="xsd://string" Value="Memory" />
+                </Binding>
+                <Binding PropertyId="PerformanceCounterName">
+                  <SimpleValue Type="xsd://string" Value="% Available Memory" />
+                </Binding>
+                <Binding PropertyId="PerformanceCounterInstanceName">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="ManagedEntityIds">
+                  <ComplexValueCollection Type="mpinstance://System.Library!System.Entity[]">
+                    <ComplexValue Type="mpinstance://System.Library!System.Entity">
+                      <Binding PropertyId="Id">
+                        <SimpleValue Type="xsd://string" Value="76a368ff-5096-fa44-bd7f-72d8acddded9" />
+                      </Binding>
+                    </ComplexValue>
+                    <ComplexValue Type="mpinstance://System.Library!System.Entity">
+                      <Binding PropertyId="Id">
+                        <Reference>$MPReference/QND.Network.Kemp!QND.Network.Kemp.LoadMaster.KempDeviceGroup/Id$</Reference>
+                      </Binding>
+                    </ComplexValue>                    
+                  </ComplexValueCollection>
+                </Binding>
+                <Binding PropertyId="DatapointReduction">
+                  <SimpleValue Type="xsd://string" Value="Average" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.DataSourceTypes/PerformanceDataSeriesQueryType">
+                <Binding PropertyId="PerformanceObjectName">
+                  <SimpleValue Type="xsd://string" Value="Processor" />
+                </Binding>
+                <Binding PropertyId="PerformanceCounterName">
+                  <SimpleValue Type="xsd://string" Value="% Processor Time" />
+                </Binding>
+                <Binding PropertyId="PerformanceCounterInstanceName">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="ManagedEntityIds">
+                  <ComplexValueCollection Type="mpinstance://System.Library!System.Entity[]">
+                    <ComplexValue Type="mpinstance://System.Library!System.Entity">
+                      <Binding PropertyId="Id">
+                        <SimpleValue Type="xsd://string" Value="76a368ff-5096-fa44-bd7f-72d8acddded9" />
+                      </Binding>
+                    </ComplexValue>
+                    <ComplexValue Type="mpinstance://System.Library!System.Entity">
+                      <Binding PropertyId="Id">
+                        <Reference>$MPReference/QND.Network.Kemp!QND.Network.Kemp.LoadMaster.KempDeviceGroup/Id$</Reference>
+                      </Binding>
+                    </ComplexValue>
+                  </ComplexValueCollection>
+                </Binding>
+                <Binding PropertyId="DatapointReduction">
+                  <SimpleValue Type="xsd://string" Value="Average" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+          <Binding PropertyId="DateRange">
+            <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ChartDataTypes/DynamicDateTimeRange">
+              <Binding PropertyId="StartPoint">
+                <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ChartDataTypes/DateTimeRangePart">
+                  <Binding PropertyId="BaseDateTime">
+                    <SimpleValue Type="xsd://string" Value="Present" />
+                  </Binding>
+                  <Binding PropertyId="Offset">
+                    <SimpleValue Type="xsd://integer" Value="-24" />
+                  </Binding>
+                  <Binding PropertyId="OffsetType">
+                    <SimpleValue Type="xsd://string" Value="Hour" />
+                  </Binding>
+                </ComplexValue>
+              </Binding>
+              <Binding PropertyId="EndPoint">
+                <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ChartDataTypes/DateTimeRangePart">
+                  <Binding PropertyId="BaseDateTime">
+                    <SimpleValue Type="xsd://string" Value="Present" />
+                  </Binding>
+                  <Binding PropertyId="Offset">
+                    <SimpleValue Type="xsd://integer" Value="0" />
+                  </Binding>
+                  <Binding PropertyId="OffsetType">
+                    <SimpleValue Type="xsd://string" Value="Day" />
+                  </Binding>
+                </ComplexValue>
+              </Binding>
+            </ComplexValue>
+          </Binding>
+          <Binding PropertyId="Axes">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ChartDataTypes/LinearAxis[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ChartDataTypes/LinearAxis">
+                <Binding PropertyId="Minimum">
+                  <SimpleValue Type="xsd://integer" Value="0" />
+                </Binding>
+                <Binding PropertyId="Maximum">
+                  <SimpleValue Type="xsd://integer" Value="100" />
+                </Binding>
+                <Binding PropertyId="AutoCalculate">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Orientation">
+                  <SimpleValue Type="xsd://string" Value="Y" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+          <Binding PropertyId="ShowLegend">
+            <SimpleValue Type="xsd://boolean" Value="True" />
+          </Binding>
+          <Binding PropertyId="LegendColumns">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="$MPReference/Microsoft.SystemCenter.Visualization.Configuration.Library!Microsoft.SystemCenter.Visualization.Library.PerfChartConfigColumns.Target/DisplayName$" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="Auto" />
+                </Binding>
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="DisplayName" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="$MPReference/Microsoft.SystemCenter.Visualization.Configuration.Library!Microsoft.SystemCenter.Visualization.Library.PerfChartConfigColumns.Path/DisplayName$" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="*" />
+                </Binding>
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="Path" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="$MPReference/Microsoft.SystemCenter.Visualization.Configuration.Library!Microsoft.SystemCenter.Visualization.Library.PerfChartConfigColumns.LastValue/DisplayName$" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="*" />
+                </Binding>
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="LastValue" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+        </Bindings>
+      </ComponentOverride>
+      <ComponentOverride ID="UIGenerated_70caab630b084f599aa5a2d99956aadd_DevicesOverride" TypeID="UIGenerated_70caab630b084f599aa5a2d99956aadd_Devices" Context="/QND.Network.Kemp!UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/UIGeneratedRegion_746b75de2f324914be45818e468f2dcf/Microsoft.SystemCenter.Visualization.Library!ComposedRegion/QND.Network.Kemp!UIGenerated_70caab630b084f599aa5a2d99956aadd_Devices/">
+        <Bindings>
+          <Binding PropertyId="BaseManagementPackTypes">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.OperationalDataTypes/BaseManagementPackType[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.OperationalDataTypes/BaseManagementPackType">
+                <Binding PropertyId="FullyQualifiedName">
+                  <SimpleValue Type="xsd://string" Value="QND.Network.Kemp!QND.Network.Kemp.LoadMaster" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+          <Binding PropertyId="ShowSearchBar">
+            <SimpleValue Type="xsd://boolean" Value="True" />
+          </Binding>
+          <Binding PropertyId="Columns">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="$MPReference/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.Library.Entity.HealthState/DisplayName$" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="Auto" />
+                </Binding>
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="HealthState" />
+                </Binding>
+                <Binding PropertyId="XPath">
+                  <SimpleValue Type="xsd://string" Value="$Object/Property[Name='HealthState']$" />
+                </Binding>
+                <Binding PropertyId="SourceType">
+                  <SimpleValue Type="xsd://string" Value="ManagedEntity" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="DisplayName" />
+                </Binding>
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="Display Name" />
+                </Binding>
+                <Binding PropertyId="CellComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="XPath">
+                  <SimpleValue Type="xsd://string" Value="$Object/PropertyCollection[Name='DisplayName']$" />
+                </Binding>
+                <Binding PropertyId="SourceType">
+                  <SimpleValue Type="xsd://string" Value="ManagedEntity" />
+                </Binding>
+                <Binding PropertyId="HeaderComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="Auto" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="Model" />
+                </Binding>
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="Model" />
+                </Binding>
+                <Binding PropertyId="CellComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="XPath">
+                  <SimpleValue Type="xsd://string" Value="$Object/PropertyCollection[Name='Model']$" />
+                </Binding>
+                <Binding PropertyId="SourceType">
+                  <SimpleValue Type="xsd://string" Value="ManagedEntity" />
+                </Binding>
+                <Binding PropertyId="HeaderComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="Auto" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="Version" />
+                </Binding>
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="Version" />
+                </Binding>
+                <Binding PropertyId="CellComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="XPath">
+                  <SimpleValue Type="xsd://string" Value="$Object/PropertyCollection[Name='Version']$" />
+                </Binding>
+                <Binding PropertyId="SourceType">
+                  <SimpleValue Type="xsd://string" Value="ManagedEntity" />
+                </Binding>
+                <Binding PropertyId="HeaderComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="Auto" />
+                </Binding>
+              </ComplexValue>
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataGridColumn">
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="PatchVersion" />
+                </Binding>
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="Patch Level" />
+                </Binding>
+                <Binding PropertyId="CellComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="XPath">
+                  <SimpleValue Type="xsd://string" Value="$Object/PropertyCollection[Name='PatchVersion']$" />
+                </Binding>
+                <Binding PropertyId="SourceType">
+                  <SimpleValue Type="xsd://string" Value="ManagedEntity" />
+                </Binding>
+                <Binding PropertyId="HeaderComponentType">
+                  <SimpleValue Type="xsd://string" Value="" />
+                </Binding>
+                <Binding PropertyId="SortableGroupable">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="CanResize">
+                  <SimpleValue Type="xsd://boolean" Value="True" />
+                </Binding>
+                <Binding PropertyId="Width">
+                  <SimpleValue Type="xsd://string" Value="Auto" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+          <Binding PropertyId="SortedColumns">
+            <ComplexValueCollection Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataCollectionViewColumn[]">
+              <ComplexValue Type="xsd://Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.ColumnType/DataCollectionViewColumn">
+                <Binding PropertyId="PropertyName">
+                  <SimpleValue Type="xsd://string" Value="DisplayName" />
+                </Binding>
+                <Binding PropertyId="HeaderDisplayObject">
+                  <SimpleValue Type="xsd://string" Value="Display Name" />
+                </Binding>
+                <Binding PropertyId="SortDirection">
+                  <SimpleValue Type="xsd://string" Value="Ascending" />
+                </Binding>
+                <Binding PropertyId="XPath">
+                  <SimpleValue Type="xsd://string" Value="$Object/PropertyCollection[Name='DisplayName']$" />
+                </Binding>
+                <Binding PropertyId="SourceType">
+                  <SimpleValue Type="xsd://string" Value="ManagedEntity" />
+                </Binding>
+              </ComplexValue>
+            </ComplexValueCollection>
+          </Binding>
+        </Bindings>
+      </ComponentOverride>
+
+      <ComponentOverride ID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxtOverride" TypeID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxt" Context="/QND.Network.Kemp!UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/Microsoft.SystemCenter.Visualization.Library!Microsoft.SystemCenter.Visualization.GridLayout/UIGeneratedRegion_53c7d46d8cde45e485870bca44d29708/Microsoft.SystemCenter.Visualization.Library!ComposedRegion/QND.Network.Kemp!UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxt/" />
+
+    </ComponentOverrides>
+    <ComponentImplementations>
+      <ComponentImplementation ID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevicesImplementation" Accessibility="Public" TypeId="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices" Platform="Wpf, Silverlight">
+        <Composite>
+          <Base />
+        </Composite>
+      </ComponentImplementation>
+      <ComponentImplementation ID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_PropertiesImplementation" Accessibility="Public" TypeId="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_Properties" Platform="Wpf, Silverlight">
+        <Composite>
+          <Base />
+        </Composite>
+      </ComponentImplementation>
+      <ComponentImplementation ID="UIGenerated_91219f56483f42acac85fce5ccde3355_PerformanceImplementation" Accessibility="Public" TypeId="UIGenerated_91219f56483f42acac85fce5ccde3355_Performance" Platform="Wpf, Silverlight">
+        <Composite>
+          <Base />
+        </Composite>
+      </ComponentImplementation>
+      <ComponentImplementation ID="UIGenerated_70caab630b084f599aa5a2d99956aadd_DevicesImplementation" Accessibility="Public" TypeId="UIGenerated_70caab630b084f599aa5a2d99956aadd_Devices" Platform="Wpf, Silverlight">
+        <Composite>
+          <Base />
+        </Composite>
+      </ComponentImplementation>
+      <ComponentImplementation ID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxtImplementation" Accessibility="Public" TypeId="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxt" Platform="Wpf, Silverlight">
+        <Composite>
+          <Base />
+        </Composite>
+      </ComponentImplementation>
+    </ComponentImplementations>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevices">
+          <Name>Kemp Devices</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_87b81dc9aa874139b721bd1376ba0b15_KempDevicesOverride">
+          <Name>Kemp Devices</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_Properties">
+          <Name>Properties</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_ed65ddbe20de4392b02e83a240c2d363_PropertiesOverride">
+          <Name>Properties</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_91219f56483f42acac85fce5ccde3355_Performance">
+          <Name>Performance</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_91219f56483f42acac85fce5ccde3355_PerformanceOverride">
+          <Name>Performance</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_70caab630b084f599aa5a2d99956aadd_Devices">
+          <Name>Devices</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_70caab630b084f599aa5a2d99956aadd_DevicesOverride">
+          <Name>Devices</Name>
+        </DisplayString>
+        <DisplayString ElementID="UIGenerated_4c3748760f7347f7bb4f33cd8194a5a2_HealthCtxt">
+          <Name>Health Details</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

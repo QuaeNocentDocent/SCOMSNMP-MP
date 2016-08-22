@@ -1,0 +1,806 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassType ID="QND.MyNetwork.Device.Disk" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Disk" Hosted="true" Singleton="false" Extension="false">
+        <Property ID="AllocationUnitSize" Type="int" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+      </ClassType>
+    </EntityTypes>
+    <ModuleTypes>
+      <DataSourceModuleType ID="QND.MyNetwork.Device.Discovery.DS" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element name="DisplayName" type="xsd:string" />
+          <xsd:element name="Version" type="xsd:string" />
+          <xsd:element name="Model" type="xsd:string" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" ParameterType="int" Selector="$Config/IntervalSeconds"/>
+          <OverrideableParameter ID="SyncTime" ParameterType="string" Selector="$Config/SyncTime"/>
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.FilteredClassSnapshotDataMapper">
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SystemObjectID$</Value>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">.1.3.6.1.4.1.41091.1.1</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>                
+                <ClassId>$MPElement[Name='QND.MyNetwork.Device.Device']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>$Config/DisplayName$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Model$</Name>
+                      <Value>$Config/Model$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Vendor$</Name>
+                      <Value>QND</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='QND.MyNetwork.Device.Device']/Version$</Name>
+                      <Value>$Config/Version$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+
+      <DataSourceModuleType ID="QND.NetLibrary.SNMPDevice.SearchOID.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+            <SchemaType>Snmp!System.SnmpVarBindsSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="StartOID" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="MatchValue" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>true</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>$Config/StartOID$</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+              <ConditionDetection ID="FilterOnObjectValue" TypeID="System!System.ExpressionFilter">
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">SnmpVarBinds/SnmpVarBind/Value</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">$Config/MatchValue$</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="FilterOnObjectValue">
+                <Node ID="Probe">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+      </DataSourceModuleType>
+      
+      <DataSourceModuleType ID="QND.MyNetwork.Device.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="MatchOID" TypeID="QND.NetLibrary.SNMPDevice.SearchOID.MT">
+                <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <StartOID>.1.3.6.1.2.1.25.2.3.1.2</StartOID>
+                <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorageTable.hrStorageEntry.hrStorageType -->
+                <MatchValue>.1.3.6.1.2.1.25.2.1.4</MatchValue>
+                <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorage Types.hrStorageFixedDisk -->
+              </DataSource>
+              <!-- The difference between . and text() is that . means "this node" effectively, and text() means "all the text node children of this node" -->
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$MPElement[Name='QND.MyNetwork.Device.Disk']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>Disk-$Data/SnmpVarBinds/SnmpVarBind/OID$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Removable$</Name>
+                      <Value>false</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="MatchOID" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.MyNetwork.Device.DiskIndex.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+          <xsd:element minOccurs="1" name="LogicalDeviceKey" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="PS" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+                <ScriptName>GetIndex.ps1</ScriptName>
+                <ScriptBody>
+                  <![CDATA[
+param($OID)
+$index=$oid.Substring($oid.LastIndexOf('.')+1)
+$oAPI = new-object -comObject "MOM.ScriptAPI"
+$pb = $oAPI.CreatePropertyBag()
+# Populate the property bag with data from the registy
+$pb.AddValue("Index", $index)
+$pb
+                
+                ]]></ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>OID</Name>
+                    <Value>$Config/LogicalDeviceKey$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>60</TimeoutSeconds>
+              </ProbeAction>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$MPElement[Name='QND.MyNetwork.Device.Disk']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>$Config/LogicalDeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                      <Value>$Data/Property[@Name="Index"]$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="PS">
+                  <Node ID="Scheduler" />
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.MyNetwork.Device.DiskProperty.Discovery.MT" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+          <xsd:element minOccurs="1" name="LogicalDeviceKey" type="xsd:string" />
+          <xsd:element minOccurs="1" name="LogicalDeviceIndex" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="GetDetail" TypeID="QND.MyNetwork.Device.GetStorageInfo.PT">
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <Index>$Config/LogicalDeviceIndex$</Index>
+              </ProbeAction>
+              <ConditionDetection ID="CheckIndex" TypeID="System!System.ExpressionFilter">
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <Value Type="String">$Config/LogicalDeviceIndex$</Value>
+                    </ValueExpression>
+                    <Operator>MatchesRegularExpression</Operator>
+                    <Pattern>^[0-9]*$</Pattern>
+                  </RegExExpression>
+                </Expression>
+              </ConditionDetection>
+              <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+                <ClassId>$MPElement[Name='QND.MyNetwork.Device.Disk']$</ClassId>
+                <InstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                      <Value>$Config/DeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                      <Value>$Config/LogicalDeviceKey$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                      <Value>$Data/SnmpVarBinds/SnmpVarBind[2]/Value$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                      <Value>Disk - $Data/SnmpVarBinds/SnmpVarBind[2]/Value$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Capacity$</Name>
+                      <Value>$Data/SnmpVarBinds/SnmpVarBind[4]/Value$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name='QND.MyNetwork.Device.Disk']/AllocationUnitSize$</Name>
+                      <Value>$Data/SnmpVarBinds/SnmpVarBind[3]/Value$</Value>
+                    </Setting>
+                  </Settings>
+                </InstanceSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="MapToDiscovery">
+                <Node ID="GetDetail">
+                  <Node ID="CheckIndex">
+                    <Node ID="Scheduler" />
+                  </Node>
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+      <DataSourceModuleType ID="QND.MyNetwork.Device.WalkStorageTable.DS" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <IncludeSchemaTypes>
+            <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+            <SchemaType>Snmp!System.SnmpVarBindsSchema</SchemaType>
+          </IncludeSchemaTypes>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>true</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1</OID>
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Probe">
+                <Node ID="Scheduler" />
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+      </DataSourceModuleType>
+      <!-- cannot use cookdown 'cause to perform the computation I need the logical device index in the config and cookdown works just at level 1 DS so it won't be of any help to have a nested DS with a walk, worse for every disk I would performa a walk instead of a set of get -->
+      <DataSourceModuleType ID="QND.MyNetwork.Device.DiskFreeSpace.DS" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+          <xsd:element name="IP" type="xsd:string" />
+          <xsd:element name="CommunityString" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="LogicalDeviceIndex" type="xsd:string" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="GetDetail" TypeID="QND.MyNetwork.Device.GetStorageInfo.PT">
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <Index>$Config/LogicalDeviceIndex$</Index>
+              </ProbeAction>
+              <ConditionDetection ID="ComputePerfValue" TypeID="NetworkMonitor!System.NetworkManagement.Computation">
+                <NumericValue>
+                  <Product>
+                    <NumericValue>
+                      <Division>
+                        <NumericValue>
+                          <Subtraction>
+                            <NumericValue>
+                              <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                            </NumericValue>
+                            <NumericValue>
+                              <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.6.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                            </NumericValue>
+                          </Subtraction>
+                        </NumericValue>
+                        <NumericValue>
+                          <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                        </NumericValue>
+                      </Division>
+                    </NumericValue>
+                    <NumericValue>
+                      <Value Type="Double">100.0</Value>
+                    </NumericValue>
+                  </Product>
+                </NumericValue>
+              </ConditionDetection>
+              <ConditionDetection ID="Mapper" TypeID="Perf!System.Performance.DataGenericMapper">
+                <ObjectName>Logical Disk</ObjectName>
+                <CounterName><![CDATA[% Free Space]]></CounterName>
+                <InstanceName />
+                <Value>$Data/Value$</Value>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="Mapper">
+                <Node ID="ComputePerfValue">
+                  <Node ID="GetDetail">
+                    <Node ID="Scheduler" />
+                  </Node>
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Perf!System.Performance.Data</OutputType>
+      </DataSourceModuleType>
+      <ProbeActionModuleType ID="QND.MyNetwork.Device.GetStorageInfo.PT" Accessibility="Internal" Batching="false" PassThrough="false">
+        <Configuration>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CommunityString" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Index" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="SnmpProbe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+                <Walk>false</Walk>
+                <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+                <NoOfRetries>3</NoOfRetries>
+                <Timeout>$Config/Timeout$</Timeout>
+                <Port>$Config/Port$</Port>
+                <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+                <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+                <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+                <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+                <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+                <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+                <IsWriteAction>false</IsWriteAction>
+                <IP>$Config/IP$</IP>
+                <CommunityString>$Config/CommunityString$</CommunityString>
+                <Version>$Config/Version$</Version>
+                <SnmpVarBinds>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.1.$Config/Index$</OID>
+                    <!-- hrStorageIndex -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.3.$Config/Index$</OID>
+                    <!-- hrStorageDescr -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.4.$Config/Index$</OID>
+                    <!-- hrStorageAllocationUnits -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.5.$Config/Index$</OID>
+                    <!-- hrStorageSize -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                  <SnmpVarBind>
+                    <OID>.1.3.6.1.2.1.25.2.3.1.6.$Config/Index$</OID>
+                    <!-- hrStorageUsed -->
+                    <Syntax>0</Syntax>
+                    <Value VariantType="8" />
+                  </SnmpVarBind>
+                </SnmpVarBinds>
+                <OutputOnError>false</OutputOnError>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="SnmpProbe" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Snmp!System.SnmpData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+    <MonitorTypes>
+      <UnitMonitorType ID="QND.MyNetwork.Device.DiskFreeSpace.MT" Accessibility="Internal">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="AboveThreshold" NoDetection="false" />
+          <MonitorTypeState ID="UnderThreshold" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IP" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CommunityString" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="LogicalDeviceIndex" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Threshold" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="NumberOfSamples" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="Timeout" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="Threshold" Selector="$Config/Threshold$" ParameterType="int" />
+          <OverrideableParameter ID="NumberOfSamples" Selector="$Config/NumberOfSamples$" ParameterType="int" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="QND.MyNetwork.Device.WalkStorageTable.DS">
+              <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <Timeout>$Config/Timeout$</Timeout>
+              <Port>$Config/Port$</Port>
+              <IP>$Config/IP$</IP>
+              <CommunityString>$Config/CommunityString$</CommunityString>
+              <Version>$Config/Version$</Version>
+            </DataSource>
+            <ConditionDetection ID="CheckIndex" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <RegExExpression>
+                  <ValueExpression>
+                    <Value Type="String">$Config/LogicalDeviceIndex$</Value>
+                  </ValueExpression>
+                  <Operator>MatchesRegularExpression</Operator>
+                  <Pattern>^[0-9]*$</Pattern>
+                </RegExExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="Compute" TypeID="NetworkMonitor!System.NetworkManagement.Computation">
+              <NumericValue>
+                <Product>
+                  <NumericValue>
+                    <Division>
+                      <NumericValue>
+                        <Subtraction>
+                          <NumericValue>
+                            <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                          </NumericValue>
+                          <NumericValue>
+                            <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.6.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                          </NumericValue>
+                        </Subtraction>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.25.2.3.1.5.$Config/LogicalDeviceIndex$"]/Value</XPathQuery>
+                      </NumericValue>
+                    </Division>
+                  </NumericValue>
+                  <NumericValue>
+                    <Value Type="Double">100.0</Value>
+                  </NumericValue>
+                </Product>
+              </NumericValue>
+            </ConditionDetection>
+            <ConditionDetection ID="AboveThresholdCD" TypeID="NetworkMonitor!System.NetworkManagement.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="Double">Value</XPathQuery>
+                  </ValueExpression>
+                  <Operator>GreaterEqual</Operator>
+                  <ValueExpression>
+                    <Value Type="Integer">$Config/Threshold$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/NumberOfSamples$</MatchCount>
+                <SampleCount>$Config/NumberOfSamples$</SampleCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+            <ConditionDetection ID="UnderThresholdCD" TypeID="NetworkMonitor!System.NetworkManagement.ExpressionFilter">
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="Double">Value</XPathQuery>
+                  </ValueExpression>
+                  <Operator>Less</Operator>
+                  <ValueExpression>
+                    <Value Type="Integer">$Config/Threshold$</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/NumberOfSamples$</MatchCount>
+                <SampleCount>$Config/NumberOfSamples$</SampleCount>
+              </SuppressionSettings>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="AboveThreshold">
+              <Node ID="AboveThresholdCD">
+                <Node ID="Compute">
+                  <Node ID="CheckIndex">
+                    <Node ID="DS" />
+                  </Node>
+                </Node>
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="UnderThreshold">
+              <Node ID="UnderThresholdCD">
+                <Node ID="Compute">
+                  <Node ID="CheckIndex">
+                    <Node ID="DS" />
+                  </Node>
+                </Node>
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.MyNetwork.Device.Disk.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="QND.MyNetwork.Device.Device">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.MyNetwork.Device.Disk" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.MyNetwork.Device.Disk.Discovery.MT">
+          <IntervalSeconds>43200</IntervalSeconds>
+          <SyncTime />
+          <Timeout>3500</Timeout>
+          <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="QND.MyNetwork.Device.DiskIndex.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="QND.MyNetwork.Device.Disk">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.MyNetwork.Device.Disk" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.MyNetwork.Device.DiskIndex.Discovery.MT">
+          <IntervalSeconds>43300</IntervalSeconds>
+          <SyncTime />
+          <DeviceKey>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+          <LogicalDeviceKey>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</LogicalDeviceKey>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="QND.MyNetwork.Device.DiskProperty.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="QND.MyNetwork.Device.Disk">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.MyNetwork.Device.Disk" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="QND.MyNetwork.Device.DiskProperty.Discovery.MT">
+          <IntervalSeconds>43400</IntervalSeconds>
+          <SyncTime />
+          <Timeout>3500</Timeout>
+          <Port>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <DeviceKey>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+          <LogicalDeviceKey>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</LogicalDeviceKey>
+          <LogicalDeviceIndex>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$</LogicalDeviceIndex>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+    <Monitors>
+      <UnitMonitor ID="QND.MyNetwork.Device.DiskFreeSpace.Monitor" Accessibility="Public" Enabled="true" Target="QND.MyNetwork.Device.Disk" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal"
+             TypeID="QND.MyNetwork.Device.DiskFreeSpace.MT" ConfirmDelivery="false">
+        <Category>AvailabilityHealth</Category>
+        <AlertSettings AlertMessage="QND.MyNetwork.Device.DiskFreeSpace.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Value$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="AboveThreshold" HealthState="Success" />
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="UnderThreshold" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <IntervalSeconds>900</IntervalSeconds>
+          <Timeout>3500</Timeout>
+          <Port>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+          <IP>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+          <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+          <Version>$Target/Host/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+          <LogicalDeviceIndex>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Index$</LogicalDeviceIndex>
+          <Threshold>10</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+</ManagementPackFragment>

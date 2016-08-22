@@ -1,0 +1,145 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Monitors>
+      <!-- Free UCD MIB to be ported into library -->
+      <UnitMonitor ID="QND.Network.Kemp.LoadMaster.ProcessorUsage.Monitor" Accessibility="Public" Enabled="true" Target="QND.Network.Kemp.LoadMaster.Processor" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal"
+             TypeID="NetworkMonitoring!System.NetworkManagement.ThresholdMonitor" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="QND.Network.Kemp.LoadMaster.ProcessorUsage.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/SampleValue$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="MTSThresholdError" HealthState="Error" />
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="MTSThresholdSuccess" HealthState="Success" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <Timeout>3500</Timeout>
+          <OID>$Target/Property[Type="Network!System.NetworkManagement.LogicalDevice"]/Key$</OID>
+          <Threshold>90</Threshold>
+          <NumberOfSamples>3</NumberOfSamples>
+          <ObjectName>Processor</ObjectName>
+          <CounterName>% Processor Time</CounterName>
+        </Configuration>
+      </UnitMonitor>
+      <UnitMonitor ID="QND.Network.Kemp.LoadMaster.MemoryUsage.Monitor" Accessibility="Public" Enabled="true" Target="QND.Network.Kemp.LoadMaster.Memory" ParentMonitorID="Health!System.Health.PerformanceState" 
+                   Remotable="true" Priority="Normal" TypeID="NetworkMonitoring!System.NetworkManagement.ComputedThresholdMonitorType" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="QND.Network.Kemp.LoadMaster.MemoryUsage.AlertMessage">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Target/Host/Property[Type="System!System.Entity"]/DisplayName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/Value$</AlertParameter2>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="OverThreshold" MonitorTypeStateID="MTSThresholdError" HealthState="Success" />
+          <!-- the logic is inverted Monitor type author has choosen a bad naming convention -->
+          <OperationalState ID="UnderThreshold" MonitorTypeStateID="MTSThresholdSuccess" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <Interval>300</Interval>
+          <NoOfRetries>3</NoOfRetries>
+          <NumberOfSamples>3</NumberOfSamples>
+          <Timeout>3500</Timeout>
+          <SnmpVarBinds>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.5.0</OID>
+              <!-- Total Real -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.6.0</OID>
+              <!-- Free Real -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.14.0</OID>
+              <!-- Buffers -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+            <SnmpVarBind>
+              <OID>.1.3.6.1.4.1.2021.4.15.0</OID>
+              <!-- Cached -->
+              <Syntax>0</Syntax>
+              <Value VariantType="8" />
+            </SnmpVarBind>
+          </SnmpVarBinds>
+          <ComputedPerformanceValue>
+            <Product>
+              <NumericValue>
+                <Division>
+                  <NumericValue>
+                    <Summation>
+                      <!-- Free Memory = Free Real + Buffers + Cached -->
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.6.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.14.0"]/Value</XPathQuery>
+                      </NumericValue>
+                      <NumericValue>
+                        <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.15.0"]/Value</XPathQuery>
+                      </NumericValue>
+                    </Summation>
+                  </NumericValue>
+                  <NumericValue>
+                    <XPathQuery Type="Double">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.4.1.2021.4.5.0"]/Value</XPathQuery>
+                  </NumericValue>
+                </Division>
+              </NumericValue>
+              <NumericValue>
+                <Value Type="Double">100.0</Value>
+              </NumericValue>
+            </Product>
+          </ComputedPerformanceValue>
+          <Threshold>15</Threshold>
+          <ObjectName>Memory</ObjectName>
+          <CounterName>% Memory Free</CounterName>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="QND.Network.Kemp.LoadMaster.MemoryUsage.AlertMessage" />
+      <StringResource ID="QND.Network.Kemp.LoadMaster.ProcessorUsage.AlertMessage" />
+    </StringResources>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <!-- Alert messages -->
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.ProcessorUsage.AlertMessage">
+          <Name>Kemp - Processor Utilization</Name>
+          <Description>Processor utilization for {0} is over the threshold. Processor utilization is {1}%.</Description>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.MemoryUsage.AlertMessage">
+          <Name>Kemp - Memory Utilization</Name>
+          <Description>Free Memory for {0} is under the threshold. Free memory is {1}%.</Description>
+        </DisplayString>
+
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.MemoryUsage.Monitor">
+          <Name>Memory Usage</Name>
+        </DisplayString>
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster.ProcessorUsage.Monitor">
+          <Name>Processor Usage</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

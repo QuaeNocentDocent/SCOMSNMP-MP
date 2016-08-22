@@ -1,0 +1,497 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <DataSourceModuleType ID="QND.NetLibrary.MatchOID.DS" Accessibility="Public" Batching="false">
+    <Configuration>
+      <IncludeSchemaTypes>
+        <SchemaType>System!System.ExpressionEvaluatorSchema</SchemaType>
+        <SchemaType>Snmp!System.SnmpVarBindsSchema</SchemaType>
+      </IncludeSchemaTypes>
+      <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+      <xsd:element name="IP" type="xsd:string" />
+      <xsd:element name="CommunityString" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+      <xsd:element name="ObjectOID" type="xsd:string" />
+    </Configuration>
+    <ModuleImplementation Isolation="Any">
+      <Composite>
+        <MemberModules>
+          <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+            <Scheduler>
+              <SimpleReccuringSchedule>
+                <Interval>$Config/IntervalSeconds$</Interval>
+                <SyncTime>$Config/SyncTime$</SyncTime>
+              </SimpleReccuringSchedule>
+              <ExcludeDates />
+            </Scheduler>
+          </DataSource>
+          <ProbeAction ID="Probe" TypeID="Network!System.NetworkManagement.SnmpProbe">
+            <Walk>false</Walk>
+            <WalkReturnMultipleItems>false</WalkReturnMultipleItems>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>500</Timeout>
+            <Port>$Config/Port$</Port>
+            <SNMPv3UserName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/UserName$</SNMPv3UserName>
+            <SNMPv3AuthProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationProtocol$</SNMPv3AuthProtocol>
+            <SNMPv3AuthPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/AuthenticationKey$</SNMPv3AuthPassword>
+            <SNMPv3PrivProtocol>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyProtocol$</SNMPv3PrivProtocol>
+            <SNMPv3PrivPassword>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/PrivacyKey$</SNMPv3PrivPassword>
+            <SNMPv3ContextName>$RunAs[Name="Network!System.NetworkManagement.SnmpV3.MonitoringAccount"]/ContextName$</SNMPv3ContextName>
+            <IsWriteAction>false</IsWriteAction>
+            <IP>$Config/IP$</IP>
+            <CommunityString>$Config/CommunityString$</CommunityString>
+            <Version>$Config/Version$</Version>
+            <SnmpVarBinds>
+              <SnmpVarBind>
+                <OID>.1.3.6.1.2.1.1.2.0</OID>
+                <Syntax>0</Syntax>
+                <Value VariantType="8" />
+              </SnmpVarBind>
+            </SnmpVarBinds>
+            <OutputOnError>false</OutputOnError>
+          </ProbeAction>
+          <ConditionDetection ID="FilterOnObjectID" TypeID="System!System.ExpressionFilter">
+            <Expression>
+              <SimpleExpression>
+                <ValueExpression>
+                  <XPathQuery Type="String">SnmpVarBinds/SnmpVarBind[OID=".1.3.6.1.2.1.1.2.0"]/Value</XPathQuery>
+                </ValueExpression>
+                <Operator>Equal</Operator>
+                <ValueExpression>
+                  <Value Type="String">$Config/ObjectOID$</Value>
+                </ValueExpression>
+              </SimpleExpression>
+            </Expression>
+          </ConditionDetection>
+        </MemberModules>
+        <Composition>
+          <Node ID="FilterOnObjectID">
+            <Node ID="Probe">
+              <Node ID="Scheduler" />
+            </Node>
+          </Node>
+        </Composition>
+      </Composite>
+    </ModuleImplementation>
+    <OutputType>Snmp!System.SnmpData</OutputType>
+  </DataSourceModuleType>
+  
+  <DataSourceModuleType ID="QND.MyNetwork.Device.Discovery.DS" Accessibility="Internal" Batching="false">
+  <Configuration>
+    <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+    <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+    <xsd:element minOccurs="0" maxOccurs="1" name="NoOfRetries" type="xsd:unsignedInt" default="3" />
+    <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+    <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+    <xsd:element name="IP" type="xsd:string" />
+    <xsd:element name="CommunityString" type="xsd:string" />
+    <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+    <xsd:element name="DisplayName" type="xsd:string" />
+    <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+    <xsd:element name="Model" type="xsd:string" />
+  </Configuration>
+  <ModuleImplementation Isolation="Any">
+    <Composite>
+      <MemberModules>
+        <DataSource ID="Seed" TypeID="QND.NetLibrary.MatchOID.DS">
+          <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+          <SyncTime>$Config/SyncTime$</SyncTime>
+          <Port>$Config/Port$</Port>
+          <IP>$Config/IP$</IP>
+          <CommunityString>$Config/CommunityString$</CommunityString>
+          <Version>$Config/Version$</Version>
+          <ObjectOID>.1.3.6.1.4.1.41091.1.1</ObjectOID>
+        </DataSource>
+        <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+          <ClassId>$MPElement[Name='QND.MyNetwork.Device']$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                <Value>$Config/DisplayName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                <Value>$Config/DeviceKey$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/Model$</Name>
+                <Value>$Config/Model$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </ConditionDetection>
+      </MemberModules>
+      <Composition>
+        <Node ID="MapToDiscovery">
+          <Node ID="Seed" />
+        </Node>
+      </Composition>
+    </Composite>
+  </ModuleImplementation>
+  <OutputType>System!System.Discovery.Data</OutputType>
+</DataSourceModuleType>
+
+  <Discovery ID="QND.MyNetwork.Device.Discovery" Enabled="true" ConfirmDelivery="false" Remotable="true" Priority="Normal" Target="Network!System.NetworkManagement.Node">
+    <Category>Discovery</Category>
+    <DiscoveryTypes>
+      <DiscoveryClass TypeID="QND.MyNetwork.Device" />
+    </DiscoveryTypes>
+    <DataSource ID="DS" TypeID="QND.MyNetwork.Discovery.DS">
+      <IntervalSeconds>14400</IntervalSeconds>
+      <SyncTime />
+      <Port>$Target/Property[Type="Network!System.NetworkManagement.Node"]/PortNumber$</Port>
+      <IP>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPAddress$</IP>
+      <CommunityString>$RunAs[Name="Network!System.NetworkManagement.Snmp.MonitoringAccount"]/CommunityString$$Target/Property[Type="Network!System.NetworkManagement.Node"]/VirtualCommunitySuffix$</CommunityString>
+      <Version>$Target/Property[Type="Network!System.NetworkManagement.Node"]/SNMPVersion$</Version>
+      <DisplayName>$Target/Property[Type="Network!System.NetworkManagement.Node"]/sysName$</DisplayName>
+      <DeviceKey>$Target/Property[Type="Network!System.NetworkManagement.Node"]/DeviceKey$</DeviceKey>
+      <Model>MyNetwork Device Model XYZ</Model>
+    </DataSource>
+  </Discovery>
+  
+  <DataSourceModuleType ID="Progel.LibraEsva.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+    <Configuration>
+      <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+      <xsd:element name="IP" type="xsd:string" />
+      <xsd:element name="CommunityString" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+      <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+    </Configuration>
+    <ModuleImplementation Isolation="Any">
+      <Composite>
+        <MemberModules>
+          <DataSource ID="MatchOID" TypeID="Progel.Library.SNMPDevice.SearchOID.MT">
+            <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+            <SyncTime>$Config/SyncTime$</SyncTime>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>$Config/Timeout$</Timeout>
+            <Port>$Config/Port$</Port>
+            <IP>$Config/IP$</IP>
+            <CommunityString>$Config/CommunityString$</CommunityString>
+            <Version>$Config/Version$</Version>
+            <StartOID>.1.3.6.1.2.1.25.2.3.1.2</StartOID>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorageTable.hrStorageEntry.hrStorageType -->
+            <MatchValue>.1.3.6.1.2.1.25.2.1.4</MatchValue>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorage Types.hrStorageFixedDisk -->
+          </DataSource>
+          <!-- this doesn't work since the snmp module checks parameters for correctness at initilialization time and not at runtime so on OID in the from .1.3.6.1.2.1.25.2.3.1.5.$Data/Property[@Name='Index']$ breaks the module -->
+          <ProbeAction ID="GetDetail" TypeID="Progel.LibraEsva.GetStorageInfo.PT">
+            <Timeout>$Config/Timeout$</Timeout>
+            <Port>$Config/Port$</Port>
+            <IP>$Config/IP$</IP>
+            <CommunityString>$Config/CommunityString$</CommunityString>
+            <Version>$Config/Version$</Version>
+            <Index>$Data/Property[@Name='Index']$</Index>
+          </ProbeAction>
+          <ProbeAction ID="PS" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+            <ScriptName>GetIndex.ps1</ScriptName>
+            <ScriptBody>$IncludeFileContent/Scripts/GetIndex.ps1$</ScriptBody>
+            <Parameters>
+              <Parameter>
+                <Name>OID</Name>
+                <Value>$Data/SnmpVarBinds/SnmpVarBind/OID$</Value>
+              </Parameter>
+            </Parameters>
+            <TimeoutSeconds>60</TimeoutSeconds>
+          </ProbeAction>
+          <ConditionDetection ID="CheckIndex" TypeID="System!System.ExpressionFilter">
+            <Expression>
+              <RegExExpression>
+                <ValueExpression>
+                  <XPathQuery Type="String">Property[@Name='Index']</XPathQuery>
+                </ValueExpression>
+                <Operator>MatchesRegularExpression</Operator>
+                <Pattern>^[0-9]*$</Pattern>
+              </RegExExpression>
+            </Expression>
+          </ConditionDetection>
+          <!-- this is an interetsing poit we need to get the Value from the snmpvarbinds using OIDs built from the returned values themselves
+              Size = .1.3.6.1.2.1.25.2.3.1.5.INDEX where INDEX is the result of .1.3.6.1.2.1.25.2.3.1.1.INDEX so it is self defining, in this case the [n] notation is needed
+              The other point is I cannot perfrom a calculation here, since the device capacity is AllocationUnitsSize * StorageSize I have two options: just use storage size or discover both and to the maths in monitors and rules
+              -->
+          <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+            <ClassId>$MPElement[Name='Progel.LibraEsva.Disk']$</ClassId>
+            <InstanceSettings>
+              <Settings>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                  <Value>$Config/DeviceKey$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                  <Value>$Data/SnmpVarBinds/SnmpVarBind[1]/Value$-$Data/SnmpVarBinds/SnmpVarBind[0]/Value$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                  <Value>$Data/SnmpVarBinds/SnmpVarBind[0]/Value$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Description$</Name>
+                  <Value>$Data/SnmpVarBinds/SnmpVarBind[1]/Value$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                  <Value>Disk - $Data/SnmpVarBinds/SnmpVarBind[1]/Value$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Capacity$</Name>
+                  <Value>$Data/SnmpVarBinds/SnmpVarBind[3]/Value$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Removable$</Name>
+                  <Value>false</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Progel.LibraEsva.Disk']/AllocationUnitSize$</Name>
+                  <Value>$Data/SnmpVarBinds/SnmpVarBind[2]/Value$</Value>
+                </Setting>
+              </Settings>
+            </InstanceSettings>
+          </ConditionDetection>
+        </MemberModules>
+        <Composition>
+          <Node ID="MapToDiscovery">
+            <Node ID="GetDetail">
+              <Node ID="CheckIndex">
+                <Node ID="PS" >
+                  <Node ID="MatchOID" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </Composition>
+      </Composite>
+    </ModuleImplementation>
+    <OutputType>System!System.Discovery.Data</OutputType>
+  </DataSourceModuleType>
+
+
+
+
+  <DataSourceModuleType ID="Progel.LibraEsva.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+    <Configuration>
+      <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+      <xsd:element name="IP" type="xsd:string" />
+      <xsd:element name="CommunityString" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+      <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+    </Configuration>
+    <ModuleImplementation Isolation="Any">
+      <Composite>
+        <MemberModules>
+          <DataSource ID="MatchOID" TypeID="Progel.Library.SNMPDevice.SearchOID.MT">
+            <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+            <SyncTime>$Config/SyncTime$</SyncTime>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>$Config/Timeout$</Timeout>
+            <Port>$Config/Port$</Port>
+            <IP>$Config/IP$</IP>
+            <CommunityString>$Config/CommunityString$</CommunityString>
+            <Version>$Config/Version$</Version>
+            <StartOID>.1.3.6.1.2.1.25.2.3.1.2</StartOID>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorageTable.hrStorageEntry.hrStorageType -->
+            <MatchValue>.1.3.6.1.2.1.25.2.1.4</MatchValue>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorage Types.hrStorageFixedDisk -->
+          </DataSource>
+          <ProbeAction ID="PS" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+            <ScriptName>GetIndex.ps1</ScriptName>
+            <ScriptBody>$IncludeFileContent/Scripts/GetIndex.ps1$</ScriptBody>
+            <Parameters>
+              <Parameter>
+                <Name>OID</Name>
+                <Value>$Data/SnmpVarBinds/SnmpVarBind/OID$</Value>
+              </Parameter>
+            </Parameters>
+            <TimeoutSeconds>60</TimeoutSeconds>
+          </ProbeAction>
+          <ProbeAction ID="CS" TypeID="Windows!Microsoft.Windows.ScriptPropertyBagProbe">
+            <ScriptName>GetIndex.vbs</ScriptName>
+            <Arguments>$Data/SnmpVarBinds/SnmpVarBind/OID$</Arguments>
+            <ScriptBody>$IncludeFileContent/Scripts/GetIndex.vbs$</ScriptBody>
+            <TimeoutSeconds>60</TimeoutSeconds>
+          </ProbeAction>
+          <ConditionDetection ID="CheckIndex" TypeID="System!System.ExpressionFilter">
+            <Expression>
+              <RegExExpression>
+                <ValueExpression>
+                  <XPathQuery Type="String">Property[@Name='Index']</XPathQuery>
+                </ValueExpression>
+                <Operator>MatchesRegularExpression</Operator>
+                <Pattern>^[0-9]*$</Pattern>
+              </RegExExpression>
+            </Expression>
+          </ConditionDetection>
+          <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+            <ClassId>$MPElement[Name='Progel.LibraEsva.Disk']$</ClassId>
+            <InstanceSettings>
+              <Settings>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                  <Value>$Config/DeviceKey$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                  <Value>Disk-$Data/Property[@Name='Index']$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                  <Value>$Data/Property[@Name='Index']$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Removable$</Name>
+                  <Value>false</Value>
+                </Setting>
+              </Settings>
+            </InstanceSettings>
+          </ConditionDetection>
+        </MemberModules>
+        <Composition>
+          <Node ID="MapToDiscovery">
+            <Node ID="CheckIndex">
+              <Node ID="CS" >
+                <Node ID="MatchOID" />
+              </Node>
+            </Node>
+          </Node>
+        </Composition>
+      </Composite>
+    </ModuleImplementation>
+    <OutputType>System!System.Discovery.Data</OutputType>
+  </DataSourceModuleType>
+
+
+  <DataSourceModuleType ID="Progel.LibraEsva.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+    <Configuration>
+      <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+      <xsd:element name="IP" type="xsd:string" />
+      <xsd:element name="CommunityString" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+      <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+    </Configuration>
+    <ModuleImplementation Isolation="Any">
+      <Composite>
+        <MemberModules>
+          <DataSource ID="MatchOID" TypeID="Progel.Library.SNMPDevice.SearchOID.MT">
+            <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+            <SyncTime>$Config/SyncTime$</SyncTime>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>$Config/Timeout$</Timeout>
+            <Port>$Config/Port$</Port>
+            <IP>$Config/IP$</IP>
+            <CommunityString>$Config/CommunityString$</CommunityString>
+            <Version>$Config/Version$</Version>
+            <StartOID>.1.3.6.1.2.1.25.2.3.1.2</StartOID>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorageTable.hrStorageEntry.hrStorageType -->
+            <MatchValue>.1.3.6.1.2.1.25.2.1.4</MatchValue>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorage Types.hrStorageFixedDisk -->
+          </DataSource>
+          <ProbeAction ID="PS" TypeID="Windows!Microsoft.Windows.PowerShellDiscoveryProbe">
+            <ScriptName>DisocverDisk.ps1</ScriptName>
+            <ScriptBody>$IncludeFileContent/Scripts/DiscoverDisk.ps1$</ScriptBody>
+            <Parameters>
+              <Parameter>
+                <Name>ElementID</Name>
+                <Value>$MPElement$</Value>
+              </Parameter>
+              <Parameter>
+                <Name>TargetID</Name>
+                <Value>$Target/Id$</Value>
+              </Parameter>
+              <Parameter>
+                <Name>DeviceKey</Name>
+                <Value>$Config/DeviceKey$</Value>
+              </Parameter>
+              <Parameter>
+                <Name>OID</Name>
+                <Value>$Data/SnmpVarBinds/SnmpVarBind/OID$</Value>
+              </Parameter>
+            </Parameters>
+            <TimeoutSeconds>60</TimeoutSeconds>
+          </ProbeAction>
+        </MemberModules>
+        <Composition>
+          <Node ID="PS" >
+            <Node ID="MatchOID" />
+          </Node>
+        </Composition>
+      </Composite>
+    </ModuleImplementation>
+    <OutputType>System!System.Discovery.Data</OutputType>
+  </DataSourceModuleType>
+
+  <DataSourceModuleType ID="Progel.LibraEsva.Disk.Discovery.MT" Accessibility="Public" Batching="false">
+    <Configuration>
+      <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Timeout " type="xsd:unsignedInt" default="500" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Port" type="xsd:unsignedInt" default="161" />
+      <xsd:element name="IP" type="xsd:string" />
+      <xsd:element name="CommunityString" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Version" type="xsd:string" />
+      <xsd:element minOccurs="1" name="DeviceKey" type="xsd:string" />
+    </Configuration>
+    <ModuleImplementation Isolation="Any">
+      <Composite>
+        <MemberModules>
+          <DataSource ID="MatchOID" TypeID="Progel.Library.SNMPDevice.SearchOID.MT">
+            <IntervalSeconds>$Config/IntervalSeconds$</IntervalSeconds>
+            <SyncTime>$Config/SyncTime$</SyncTime>
+            <NoOfRetries>3</NoOfRetries>
+            <Timeout>$Config/Timeout$</Timeout>
+            <Port>$Config/Port$</Port>
+            <IP>$Config/IP$</IP>
+            <CommunityString>$Config/CommunityString$</CommunityString>
+            <Version>$Config/Version$</Version>
+            <StartOID>.1.3.6.1.2.1.25.2.3.1.2</StartOID>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorageTable.hrStorageEntry.hrStorageType -->
+            <MatchValue>.1.3.6.1.2.1.25.2.1.4</MatchValue>
+            <!-- .iso.org.dod.internet.mgmt.mib-2.host.hrStorage.hrStorage Types.hrStorageFixedDisk -->
+          </DataSource>
+          <!-- The difference between . and text() is that . means "this node" effectively, and text() means "all the text node children of this node" -->
+          <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+            <ClassId>$MPElement[Name='Progel.LibraEsva.Disk']$</ClassId>
+            <InstanceSettings>
+              <Settings>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Node']/DeviceKey$</Name>
+                  <Value>$Config/DeviceKey$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Key$</Name>
+                  <Value>Disk-$Data/SnmpVarBinds/SnmpVarBind/OID[replace(text(),'.1.3.6.1.2.1.25.2.3.1.2.','')]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.LogicalDevice']/Index$</Name>
+                  <Value>$Data/SnmpVarBinds/SnmpVarBind/OID[substring(text(), 24,4)]$</Value>
+                </Setting>
+                <Setting>
+                  <Name>$MPElement[Name='Network!System.NetworkManagement.Disk']/Removable$</Name>
+                  <Value>false</Value>
+                </Setting>
+              </Settings>
+            </InstanceSettings>
+          </ConditionDetection>
+        </MemberModules>
+        <Composition>
+          <Node ID="MapToDiscovery">
+            <Node ID="MatchOID" />
+          </Node>
+        </Composition>
+      </Composite>
+    </ModuleImplementation>
+    <OutputType>System!System.Discovery.Data</OutputType>
+  </DataSourceModuleType>
+</ManagementPackFragment>

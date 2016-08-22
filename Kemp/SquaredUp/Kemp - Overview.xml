@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<View>
+  <Title>Kemp LoadMaster Overview</Title>
+  <Sections>
+    <SplitSection>
+      <Width>30</Width>
+      <Left>
+        <ObjectSection>
+          <Title>Devices</Title>
+          <Id>DevicesId</Id>
+          <Class>QND.Network.Kemp.LoadMaster</Class>
+          <Settings>
+            <NameValueSetting>
+              <Name>zoom</Name>
+              <Value>column</Value>
+            </NameValueSetting>
+          </Settings>
+        </ObjectSection>
+        <ObjectSection>
+          <Title>Virtual Services</Title>
+          <Id>VSId</Id>
+          <Class>QND.Network.Kemp.LoadMaster.IPVS</Class>
+          <Settings>
+            <NameValueSetting>
+              <Name>zoom</Name>
+              <Value>column</Value>
+            </NameValueSetting>
+          </Settings>
+        </ObjectSection>
+        <ObjectSection>
+          <Title>Real Servers</Title>
+          <Id>RSId</Id>
+          <Class>QND.Network.Kemp.LoadMaster.RSVS</Class>
+          <Settings>
+            <NameValueSetting>
+              <Name>zoom</Name>
+              <Value>column</Value>
+            </NameValueSetting>
+          </Settings>
+        </ObjectSection>
+      </Left>
+      <Right>
+	  <SplitSection>
+		<Width>50</Width>
+		<Left>
+        <ObjectSection>
+          <Id>lm-topn</Id>
+          <Title>Top LoadMaster % CPU - Last 12 hours</Title>
+	  <Class>QND.Network.Kemp.LoadMaster</Class>
+          <!-- <Group>76a368ff-5096-fa44-bd7f-72d8acddded9</Group> -->
+          <ShowItems>false</ShowItems>
+          <Layouts>
+            <Layout>
+              <Id>performance</Id>
+              <Plugin>
+                <Name>Performance</Name>
+                <Settings>
+                  <NameValueSetting>
+                    <Name>style</Name>
+                    <Value>bar</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>top</Name>
+                    <Value>10</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>sort</Name>
+                    <Value>desc</Value>
+                  </NameValueSetting>
+
+                  <NameValueSetting>
+                    <Name>object</Name>
+                    <Value>Processor</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>counter</Name>
+                    <Value>% Processor Time</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>instance</Name>
+                    <Value></Value>
+                  </NameValueSetting>				  
+                  <NameValueSetting>
+                    <Name>timeframe</Name>
+                    <Value>Last12Hours</Value>
+                  </NameValueSetting>
+          <NameValueSetting>
+            <Name>range</Name>
+            <Value>percentage</Value>
+          </NameValueSetting>
+                </Settings>
+              </Plugin>
+            </Layout>
+          </Layouts>
+        </ObjectSection>
+		</Left>
+	   <Right>
+		       <ObjectSection>
+          <Id>vs-activeconnections</Id>
+          <Title>VS Active Connections - Last 12 hours</Title>
+          <Class>QND.Network.Kemp.LoadMaster.IPVS</Class>
+<!-- <Group>5aac7893-fce3-cabd-d7af-f23f57bacb47</Group> -->
+          <ShowItems>false</ShowItems>
+          <Layouts>
+            <Layout>
+              <Id>performance</Id>
+              <Plugin>
+                <Name>Performance</Name>
+                <Settings>
+                  <NameValueSetting>
+                    <Name>style</Name>
+                    <Value>sparkline</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>object</Name>
+                    <Value>Kemp VS</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>counter</Name>
+                    <Value>Active Connections</Value>
+                  </NameValueSetting>				  
+                  <NameValueSetting>
+                    <Name>timeframe</Name>
+                    <Value>Last12Hours</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>range</Name>
+                    <Value>zero-fit</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>graphheight</Name>
+                    <Value>40</Value>
+                  </NameValueSetting>
+                  <!-- <NameValueSetting>
+                    <Name>aggregate</Name>
+                    <Value>average</Value>
+                  </NameValueSetting> -->
+                </Settings>
+              </Plugin>
+            </Layout>
+          </Layouts>
+        </ObjectSection>
+		       <ObjectSection>
+          <Id>rs-activeconnections</Id>
+          <Title>RS Active Connections - Last 12 hours</Title>
+          <Class>QND.Network.Kemp.LoadMaster.RSVS</Class>
+          <ShowItems>false</ShowItems>
+          <Layouts>
+            <Layout>
+              <Id>performance</Id>
+              <Plugin>
+                <Name>Performance</Name>
+                <Settings>
+                  <NameValueSetting>
+                    <Name>style</Name>
+                    <Value>sparkline</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>object</Name>
+                    <Value>Kemp RS</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>counter</Name>
+                    <Value>Active Connections</Value>
+                  </NameValueSetting>				  
+                  <NameValueSetting>
+                    <Name>timeframe</Name>
+                    <Value>Last12Hours</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>range</Name>
+                    <Value>zero-fit</Value>
+                  </NameValueSetting>
+                  <NameValueSetting>
+                    <Name>graphheight</Name>
+                    <Value>40</Value>
+                  </NameValueSetting>
+                  <!-- <NameValueSetting>
+                    <Name>aggregate</Name>
+                    <Value>average</Value>
+                  </NameValueSetting> -->
+                </Settings>
+              </Plugin>
+            </Layout>
+          </Layouts>
+        </ObjectSection>
+      </Right>
+	  </SplitSection>
+	  </Right>
+    </SplitSection>
+  </Sections>
+
+</View>
+
+
