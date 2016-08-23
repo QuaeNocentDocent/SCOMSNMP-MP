@@ -6,6 +6,7 @@
         <ClassType ID="QND.Network.Kemp.LoadMaster" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Node" Hosted="false" Singleton="false" Extension="false">
           <Property ID="Version" Key="false" Type="string"/>
           <Property ID="PatchVersion" Key="false" Type="string"/>
+          <Property ID="HARole" Key="false" Type="int"/>
         </ClassType>
         <ClassType ID="QND.Network.Kemp.LoadMaster.Memory" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Memory" Hosted="true" Singleton="false" Extension="false" />
         <ClassType ID="QND.Network.Kemp.LoadMaster.Processor" Accessibility="Public" Abstract="false" Base="Network!System.NetworkManagement.Processor" Hosted="true" Singleton="false" Extension="false" />
@@ -86,6 +87,9 @@
         <DisplayString ElementID="QND.Network.Kemp.LoadMaster" SubElementID="PatchVersion">
           <Name>Patch Level</Name>
         </DisplayString>        
+        <DisplayString ElementID="QND.Network.Kemp.LoadMaster" SubElementID="HARole">
+          <Name>HA Role (0-none 1-master 2-backup 3-passive) </Name>
+        </DisplayString>         
         <DisplayString ElementID="QND.Network.Kemp.LoadMaster.Discovery.DS">
           <Name>Kemp - LoadMaster Discovery Data Source Module</Name>
           <Description>Discovers a particular model of network device by retrieving its Object Id.</Description>

@@ -1,195 +1,334 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<View>
+<View xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" MajorVersion="1" MinorVersion="0">
+  <Audit>
+    <LastEdited>
+      <Timestamp>2016-08-23T10:23:59.0965179Z</Timestamp>
+      <UserName>PROGEL.IT\grandinid</UserName>
+    </LastEdited>
+  </Audit>
   <Title>Kemp LoadMaster Overview</Title>
+  <OpenAccess>
+    <IsOpenAccess>false</IsOpenAccess>
+    <OpenAccessId>a84abc6f-5c0b-4547-ba10-34700f93647a</OpenAccessId>
+  </OpenAccess>
+  <Sharing>
+    <InitialId>00000000-0000-0000-0000-000000000000</InitialId>
+    <RevisionId>fbf6a861-5d08-43a2-a4c0-0288cbde7fa0</RevisionId>
+  </Sharing>
   <Sections>
-    <SplitSection>
+    <Split>
       <Width>30</Width>
       <Left>
-        <ObjectSection>
-          <Title>Devices</Title>
+        <Section>
           <Id>DevicesId</Id>
-          <Class>QND.Network.Kemp.LoadMaster</Class>
+          <Title>Devices</Title>
+          <Plugin>status</Plugin>
+          <ScomData>
+            <DataType>object</DataType>
+            <Scope>
+              <Inheritance>Replace</Inheritance>
+              <Class>afabf564-baac-4dbe-d73c-a97356258b9f</Class>
+              <Filters />
+              <Objects />
+            </Scope>
+            <ExtendedProperties>false</ExtendedProperties>
+          </ScomData>
           <Settings>
             <NameValueSetting>
               <Name>zoom</Name>
               <Value>column</Value>
             </NameValueSetting>
           </Settings>
-        </ObjectSection>
-        <ObjectSection>
-          <Title>Virtual Services</Title>
+        </Section>
+        <Section>
           <Id>VSId</Id>
-          <Class>QND.Network.Kemp.LoadMaster.IPVS</Class>
+          <Title>Virtual Services</Title>
+          <Plugin>status</Plugin>
+          <ScomData>
+            <DataType>object</DataType>
+            <Scope>
+              <Inheritance>Replace</Inheritance>
+              <Class>4f417607-8b69-e22b-272b-e908d154d284</Class>
+              <Filters />
+              <Objects />
+            </Scope>
+            <ExtendedProperties>false</ExtendedProperties>
+          </ScomData>
           <Settings>
             <NameValueSetting>
               <Name>zoom</Name>
               <Value>column</Value>
             </NameValueSetting>
           </Settings>
-        </ObjectSection>
-        <ObjectSection>
-          <Title>Real Servers</Title>
+        </Section>
+        <Section>
           <Id>RSId</Id>
-          <Class>QND.Network.Kemp.LoadMaster.RSVS</Class>
+          <Title>Real Servers</Title>
+          <Plugin>status</Plugin>
+          <ScomData>
+            <DataType>object</DataType>
+            <Scope>
+              <Inheritance>Replace</Inheritance>
+              <Class>9b93525f-d46a-6537-48dd-cddb6eaa9bcb</Class>
+              <Filters />
+              <Objects />
+            </Scope>
+            <ExtendedProperties>false</ExtendedProperties>
+          </ScomData>
           <Settings>
             <NameValueSetting>
               <Name>zoom</Name>
               <Value>column</Value>
             </NameValueSetting>
           </Settings>
-        </ObjectSection>
+        </Section>
       </Left>
       <Right>
-	  <SplitSection>
-		<Width>50</Width>
-		<Left>
-        <ObjectSection>
-          <Id>lm-topn</Id>
-          <Title>Top LoadMaster % CPU - Last 12 hours</Title>
-	  <Class>QND.Network.Kemp.LoadMaster</Class>
-          <!-- <Group>76a368ff-5096-fa44-bd7f-72d8acddded9</Group> -->
-          <ShowItems>false</ShowItems>
-          <Layouts>
-            <Layout>
-              <Id>performance</Id>
-              <Plugin>
-                <Name>Performance</Name>
-                <Settings>
-                  <NameValueSetting>
-                    <Name>style</Name>
-                    <Value>bar</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>top</Name>
-                    <Value>10</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>sort</Name>
-                    <Value>desc</Value>
-                  </NameValueSetting>
-
-                  <NameValueSetting>
-                    <Name>object</Name>
-                    <Value>Processor</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>counter</Name>
-                    <Value>% Processor Time</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>instance</Name>
-                    <Value></Value>
-                  </NameValueSetting>				  
-                  <NameValueSetting>
-                    <Name>timeframe</Name>
-                    <Value>Last12Hours</Value>
-                  </NameValueSetting>
-          <NameValueSetting>
-            <Name>range</Name>
-            <Value>percentage</Value>
-          </NameValueSetting>
-                </Settings>
-              </Plugin>
-            </Layout>
-          </Layouts>
-        </ObjectSection>
-		</Left>
-	   <Right>
-		       <ObjectSection>
-          <Id>vs-activeconnections</Id>
-          <Title>VS Active Connections - Last 12 hours</Title>
-          <Class>QND.Network.Kemp.LoadMaster.IPVS</Class>
-<!-- <Group>5aac7893-fce3-cabd-d7af-f23f57bacb47</Group> -->
-          <ShowItems>false</ShowItems>
-          <Layouts>
-            <Layout>
-              <Id>performance</Id>
-              <Plugin>
-                <Name>Performance</Name>
-                <Settings>
-                  <NameValueSetting>
-                    <Name>style</Name>
-                    <Value>sparkline</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>object</Name>
-                    <Value>Kemp VS</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>counter</Name>
-                    <Value>Active Connections</Value>
-                  </NameValueSetting>				  
-                  <NameValueSetting>
-                    <Name>timeframe</Name>
-                    <Value>Last12Hours</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>range</Name>
-                    <Value>zero-fit</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>graphheight</Name>
-                    <Value>40</Value>
-                  </NameValueSetting>
-                  <!-- <NameValueSetting>
-                    <Name>aggregate</Name>
-                    <Value>average</Value>
-                  </NameValueSetting> -->
-                </Settings>
-              </Plugin>
-            </Layout>
-          </Layouts>
-        </ObjectSection>
-		       <ObjectSection>
-          <Id>rs-activeconnections</Id>
-          <Title>RS Active Connections - Last 12 hours</Title>
-          <Class>QND.Network.Kemp.LoadMaster.RSVS</Class>
-          <ShowItems>false</ShowItems>
-          <Layouts>
-            <Layout>
-              <Id>performance</Id>
-              <Plugin>
-                <Name>Performance</Name>
-                <Settings>
-                  <NameValueSetting>
-                    <Name>style</Name>
-                    <Value>sparkline</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>object</Name>
-                    <Value>Kemp RS</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>counter</Name>
-                    <Value>Active Connections</Value>
-                  </NameValueSetting>				  
-                  <NameValueSetting>
-                    <Name>timeframe</Name>
-                    <Value>Last12Hours</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>range</Name>
-                    <Value>zero-fit</Value>
-                  </NameValueSetting>
-                  <NameValueSetting>
-                    <Name>graphheight</Name>
-                    <Value>40</Value>
-                  </NameValueSetting>
-                  <!-- <NameValueSetting>
-                    <Name>aggregate</Name>
-                    <Value>average</Value>
-                  </NameValueSetting> -->
-                </Settings>
-              </Plugin>
-            </Layout>
-          </Layouts>
-        </ObjectSection>
+        <Split>
+          <Width>50</Width>
+          <Left>
+            <Section>
+              <Id>lm-topn</Id>
+              <Title>Top LoadMaster % CPU - Last 12 hours</Title>
+              <Plugin>Performance</Plugin>
+              <ScomData>
+                <DataType>object</DataType>
+                <Scope>
+                  <Inheritance>Replace</Inheritance>
+                  <Class>afabf564-baac-4dbe-d73c-a97356258b9f</Class>
+                  <Filters />
+                  <Objects />
+                </Scope>
+                <ExtendedProperties>false</ExtendedProperties>
+              </ScomData>
+              <Settings>
+                <NameValueSetting>
+                  <Name>style</Name>
+                  <Value>bar</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>top</Name>
+                  <Value>10</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>sort</Name>
+                  <Value>desc</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>object</Name>
+                  <Value>Processor</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>counter</Name>
+                  <Value>% Processor Time</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>instance</Name>
+                  <Value />
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>timeframe</Name>
+                  <Value>Last12Hours</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>range</Name>
+                  <Value>percentage</Value>
+                </NameValueSetting>
+              </Settings>
+            </Section>
+            <Section>
+              <Id>1471946033389</Id>
+              <Title>Total TPS - Last 24 hours</Title>
+              <Plugin>Performance</Plugin>
+              <RequiredPluginVersion>
+                <Major>2</Major>
+                <Minor>8</Minor>
+              </RequiredPluginVersion>
+              <ScomData>
+                <DataType>object</DataType>
+                <Scope>
+                  <Inheritance>Replace</Inheritance>
+                  <Class>afabf564-baac-4dbe-d73c-a97356258b9f</Class>
+                  <Filters />
+                  <Objects />
+                </Scope>
+                <ExtendedProperties>false</ExtendedProperties>
+              </ScomData>
+              <Settings>
+                <NameValueSetting>
+                  <Name>style</Name>
+                  <Value>sparkline</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>timeframe</Name>
+                  <Value>Last24Hours</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>range</Name>
+                  <Value>percentage</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>graphheight</Name>
+                  <Value>200</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>color</Name>
+                  <Value>single</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>showkey</Name>
+                  <Value>false</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>object</Name>
+                  <Value>LoadMaster</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>counter</Name>
+                  <Value>Total TPS</Value>
+                </NameValueSetting>
+              </Settings>
+            </Section>
+            <Section>
+              <Id>1471947569033</Id>
+              <Title>Total SSL TPS - Last 24 hours</Title>
+              <Plugin>Performance</Plugin>
+              <RequiredPluginVersion>
+                <Major>2</Major>
+                <Minor>8</Minor>
+              </RequiredPluginVersion>
+              <ScomData>
+                <DataType>object</DataType>
+                <Scope>
+                  <Inheritance>Replace</Inheritance>
+                  <Class>afabf564-baac-4dbe-d73c-a97356258b9f</Class>
+                  <Filters />
+                  <Objects />
+                </Scope>
+                <ExtendedProperties>false</ExtendedProperties>
+              </ScomData>
+              <Settings>
+                <NameValueSetting>
+                  <Name>style</Name>
+                  <Value>sparkline</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>timeframe</Name>
+                  <Value>Last24Hours</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>range</Name>
+                  <Value>percentage</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>graphheight</Name>
+                  <Value>200</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>color</Name>
+                  <Value>single</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>showkey</Name>
+                  <Value>false</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>object</Name>
+                  <Value>LoadMaster</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>counter</Name>
+                  <Value>Total SSL TPS</Value>
+                </NameValueSetting>
+              </Settings>
+            </Section>
+          </Left>
+          <Right>
+            <Section>
+              <Id>vs-activeconnections</Id>
+              <Title>VS Active Connections - Last 12 hours</Title>
+              <Plugin>Performance</Plugin>
+              <ScomData>
+                <DataType>object</DataType>
+                <Scope>
+                  <Inheritance>Replace</Inheritance>
+                  <Class>4f417607-8b69-e22b-272b-e908d154d284</Class>
+                  <Filters />
+                  <Objects />
+                </Scope>
+                <ExtendedProperties>false</ExtendedProperties>
+              </ScomData>
+              <Settings>
+                <NameValueSetting>
+                  <Name>style</Name>
+                  <Value>sparkline</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>object</Name>
+                  <Value>Kemp VS</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>counter</Name>
+                  <Value>Active Connections</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>timeframe</Name>
+                  <Value>Last12Hours</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>range</Name>
+                  <Value>zero-fit</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>graphheight</Name>
+                  <Value>40</Value>
+                </NameValueSetting>
+              </Settings>
+            </Section>
+            <Section>
+              <Id>rs-activeconnections</Id>
+              <Title>RS Active Connections - Last 12 hours</Title>
+              <Plugin>Performance</Plugin>
+              <ScomData>
+                <DataType>object</DataType>
+                <Scope>
+                  <Inheritance>Replace</Inheritance>
+                  <Class>9b93525f-d46a-6537-48dd-cddb6eaa9bcb</Class>
+                  <Filters />
+                  <Objects />
+                </Scope>
+                <ExtendedProperties>false</ExtendedProperties>
+              </ScomData>
+              <Settings>
+                <NameValueSetting>
+                  <Name>style</Name>
+                  <Value>sparkline</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>object</Name>
+                  <Value>Kemp RS</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>counter</Name>
+                  <Value>Active Connections</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>timeframe</Name>
+                  <Value>Last12Hours</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>range</Name>
+                  <Value>zero-fit</Value>
+                </NameValueSetting>
+                <NameValueSetting>
+                  <Name>graphheight</Name>
+                  <Value>40</Value>
+                </NameValueSetting>
+              </Settings>
+            </Section>
+          </Right>
+        </Split>
       </Right>
-	  </SplitSection>
-	  </Right>
-    </SplitSection>
+    </Split>
   </Sections>
-
 </View>
-
-

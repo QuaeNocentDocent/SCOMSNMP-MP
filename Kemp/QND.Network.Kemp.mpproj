@@ -6,7 +6,7 @@
     <RootNamespace>QND.Network.Kemp.LoadMaster</RootNamespace>
     <Name>QND Kemp LM monitoring</Name>
     <ManagementPackName>QND.Network.Kemp</ManagementPackName>
-    <Version>2.0.0.62</Version>
+    <Version>2.0.1.1</Version>
     <MpFrameworkVersion>v7.0</MpFrameworkVersion>
     <MpFrameworkProfile>OM</MpFrameworkProfile>
     <ProductVersion>1.1.0.0</ProductVersion>
@@ -155,9 +155,9 @@
       <PackageToBundle>False</PackageToBundle>
     </ManagementPackReference>
     <ManagementPackReference Include="System.NetworkManagement.Monitoring">
-      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2012R2\System.NetworkManagement.Monitoring.mp</HintPath>
+      <HintPath>C:\Users\grandinid\SkyDrive\Dev\OpsMgr\GIT\QNDSNMP\References\System.NetworkManagement.Monitoring.mp</HintPath>
       <Alias>NetworkMonitoring</Alias>
-      <MinVersion>7.1.10226.0</MinVersion>
+      <MinVersion>7.0.8560.0</MinVersion>
       <PackageToBundle>False</PackageToBundle>
     </ManagementPackReference>
     <ManagementPackReference Include="System.Performance.Library">
