@@ -1,0 +1,44 @@
+REST API pluses:
+- ability to disocver HA and CARP id (to be able to identify the cluster)
+- https://support.kemptechnologies.com/hc/en-us/articles/203863435-RESTful-API 
+- since the interface is read/write better use a readonly ad hoc account
+- beware of tls 
+
+beware of powershell not handling SSL certificates not trusted
+
+add-type @"
+    using System.Net;
+    using System.Security.Cryptography.X509Certificates;
+    public class TrustAllCertsPolicy : ICertificatePolicy {
+        public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+            return true;
+        }
+    }
+"@
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+#TqEPaJr7ya
+
+
+$uri='https://172.20.2.70/access/get?param=cachesize'
+$uri='https://172.20.2.70/access/getsdncontroller'
+
+
+$bal=Get-Credential
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$uri='https://172.20.2.72/access/get?param=ha2hostname'
+$uri='https://172.20.2.72/access/get?interface=0'
+$uri='https://172.20.2.72/access/getall'
+
+$uri='https://172.20.2.70/access/vstotals'
+$uri='https://172.20.2.70/access/stats'
+$result=invoke-webrequest -method GET -uri $uri -Credential $bal -UseBasicParsing
+$body=[xml]$result.content
+$result.RawContent
+$body
+
+
+
+
+

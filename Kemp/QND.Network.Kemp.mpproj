@@ -203,6 +203,9 @@
       <SubType>Content</SubType>
       <Generator>FragmentGenerator</Generator>
     </Content>
+    <None Include="NextversionREST.txt">
+      <SubType>Content</SubType>
+    </None>
     <Content Include="PerfRules.mptg">
       <SubType>Content</SubType>
       <Generator>FragmentGenerator</Generator>

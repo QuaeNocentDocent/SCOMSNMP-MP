@@ -9,7 +9,9 @@
              that uses a script or the GroupPopulator module: http://msdn.microsoft.com/en-us/library/ff472328.aspx -->
         <ClassType ID="QND.NetDevGroup.Class" Accessibility="Internal" Base="System!System.Group" Abstract="true" Hosted="false" Singleton="false">
         </ClassType>
-
+        <!-- 
+        <ClassType ID="QND.NetDevDiscoveryGroup.Class" Accessibility="Internal" Base="System!System.Group" Abstract="true" Hosted="false" Singleton="false">
+        </ClassType> -->
       </ClassTypes>
       <RelationshipTypes>
         <RelationshipType ID="QND.NetDevGroup.GroupContainsNode" Abstract="false" Accessibility="Internal"  Base="System!System.Containment">
@@ -44,7 +46,7 @@
                       </ValueExpression>
                       <Operator>Equal</Operator>
                       <ValueExpression>
-                        <Value>Bonatti - Network device discovery</Value>
+                        <Value>$Target/Property[Type="QND.NetDevGroup.Group1"]/DisplayName$</Value>
                       </ValueExpression>                      
                     </SimpleExpression>
                   </Expression>

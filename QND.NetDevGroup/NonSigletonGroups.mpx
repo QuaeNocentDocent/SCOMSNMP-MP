@@ -1,0 +1,107 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+  <EntityTypes>
+    <ClassTypes>
+    <ClassType ID="QND.NetDevDiscoveryGroup.Class" Accessibility="Public" Base="MSIL!Microsoft.SystemCenter.InstanceGroup" Abstract="false" Hosted="false" Singleton="false">
+      <Property ID="NetworkDiscoveryName" Type="string" Key="true" MaxLength="256" CaseSensitive="false" MinLength="0" />
+    </ClassType>
+  </ClassTypes>
+  </EntityTypes>
+  <ModuleTypes>
+    <DataSourceModuleType ID="QND.NetDevDiscovery.DS" Accessibility="Internal" Batching="false">
+      <Configuration>
+        <xsd:element minOccurs="1" name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+      </Configuration>
+      <OverrideableParameters>
+        <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
+        <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+      </OverrideableParameters>
+      <ModuleImplementation Isolation="Any">
+        <Composite>
+          <MemberModules>
+            <DataSource ID="Scheduler" TypeID="System!System.Discovery.Scheduler">
+              <Scheduler>
+                <SimpleReccuringSchedule>
+                  <Interval>$Config/IntervalSeconds$</Interval>
+                  <SyncTime>$Config/SyncTime$</SyncTime>
+                </SimpleReccuringSchedule>
+                <ExcludeDates />
+              </Scheduler>
+            </DataSource>
+            <ConditionDetection ID="MapToDiscovery" TypeID="System!System.Discovery.ClassSnapshotDataMapper">
+              <ClassId>$MPElement[Name='QND.NetDevDiscoveryGroup.Class']$</ClassId>
+              <InstanceSettings>
+                <Settings>
+                  <Setting>
+                    <Name>$MPElement[Name='System!System.Entity']/DisplayName$</Name>
+                    <Value>$Target/Property[Type="System!System.Entity"]/DisplayName$</Value>
+                  </Setting>
+                  <Setting>
+                    <Name>$MPElement[Name='QND.NetDevDiscoveryGroup.Class']/NetworkDiscoveryName$</Name>
+                    <Value>$Target/Property[Type="System!System.Entity"]/DisplayName$</Value>
+                  </Setting>
+                </Settings>
+              </InstanceSettings>
+            </ConditionDetection>
+          </MemberModules>
+          <Composition>
+            <Node ID="MapToDiscovery">
+              <Node ID="Scheduler" />
+            </Node>
+          </Composition>
+        </Composite>
+      </ModuleImplementation>
+      <OutputType>System!System.Discovery.Data</OutputType>
+    </DataSourceModuleType>
+  </ModuleTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="QND.NetDevDiscoveryGroup.Discovery" Enabled="true" Remotable="true" Target="SNL!System.NetworkManagement.NetworkDiscoveryServer" ConfirmDelivery="false" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="QND.NetDevDiscoveryGroup.Class"></DiscoveryClass>
+        </DiscoveryTypes>
+        <DataSource ID="Scheduler" TypeID="QND.NetDevDiscovery.DS">
+          <IntervalSeconds>3600</IntervalSeconds>
+          <SyncTime></SyncTime>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="ND.NetDevGroup.Discovery" Enabled="true" Remotable="true" Target="QND.NetDevDiscoveryGroup.Class" ConfirmDelivery="false" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntities"></DiscoveryRelationship>
+        </DiscoveryTypes>
+        <DataSource ID="Populator" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$Target/Id$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="SNL!System.NetworkManagement.Node"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIL!Microsoft.SystemCenter.InstanceGroupContainsEntitie"]$</RelationshipClass>
+              <Expression>
+                <Contained>
+                  <MonitoringClass>$MPElement[Name="SNL!System.NetworkManagement.NetworkDiscoveryServer"]$</MonitoringClass>
+                  <Expression>
+                    <SimpleExpression>
+                      <ValueExpression>
+                        <Property>$MPElement[Name="System!System.Entity"]/DisplayName$</Property>
+                      </ValueExpression>
+                      <Operator>Equal</Operator>
+                      <ValueExpression>
+                        <Value>$Target/Property[Type="QND.NetDevDiscoveryGroup.Class"]/NetworkDiscoveryName$</Value>
+                      </ValueExpression>
+                    </SimpleExpression>
+                  </Expression>
+                </Contained>
+              </Expression>
+            </MembershipRule>
+          </MembershipRules>
+
+        </DataSource>
+      </Discovery>
+
+    </Discoveries>
+  </Monitoring>
+</ManagementPackFragment>

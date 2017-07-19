@@ -61,6 +61,9 @@
     <Compile Include="Group1.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NonSigletonGroups.mpx">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="New-SCOMNetDevGroup.ps1" />
