@@ -28,7 +28,7 @@
           ServiceKey = vSip
           
         -->
-        <ClassType ID="QND.Network.Kemp.LoadMaster.IPVS" Base="Network!System.NetworkManagement.LogicalDevice" Accessibility="Internal" Abstract="false" Hosted="true" Singleton="false">
+        <ClassType ID="QND.Network.Kemp.LoadMaster.IPVS" Base="Network!System.NetworkManagement.LogicalDevice" Accessibility="Public" Abstract="false" Hosted="true" Singleton="false">
           <Property ID="Protocol" Type="string" Key="false" /> <!-- vSprotocol -->
           <Property ID="ProtocolId" Type="string" Key="false" />          
           <Property ID="IP" Type="string" Key="false" />

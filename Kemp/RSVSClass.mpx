@@ -28,7 +28,7 @@
           ServiceKey = vSip
           
         -->
-        <ClassType ID="QND.Network.Kemp.LoadMaster.RSVS" Base="System!System.LogicalHardware" Accessibility="Internal" Abstract="false" Hosted="true" Singleton="false">
+        <ClassType ID="QND.Network.Kemp.LoadMaster.RSVS" Base="System!System.LogicalHardware" Accessibility="Public" Abstract="false" Hosted="true" Singleton="false">
           <Property ID="Description" Type="string" Key="false" CaseSensitive="false" MinLength="0" MaxLength="256" />
           <Property ID="RSKey" Type="string" Key="true" CaseSensitive="false" MinLength="0" MaxLength="256" />
           <Property ID="Index" Type="string" Key="false" CaseSensitive="false" MinLength="0" MaxLength="256" />
